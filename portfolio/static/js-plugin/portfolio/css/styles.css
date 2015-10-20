@@ -1,0 +1,134 @@
+.og-grid {
+	list-style: none;
+	margin: 44px 0 0 0;
+	text-align: center;
+	width: 100%;
+}
+ul.og-grid {
+	font-size:0;
+	line-height:0;
+}
+.og-grid li {
+	margin: 0 0 30px 30px;
+	vertical-align: top;
+	height: 270px;
+	display: inline-block;
+}
+.og-grid li > a, .og-grid li > a img {
+	border: none;
+	outline: none;
+	display: block;
+	position: relative;
+}
+.og-grid li.og-expanded > a:after {
+	border: 10px solid #FFF;
+	width: 93%;
+	height: 93%;
+	display: block;
+	content: " ";
+	top: 0;
+	position: absolute;
+}
+.og-expander {
+	position: absolute;
+	top: auto;
+	left: 0;
+	width: 100%;
+	margin-top: 22px;
+	text-align: left;
+	height: 0;
+	overflow: hidden;
+	z-index:9000;
+}
+.og-expander-inner {
+	padding: 50px 0;
+	height: 100%;
+	font-size: 14px;
+	line-height: 22px;
+	background-color: #fafafa;
+}
+.og-expander-inner a.portfolioReadMore {display: none;
+}
+.og-expander-inner .carousel {
+	margin-top:0;
+}
+.og-close {
+}
+.og-fullimg, .og-details {
+	position: relative;
+}
+.og-details {
+	margin-top:1.5em;
+}
+.og-fullimg {
+	text-align: center;
+}
+.og-fullimg img {
+	display: inline-block;
+	max-height: 100%;
+	max-width: 100%;
+}
+.og-details h2, .og-details h3, .og-details h4, .og-details div, .og-details p {
+	color:#555!important;
+}
+.og-details div {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	color: #999;
+	margin-bottom: 22px;
+}
+.og-loading {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #ddd;
+	box-shadow: 0 0 1px #ccc, 15px 30px 1px #ccc, -15px 30px 1px #ccc;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -25px 0 0 -25px;
+	-webkit-animation: loader 0.5s infinite ease-in-out both;
+	-moz-animation: loader 0.5s infinite ease-in-out both;
+	animation: loader 0.5s infinite ease-in-out both;
+}
+ @-webkit-keyframes loader {
+ 0% {
+background: #ddd;
+}
+ 33% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ccc, -15px 30px 1px #ddd;
+}
+ 66% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ddd, -15px 30px 1px #ccc;
+}
+}
+ @-moz-keyframes loader {
+ 0% {
+background: #ddd;
+}
+ 33% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ccc, -15px 30px 1px #ddd;
+}
+ 66% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ddd, -15px 30px 1px #ccc;
+}
+}
+ @keyframes loader {
+ 0% {
+background: #ddd;
+}
+ 33% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ccc, -15px 30px 1px #ddd;
+}
+ 66% {
+background: #ccc;
+box-shadow: 0 0 1px #ccc, 15px 30px 1px #ddd, -15px 30px 1px #ccc;
+}
+}
+

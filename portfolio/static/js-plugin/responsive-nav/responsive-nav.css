@@ -1,0 +1,39 @@
+/*! responsive-nav.js v1.0.20 by @viljamis */
+
+#respMainMenu ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+  list-style: none;
+}
+
+#respMainMenu li {
+  width: 100%;
+  display: block;
+}
+
+.js #respMainMenu {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
+
+#respMainMenu.opened {
+  max-height: 9999px;
+}
+
+@media screen and (min-width: 40em) {
+  .js #respMainMenu {
+    position: relative;
+  }
+  .js #respMainMenu.closed {
+    max-height: none;
+  }
+  #respMainMenu-toggle {
+    display: none;
+  }
+}

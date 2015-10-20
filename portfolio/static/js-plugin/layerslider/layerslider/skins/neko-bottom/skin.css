@@ -1,0 +1,257 @@
+/* LayerSlider Full Width Skin */
+
+
+
+.ls-neko-bottom .ls-playvideo {
+	width: 50px;
+	height: 50px;
+	margin-left: -25px;
+	margin-top: -25px;
+}
+
+/*.ls-neko-bottom .ls-playvideo,
+.ls-neko-bottom .ls-nav-sides,
+.ls-neko-bottom .ls-bottom-slidebuttons a,
+.ls-neko-bottom .ls-nav-prev,
+.ls-neko-bottom .ls-nav-next,
+.ls-neko-bottom .ls-nav-start,
+.ls-neko-bottom .ls-nav-stop,
+.ls-neko-bottom .ls-fullscreen,
+.ls-neko-bottom .ls-loading-container {
+	background-image: url(skin.png);	
+}*/
+
+.ls-neko-bottom .ls-playvideo {
+	background-position: -300px -150px;
+}
+
+.ls-neko-bottom .ls-playvideo:hover,
+.ls-neko-bottom .ls-vpcontainer:hover .ls-playvideo {
+	background-position: -375px -150px;
+}
+
+.ls-neko-bottom .ls-nav-prev, .ls-neko-bottom .ls-nav-next {
+	font-family: 'custom-icons';
+	font-size:3em;
+	width:50px;
+	height:65px;
+	margin-left:0;
+	margin-right:0;
+	color:#fff;
+	opacity:0.5;
+	text-decoration: none;
+	z-index: 10;
+	top: 50%;
+	margin-top: -20px;	
+	position: absolute;
+}
+
+
+.ls-neko-bottom .ls-nav-prev:before {
+	content: '\e765';
+
+}
+.ls-neko-bottom .ls-nav-next:before {
+	content: '\e766';
+}
+.ls-neko-bottom .ls-nav-prev {
+	padding-left:20px;
+	text-align:left;
+	left: 22px;	
+	/*border-radius: 0 5px 5px 0;*/
+}
+
+.ls-neko-bottom .ls-nav-next {
+	padding-right:20px;
+	text-align:right;
+	right: 22px;	
+	/*border-radius: 5px 0 0 5px;*/
+}
+
+.ls-neko-bottom .ls-nav-prev:hover, .ls-neko-bottom .ls-nav-next:hover {
+	opacity:1;
+}
+
+/** nav **/
+.ls-neko-bottom .ls-bottom-slidebuttons,
+.ls-neko-bottom .ls-bottom-slidebuttons a,
+.ls-neko-bottom .ls-nav-start,
+.ls-neko-bottom .ls-nav-stop,
+.ls-neko-bottom .ls-nav-sides {
+	display: inline-block;
+}
+
+.ls-neko-bottom .ls-bottom-slidebuttons,
+.ls-neko-bottom .ls-nav-start,
+.ls-neko-bottom .ls-nav-stop,
+.ls-neko-bottom .ls-nav-sides {
+	top: -18px;
+}
+
+.ls-neko-bottom .ls-bottom-nav-wrapper {
+	background:#333;
+	padding:22px;
+	top:0px;
+}
+
+
+
+
+.ls-neko-bottom .ls-nav-start, .ls-neko-bottom .ls-nav-stop{
+	top: -20px;
+	opacity:0.5;
+	font-family: 'custom-icons';
+	color:#fff;
+	font-size: 14px;
+	margin:10px;
+}
+.ls-neko-bottom .ls-nav-start:before{
+	content: '\e8c1';
+}
+
+.ls-neko-bottom .ls-nav-stop:before {
+	content: '\e8c5';
+}
+
+.ls-neko-bottom .ls-nav-start:hover, .ls-neko-bottom .ls-nav-start:hover,
+.ls-neko-bottom .ls-nav-start-active, .ls-neko-bottom .ls-nav-stop-active {
+	opacity:1;
+}
+
+
+
+.ls-neko-bottom .ls-bottom-slidebuttons a {
+	width:10px;
+	height:10px;
+	margin:10px 5px 0 5px;
+	border:2px solid #fff!important;
+	border-radius: 50%;
+	background:rgba(255,255,255,0.25);
+}
+
+.ls-neko-bottom .ls-bottom-slidebuttons a.ls-nav-active,
+.ls-neko-bottom .ls-bottom-slidebuttons a:hover {
+	background:#fff;
+}
+
+.ls-neko-bottom .ls-nav-sideleft {
+	background-position: -150px -150px;	
+}
+
+.ls-neko-bottom .ls-nav-sideright {
+	background-position: -225px -150px;	
+}
+
+/*
+
+.ls-neko-bottom .ls-nav-prev,
+.ls-neko-bottom .ls-nav-next {
+	width: 40px;
+	height: 40px;
+
+	top: 50%;
+	margin-top: -20px;	
+	position: absolute;
+}
+
+.ls-neko-bottom .ls-nav-prev {
+	
+}
+
+.ls-neko-bottom .ls-nav-next {
+	right: 10px;	
+}
+*/
+
+
+/*
+.ls-neko-bottom .ls-bottom-slidebuttons,
+.ls-neko-bottom .ls-bottom-slidebuttons a,
+.ls-neko-bottom .ls-nav-start,
+.ls-neko-bottom .ls-nav-stop,
+.ls-neko-bottom .ls-nav-sides {
+	height: 20px;
+}
+
+
+
+.ls-neko-bottom .ls-nav-start,
+.ls-neko-bottom .ls-nav-stop {
+	width: 25px;
+}
+
+.ls-neko-bottom .ls-bottom-slidebuttons a {
+	width: 20px;
+}
+
+.ls-neko-bottom .ls-nav-sides {
+	width: 0px;	
+}
+
+*/
+
+.ls-neko-bottom .ls-thumbnail-hover {
+	bottom: 30px;
+	padding: 2px;
+	margin-left: 1px;
+}
+
+.ls-neko-bottom .ls-thumbnail-hover-bg {
+	background: #eee;
+}
+
+.ls-neko-bottom .ls-thumbnail-hover span {
+	border: 5px solid #eee;
+	margin-left: -5px;
+}
+
+
+
+.ls-neko-bottom .ls-thumbnail {
+	top: 10px;
+}
+
+.ls-neko-bottom .ls-thumbnail-inner {
+	padding: 2px;
+	margin-left: -2px;
+	background: #fff;
+}
+
+.ls-neko-bottom .ls-thumbnail-slide a {
+	margin-right: 2px;
+}
+
+.ls-neko-bottom .ls-nothumb {
+	background: #eee;
+}
+
+
+
+.ls-neko-bottom .ls-loading-container {
+	width: 40px;
+	height: 40px;
+	margin-left: -20px;
+	margin-top: -20px;
+	background-position: -450px -150px;	
+}
+
+.ls-neko-bottom .ls-loading-indicator {
+	width: 22px;
+	height: 22px;
+	margin-top: 9px;
+	background-image: url(loading.gif);	
+}
+
+
+
+.ls-neko-bottom .ls-fullscreen {
+	width: 30px;
+	height: 30px;
+	right: 10px;
+	top: 10px;
+	background-position: -525px -150px;
+}
+
+.ls-neko-bottom .ls-fullscreen:hover {
+	background-position: -525px -190px;
+}

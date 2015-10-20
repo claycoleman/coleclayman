@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Clay Coleman | Web Developer
+{% endblock title %}
+{% block content %}
+ 
+<!-- slider -->
+<section>
+    <section class="color0">
+                <div class="title">
+                    <h1>Clay Coleman</h1>
+                    <h2 class="subTitle">Software Engineer | Web Developer</h2>
+                </div>
+            </section>
+</section> 
+<section id="paralaxSlice5" data-stellar-background-ratio="0.1">
+        <div class="maskParent">
+            <div class="paralaxMask"></div>
+            <div class="paralaxText">
+            <h2>About Me</h2>
+                <h3>Junior Web Devloper, Student.<h3>
+                <h3>Studying Computer Science and Business Strategy at BYU.</h3><br>
+                <h3>I specialize in Python, Django, MySQL, HTML/CSS<br>and front-end JavaScript frameworks such as Bootstrap and skel.</h3>
+            </div>
+</div>
+</section>
+<section id="content">
+    <section id="works" class="color0">
+                <div class="title color2">
+                    <h1>My Work</h1>
+                    <h2 class="subTitle">Sick projects I've been working on</h2>
+                </div>
+                <section class="pt30 pb30"> 
+                    <div class="container clearfix">
+                        <div class="row">
+                            <nav id="filter" class="span12 text-center">
+                                <ul>
+                                    <li><a href="" class="current btn btn-sm" data-filter="*">All</a></li>
+                                    {% for category in categories %}
+                                    <li><a href=""  class="btn btn-sm" data-filter=".{{category.slug}}" >{{category}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                            <div class="portfolio-items  isotopeWrapper clearfix imgHover" id="3">
+                                <!-- portfolio item -->
+                                {% for project in projects %}
+                                <article class="col-sm-4 isotopeItem {{project.category_class}}">
+                                    <section class="imgWrapper" style="min-height: 215px">
+                                        <img alt="" src="{{project.preview.url}}" class="img-responsive imgBorder">
+                                    </section>
+                                    <div class="mediaHover">
+                                        <div class="mask"></div>
+                                        <div class="iconLinks"> 
+                                            <a href="{{project.client_url}}" title="link">
+                                                <i class="icon-picture iconRounded iconMedium"></i>
+                                                <span>link</span>
+                                            </a> 
+                                            <a href="{{project.preview.url}}" class="image-link" title="Full width image" >
+                                                <i class="icon-search iconRounded iconMedium"></i>
+                                                <span>zoom</span>
+                                            </a> 
+                                        </div>
+                                    </div>
+                                    <section class="boxContent">
+                                        <h3>{{project}}</h3>
+                                        <p> {{project.description}} <br />
+                                            <a href="{% url 'project_detail' project.slug %}" class="moreLink">&rarr; Check it out!</a>
+                                        </p>
+                                    </section>
+                                </article>
+                                {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    <section id="paralaxSlice5" data-stellar-background-ratio="0.5">
+                        <div class="maskParent">
+                            <div class="paralaxMask"></div>
+                            <div class="paralaxText">
+                                <i class="icon-check iconMedium"></i>
+                                <blockquote class="mt15">
+                                    It’s very easy to be different, but very difficult to be better.<br/><small>Jony Ive </small>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- team -->
+                    <section id="team" class="color0">
+                        <div class="title">
+                            <h1>Meet the team</h1>
+                            <h2 class="subTitle">Surprise -- it's just me</h2>
+                        </div>
+                        <div class="container">
+
+                            <div class="row mb15">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <article>
+                                        <div><img src="{% static 'images/team/team-corporate-1.jpg' %}" alt="" class="img-responsive"></div>
+                                        <div class="boxContent color1 text-center">
+                                            <h3>Clay Coleman</h3>
+                                            <p>Freelance Web Developer</p>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </section>   
+                    <!-- parallax testimonial --> 
+            <section id="paralaxSlice6" data-stellar-background-ratio="0.5">
+                <div class="maskParent">
+                    <div class="paralaxMask"></div>
+                    <div class="paralaxText container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="carouselWorks1" class="owl-carousel noOwlButtons testimonialCarousel">
+                                    <!-- put testimonials of people who have done work with me! -->
+                                    <div class="item">
+                                        <blockquote> To create something exceptional, your mindset must be<br> relentlessly focused on the smallest detail.<br/><small>Giorgio Armani </small></blockquote>
+                                    </div>
+
+                                    <div class="item">
+                                        <blockquote>Quality is not an act, it is a habit.<br/><small>Aristotle</small></blockquote>
+                                    </div>
+
+                                    <div class="item">
+                                        <blockquote>The only way to do great work is to love what you do. If you haven't found it yet,<br> keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.<br/><small>Steve Jobs</small></blockquote>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- parallax testimonial --> 
+            <!-- contact -->
+            <section id="contact" class="color0">
+                <div class="title mb30">
+                    <h1>Reach out</h1>
+                    <h2 class="subTitle">Interested in working with me?</h2>
+                </div>
+                <div class="container">
+
+                    <div class="row">
+                        <form method="POST" action="{% url 'home' %}" id="contactfrm" role="form">
+                            {% csrf_token %}
+                            <div class="col-sm-6"> 
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    {{form.name}}
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    {{form.email}}
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    {{form.phone}}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="comments">Message</label>
+                                    {{form.message}}
+                                </div>
+                                <!--<fieldset class="clearfix securityCheck">
+                                    <h3>Security</h3>
+                                    <div class="form-group">
+                                        <img src="{% static 'js-plugin/neko-contact-ajax-plugin/php/image.php' %}" alt="Image verification"/>
+                                        <input class="required form-control"  id="verify" name="verify" type="text" >
+                                    </div>
+                                </fieldset>-->
+                            </div>                        
+
+
+                                <button type="submit" class="btn btn-lg" id="submit">Submit</button>
+
+                        </form>
+                    </div>
+                </div>
+                <div id="mapWrapper" class="mt30"></div>
+            </section>
+
+                </section>
+{% endblock content %}

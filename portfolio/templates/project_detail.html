@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+    More about {{project}}
+{% endblock title %}
+
+{% block content %}
+    <section id="portfolio">
+            <header class="page-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 col-md-1">
+                            <a href="{% url 'home' %}" class="btn btn-sm btn-inverse"><i class="icon-left-open-mini"></i>back</a>
+                        </div>  
+                        <div class="col-xs-10 col-sm-5 col-md-6 projectTitle">
+                            <h1>{{project}}</h1>
+                            <p>In {% for category in project.category_set.all %}<a href="#others"><strong>{{category}}</strong></a>{% if forloop.counter != project.category_set.all|length %}, {% endif %}{% endfor %} / {{project.date|date:"F Y" }}</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section id="content" class="mt30">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <a href= "{{project.client_url}}" title="Full width image" ><img src="{{project.preview.url}}" alt="FAT CATZ premium website template" class="img-responsive mb30" style="max-height: 400px" /></a>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                            <br>
+                                <div class="col-md-12 col-sm-4">
+                                    <h2><a href="{{project.client_url}}">{{project}}</a></h2>
+                                    <p>{{project.description}}</p>
+                                </div>
+                                <div class="col-md-12 col-sm-4">
+                                    <h2>{{project.client_name}}</h2>
+                                    <h5>Big International Company</h5><br>
+                                    <h2>Technology</h2>
+                                    <h5>{{project.technology}}</h5>
+                                </div>
+                                <div class="col-md-12 col-sm-4">
+                                    <div id="shareme" data-url="http://little-neko.com" data-text="Check out FAT CATZ, a great Bootstrap 3 One page template"> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- works -->
+                <section id="projects">
+                
+                    <div class="container mt15">
+                        <div class="row">
+                            <div class="col-md-12" id="others">
+                                <h3>Other projects in {% for category in project.category_set.all %}{{category}}{% if forloop.counter != project.category_set.all|length %}, {% endif %}{% endfor %}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <section class="owl-carousel nekoDataOwl pb30 imgHover" data-neko_items="3">
+                                
+                                <!-- portfolio item -->
+                                {% for proj in project.filtered_set %}
+                                    
+
+                                <article class="item">
+                                    <section class="imgWrapper" style="min-height: 250px">
+                                        <img alt="" src="{{proj.preview.url}}" class="img-responsive">
+                                    </section>
+                                    <div class="mediaHover">
+                                        <div class="mask"></div>
+                                        <div class="iconLinks"> 
+                                            <a href="{{proj.client_url}}" title="link">
+                                                <i class="icon-picture iconRounded iconMedium"></i>
+                                                <span>link</span>
+                                            </a> 
+                                            <a href="{{proj.preview.url}}" class="image-link" title="Full width image" >
+                                                <i class="icon-search iconRounded iconMedium"></i>
+                                                <span>zoom</span>
+                                            </a> 
+                                        </div>
+                                    </div>
+                                    <section class="boxContent">
+                                        <h3>{{proj}}</h3>
+                                        <p> {{proj.description}} <br />
+                                            <a href="{% url 'project_detail' proj.slug %}" class="btn">&rarr; Check it out!</a>
+                                        </p>
+                                    </section>
+                                </article>
+                                     
+                                {% endfor %}
+
+                                
+                                    
+
+
+                                    </section>
+                                </div>
+                            </div>
+                            
+                        </section>
+                        <!-- works -->
+
+
+                        <!-- call to action -->
+                        <section class="pt30 pb30 mb15">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="color2 ctaBox ">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h1>
+                                                            <strong>Clay Coleman</strong><br />the developer you want for your business.
+                                                        </h1>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a class="btn btn-lg" title="" href="{% url 'home' %}#contact" target="blank">
+                                                            <i class="icon-flash"></i> contact now
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- call to action -->
+
+                    </section>
+                </section>
+{% endblock content %}
