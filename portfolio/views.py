@@ -13,6 +13,7 @@ from django.conf import settings
 
 def home(request):
     context = {}
+    context['home'] = True
     projects = Project.objects.all()
     for project in projects:
         project.create_slug()

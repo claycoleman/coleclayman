@@ -135,15 +135,20 @@
                                 </li>
                             </ul>
                             <ul class="nav navbar-nav pull-right">
-
+                        
                                 <li class="primary">
-                                    <a href="{% url 'home' %}" class="firstLevel active" >Home</a>
+                                    {% if home %}
+                                        <a href="#thehome" id="home_link" class="firstLevel active" >Home</a>
+                                    {% else %}
+                                        <a href="{% url 'home' %}" class="firstLevel" >Home</a>
+                                    {% endif %}
+                                    
                                 </li>
 
                                 <li class="sep"></li>
 
                                 <li class="primary">
-                                    <a href="{% url 'home' %}#works" class="firstLevel hasSubMenu">Portfolio</a>
+                                    <a href="{% url 'home' %}#works" id="portfolio_link" class="firstLevel hasSubMenu">Portfolio</a>
                                     <ul class="subMenu">
                                         {% for project in projects %}
                                             {% if forloop.counter < 4 %}
@@ -152,10 +157,17 @@
                                         {% endfor %}
                                     </ul>
                                 </li>
+
+                                <li class="sep"></li>
+
+                                <li class="primary">
+                                    <a href="{% url 'home' %}#team" id="team_link" class="firstLevel">The Team</a>
+                                </li>
+
                                 <li class="sep"></li>
                                 
                                 <li class="primary"> 
-                                    <a href="{% url 'home' %}#contact" class="firstLevel hasSubMenu" >Contact me</a>
+                                    <a href="{% url 'home' %}#contact" id="contact_link" class="firstLevel hasSubMenu" >Contact me</a>
                                     <ul class="subMenu">
                                         <li><a href="https://fb.com/coleclayman">Facebook</a></li>
                                         <li><a href="https://twitter.com/coleclayman">Twitter</a></li>
@@ -250,5 +262,6 @@
     <script type="text/javascript" src="{% static 'js-plugin/parallax/js/jquery.localscroll-1.2.7-min.js' %}"></script>
     <!-- Custom  -->
     <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
