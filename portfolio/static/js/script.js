@@ -9,8 +9,9 @@
 
 $(document).ready(function() {
     var offset = 75;
+    var first_level = $('.firstLevel');
 
-    $('a[href*=#]:not([href=#])').click(function() {
+    $('.firstLevel').click(function() {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
         var target = $(this.hash);
         target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -19,37 +20,33 @@ $(document).ready(function() {
                 scrollTop: target.offset().top - offset
             }, 700);
             return false;
-        }
+        }    
+
+    first_level.removeClass('active');
+    this.addClass('active');
+
     }
 });
 
     // static navigationbar
     var changeStyle = $('#navigation-bar');
-    var portfolio = $('#portfolio_link')
-    var contact = $('#contact_link')
-    var home = $('#home_link')
-    var team = $('#team_link')
+    var portfolio = $('#portfolio_link');
+    var contact = $('#contact_link');
+    var home = $('#home_link');
+    var team = $('#team_link');
 
     function scroll() {
         if ($(window).scrollTop() < 635 -offset) {
+            first_level.removeClass('active');
             home.addClass('active');
-            portfolio.removeClass('active');
-            contact.removeClass('active');
-            team.removeClass('active');
         } else if ($(window).scrollTop() < 1701-offset) {
-            home.removeClass('active');
+            first_level.removeClass('active');
             portfolio.addClass('active');
-            contact.removeClass('active');
-            team.removeClass('active');
-        } else if ($(window).scrollTop() < 2861-offset) {
-            home.removeClass('active');
-            portfolio.removeClass('active');
+        } else if ($(window).scrollTop() < 2661-offset) {
+            first_level.removeClass('active');
             team.addClass('active');
-            contact.removeClass('active');
         } else  {
-            home.removeClass('active');
-            portfolio.removeClass('active');
-            team.removeClass('active');
+            first_level.removeClass('active');
             contact.addClass('active');
         }
     }
