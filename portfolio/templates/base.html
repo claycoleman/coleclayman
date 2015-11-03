@@ -151,7 +151,7 @@
                                     <a href="{% url 'home' %}#works" id="portfolio_link" class="firstLevel hasSubMenu">Portfolio</a>
                                     <ul class="subMenu">
                                         {% for project in projects %}
-                                            {% if forloop.counter < 4 %}
+                                            {% if forloop0.counter < 4 %}
                                                 <li><a href="{% url 'project_detail' project.slug %}">{{project}}</a></li>
                                             {% endif %}
                                         {% endfor %}
