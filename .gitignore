@@ -1,3 +1,5 @@
 *.pyc
 portfolio/migrations/
 media/
+.DS_Store
+local.py
