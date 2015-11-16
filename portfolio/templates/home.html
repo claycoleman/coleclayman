@@ -19,15 +19,25 @@
             <div class="paralaxMask"></div>
             <div class="paralaxText">
             <h2>About Me</h2>
-                <h3>Junior Web Devloper, Student.<h3>
-                <h3>Studying Computer Science and Business Strategy at BYU.</h3><br>
-                <h3>I specialize in Python, Django, MySQL, HTML/CSS<br>and front-end JavaScript frameworks such as Bootstrap and skel.</h3>
+                <h3>Full-Stack Web Devloper, Student.<h3>
+                <h3>CS Major, Strategy Minor at BYU.</h3><br>
+                <h3>CS Major, Strategy Minor at BYU.</h3>
             </div>
 </div>
 </section>
+<section class="color2">
+                <div class="title color2">
+                    <h1>Skills</h1><br>
+                    <h4>I specialize in back-end development using <b>Python</b> and <b>Django</b>.</h4>
+                    <h4>I focus on <b>MySQL</b> and <b>Postgre</b> databases, optimized for speed.</h4>
+                    <h4>I use <b>JavaScript, JQuery, and Ajax</b> to build smooth user experience.</h4>
+                    <h4>I enjoy creating responsive apps with front-end frameworks, such as <b>Bootstrap and Handlebars</b>.</h4>
+                </div>
+            </section>
+</section> 
 <section id="content">
     <section id="works" class="color0">
-                <div class="title color2">
+                <div class="title color0">
                     <h1>My Work</h1>
                     <h2 class="subTitle">Sick projects I've been working on</h2>
                 </div>
@@ -139,13 +149,14 @@
             <!-- parallax testimonial --> 
             <!-- contact -->
             <section id="contact" class="color0">
-                <div class="title mb30">
+                <div class="title color2">
                     <h1>Reach out</h1>
                     <h2 class="subTitle">Interested in working with me?</h2>
                 </div>
                 <div class="container">
 
                     <div class="row">
+                    <br>
                         <form method="POST" action="{% url 'home' %}" id="contactfrm" role="form">
                             {% csrf_token %}
                             <div class="col-sm-6"> 
