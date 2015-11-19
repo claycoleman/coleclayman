@@ -22,10 +22,10 @@ for infile in onlyfiles:
     try:
         im = Image.open(infile)
         print im.size
-        # current_size = im.size
-        # im.thumbnail([current_size[0]/2, current_size[1]/2], Image.ANTIALIAS)
-        # im.save(infile, "PNG")
-
+        current_size = im.size
+        im.thumbnail([current_size[0]/2, current_size[1]/2], Image.ANTIALIAS)
+        im.save(infile, "PNG")
+        print "New size: {}".format(im.size)
     except Exception, e:
         print e
         print "cannot create thumbnail for '%s'" % infile
