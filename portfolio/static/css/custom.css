@@ -1,1 +1,5 @@
 /* Put your custom css here */
+.btn-primary {
+    background-color: rgb(83, 139, 175);
+    min-width: 100%;
+}
