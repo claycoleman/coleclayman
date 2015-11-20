@@ -750,33 +750,7 @@ if($('#shareme-classic').length){
         enableTracking: true,
       //url:'document.location.href'
   });
-} 
-
-if($('#shareme').length){
-
-    $('#shareme').sharrre({
-
-    share: {
-        twitter: true,
-        facebook: true,
-        googlePlus: true
-      },
-      template: '<div class="box"><h4>Share this:</h4><a href="#" class="facebook"><i class="icon-facebook-1"></i></a><a href="#" class="twitter"><i class="icon-twitter-bird"></i></a><a href="#" class="googleplus"><i class="icon-gplus-1"></i></a></div>',
-      enableHover: false,
-      enableTracking: true,
-      render: function(api, options){
-      $(api.element).on('click', '.twitter', function() {
-        api.openPopup('twitter');
-      });
-      $(api.element).on('click', '.facebook', function() {
-        api.openPopup('facebook');
-      });
-      $(api.element).on('click', '.googleplus', function() {
-        api.openPopup('googlePlus');
-      });
-}
-  });
-} 
+}  
 
 
 

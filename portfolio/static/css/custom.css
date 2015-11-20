@@ -3,3 +3,8 @@
     background-color: rgb(83, 139, 175);
     min-width: 100%;
 }
+
+img
+{
+    border: 2px solid #ededed;
+}
