@@ -22,5 +22,6 @@ from portfolio import views
 urlpatterns = [
     url(r'^nimda/', include(admin.site.urls)),
     url(r'^project_detail/(?P<slug>.+)/$', views.ProjectDetailView.as_view(), name='project_detail'),
-    url(r'^$', 'portfolio.views.home', name='home')
+    url(r'^$', 'portfolio.views.home', name='home'),
+    url(r'^ugf/$', 'portfolio.views.ugf', name='ugf'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

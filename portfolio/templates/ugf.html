@@ -1,0 +1,93 @@
+{% load staticfiles %}
+{% load humanize %}
+
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<link type="text/css" rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'js-plugin/jquery/1.8.3/jquery.min.js' %}"></script>
+
+<style type="text/css">
+    * {
+        font-family: 'Source Sans Pro', sans-serif !important;
+    }
+    input {
+        font-size: 22px !important;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            
+            <h2>UGF CRA Address Checker</h2>
+
+            <form method="POST" style="font-size: 24px;">
+                {% csrf_token %}
+                <input type="hidden" id="together-input" name="together" value="{% if separate %}separate{% else %}together{% endif %}">
+                <a href="#" class="btn btn-sm btn-primary" id="separate_street" state="{% if separate %}separate{% else %}together{% endif %}">Enter street address separately.</a>
+                <div class="street">
+                    Please enter the full company address.
+                </div>
+                {{ form.street_address }}
+                <div {% if not separate %}style="display: none;"{% endif %} class="city-state">
+                    
+                    <div class="city">
+                        Please enter the company's city.
+                    </div>
+                    {{ form.city }}
+
+                    <div class="state">
+                        Please enter the company's state.
+                    </div>
+                    {{ form.state }}
+                </div>
+
+                <div class="naics">
+                    Please enter the company's NAICS code.
+                </div>
+                {{ form.naics }}
+                <br>
+                <input class="btn" type="submit" name="submit" value="Check!">
+            </form>
+            <a href="https://www.federalregister.gov/articles/2016/01/26/2016-00924/small-business-size-standards-for-manufacturing">Check the mininum employee</a>
+            {% if success %}
+                
+            {% if max_employees %}
+                <h3>If the company has less than {{ max_employees|intcomma }} employees, then <span style="color: forestgreen;">qualifies for the size test</span>.</h3>
+                
+            {% endif %}
+            <h3>50% of the company's employees must have incomes lower than ${{ min_income|intcomma }}.</h3>
+            {% endif %}
+            <h3>{{ address | safe }}</h3>
+            
+            <h3 style="{% if cra_qualified %}color: forestgreen;{% else %}color: firebrick;{% endif %}">{{ results }}</h3>
+
+            {% if success %}
+                <h3>The income level of this addres is <span style="{% if cra_qualified %}color: forestgreen;{% else %}color: firebrick;{% endif %}">{{ income_level }}</span>.</h3>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#separate_street').on('click', function(e) {
+        e.preventDefault();
+        var state = $(this).attr('state')
+        if (state == 'together') {
+            $('.city-state').slideDown()
+            $(this).attr('state', 'separate')
+            $('#separate_street').text("Enter street address together.")
+            $('div.street').text("Please enter the company's street address.")
+            $('#together-input').val("separate")
+        } else {
+            $('.city-state').slideUp()
+            $(this).attr('state', 'together')
+            $('#separate_street').text('Enter street address separately.')
+            $('div.street').text('Please enter the full company address.')
+            $('#together-input').val("together")
+        }
+    });
+</script>
+
+
