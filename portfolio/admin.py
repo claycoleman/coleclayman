@@ -1,5 +1,5 @@
 from django.contrib import admin
-from portfolio.models import Project, Category
+from portfolio.models import *
 # Register your models here.
 
 
@@ -12,3 +12,4 @@ class CategoryAdmin(admin.ModelAdmin):
         
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(VideoCall)

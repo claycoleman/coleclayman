@@ -1,15 +1,19 @@
+import requests
+
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-
+from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from .models import *
-from .forms import *
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
 
-import requests
+from .models import *
+from .forms import *
+
 # Create your views here.
 
 
@@ -42,7 +46,87 @@ def home(request):
     return render_to_response('home.html', context, context_instance=RequestContext(request))
 
 
-def ugf (request):
+def video_call(request, pk, slug=None):
+    context = {}
+
+    video_call = VideoCall.objects.get(pk=pk)
+    context['video_call'] = video_call
+    context['create'] = True if slug == "parent" else False
+
+    return render(request, 'video_call.html', context)
+
+
+@csrf_exempt
+def video_call_ajax(request):
+    if request.POST:
+        username = request.POST.get('atypical', False)
+        password = request.POST.get('more_atypical', False)
+
+        if not username and password:
+            return HttpResponse("bad call")
+
+        auth_user = authenticate(username=username, password=password)
+
+        if auth_user is None:
+            return HttpResponse("bad credentials")
+
+        val = request.POST.get('val', '').strip()
+        number = request.POST.get('number', '').strip()
+        pk = request.POST.get('pk', '').strip()
+
+        try:
+            video_call = VideoCall.objects.get(pk=pk)
+        except Exception as e:
+            return HttpResponse('bad pk')
+
+        if not val or not number:
+            return HttpResponse('incomplete call')
+
+        if number == '1':
+            video_call.p1_key = val
+            video_call.p2_key = ""
+            video_call.save()
+
+        if number == '2':
+            video_call.p2_key = val
+            video_call.save()
+
+        return HttpResponse('success')
+
+    if request.GET:
+        username = request.GET.get('atypical', False)
+        password = request.GET.get('more_atypical', False)
+
+        if not username and password:
+            return HttpResponse("bad call")
+
+        auth_user = authenticate(username=username, password=password)
+
+        if auth_user is None:
+            return HttpResponse("bad credentials")
+
+        number = request.GET.get('number', '').strip()
+        pk = request.GET.get('pk', '').strip()
+
+        try:
+            video_call = VideoCall.objects.get(pk=pk)
+        except Exception as e:
+            return HttpResponse('bad pk')
+
+        if not number:
+            return HttpResponse('incomplete call')
+
+        if number == '1':
+            return HttpResponse('%s' % video_call.p1_key)
+
+        if number == '2':
+            return HttpResponse('%s' % video_call.p2_key)
+
+        return HttpResponse('bad number call')
+
+    return HttpResponse("bad method")
+
+def ugf(request):
     context = {}
     form = CRAForm(request.POST or None)
 
@@ -213,6 +297,4 @@ def check_naics_code(naics_code):
     else:
         # print "no match in text"
         return {'success': False, }
-
-
 

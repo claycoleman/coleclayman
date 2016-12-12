@@ -24,4 +24,7 @@ urlpatterns = [
     url(r'^project_detail/(?P<slug>.+)/$', views.ProjectDetailView.as_view(), name='project_detail'),
     url(r'^$', 'portfolio.views.home', name='home'),
     url(r'^ugf/$', 'portfolio.views.ugf', name='ugf'),
+    url(r'^video/(?P<pk>\d+)/$', 'portfolio.views.video_call', name='video_call'),
+    url(r'^video/(?P<pk>\d+)/(?P<slug>.+)/$', 'portfolio.views.video_call', name='video_call'),
+    url(r'^video/ajax/$', 'portfolio.views.video_call_ajax', name='video_call_ajax'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

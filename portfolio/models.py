@@ -57,4 +57,14 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class VideoCall(models.Model):
+    p1_key = models.TextField(null=True, blank=True)
+    p2_key = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "Video Call created on  %s." % self.created
+
         
