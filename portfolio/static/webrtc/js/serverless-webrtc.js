@@ -79,8 +79,8 @@ var check_for_part_one = function() {
     url: '/video/ajax/',
     type: 'GET',
     data: {
-      'atypical': 'root',
-      'more_atypical': 'q',
+      'atypical': 'atypical',
+      'more_atypical': 'more_atypical',
       'number': 1,
       'pk': $("input[name=the_pk]").val(),
     },
@@ -108,8 +108,8 @@ var check_for_part_two = function() {
     url: '/video/ajax/',
     type: 'GET',
     data: {
-      'atypical': 'root',
-      'more_atypical': 'q',
+      'atypical': 'atypical',
+      'more_atypical': 'more_atypical',
       'number': 2,
       'pk': $("input[name=the_pk]").val(),
     },
@@ -264,8 +264,8 @@ pc1.onicecandidate = function (e) {
       url: '/video/ajax/',
       type: 'POST',
       data: {
-        'atypical': 'root',
-        'more_atypical': 'q',
+        'atypical': 'atypical',
+        'more_atypical': 'more_atypical',
         'val': JSON.stringify(pc1.localDescription),
         'number': 1,
         'pk': $("input[name=the_pk]").val(),
@@ -398,8 +398,8 @@ pc2.onicecandidate = function (e) {
       url: '/video/ajax/',
       type: 'POST',
       data: {
-        'atypical': 'root',
-        'more_atypical': 'q',
+        'atypical': 'atypical',
+        'more_atypical': 'more_atypical',
         'val': JSON.stringify(pc2.localDescription),
         'number': 2,
         'pk': $("input[name=the_pk]").val(),
