@@ -69,7 +69,7 @@ def video_call_ajax(request):
         # auth_user = authenticate(username=username, password=password)
 
         # if auth_user is None:
-        if username != 'atypical' and password != 'more_atypical'
+        if username != 'atypical' and password != 'more_atypical':
             return HttpResponse("bad credentials")
 
         val = request.POST.get('val', '').strip()
