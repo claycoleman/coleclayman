@@ -49,6 +49,7 @@ $('#joinBtn').click(function () {
   navigator.getUserMedia( {video: true, audio: true}, function (stream) {
     var video = document.getElementById('localVideo')
     video.src = window.URL.createObjectURL(stream)
+    video.muted="muted"
     video.play()
     pc2.addStream(stream)
   }, function (error) {
@@ -222,6 +223,7 @@ function createLocalOfferLookForOne () {
   navigator.getUserMedia( {video: true, audio: true}, function (stream) {
     var video = document.getElementById('localVideo')
     video.src = window.URL.createObjectURL(stream)
+    video.muted="muted"
     video.play()
     pc2.addStream(stream)
     console.log('finished createLocalOfferLookForOne')
@@ -241,6 +243,7 @@ function createLocalOffer () {
   navigator.getUserMedia({video: true, audio: true}, function (stream) {
     var video = document.getElementById('localVideo')
     video.src = window.URL.createObjectURL(stream)
+    video.muted="muted"
     video.play()
     pc1.addStream(stream)
     console.log(stream)
@@ -303,6 +306,7 @@ function handleOnconnection () {
   //     on answerSentBtn which shows it, and it stays shown forever.
   $('#waitForConnection').remove()
   $('#showLocalAnswer').modal('hide')
+  $('#chatCol').show();
   $('#messageTextBox').focus()
 }
 
