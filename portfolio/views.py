@@ -86,11 +86,13 @@ def video_call_ajax(request):
 
         if number == '1':
             video_call.p1_key = val
+            video_call.p1_active = True
             video_call.p2_key = ""
             video_call.save()
 
         if number == '2':
             video_call.p2_key = val
+            video_call.p2_active = True
             video_call.save()
 
         return HttpResponse('success')

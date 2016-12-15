@@ -36,12 +36,14 @@ $('#createOrJoin').modal('hide')
 
 $('#createBtn').click(function () {
   // $('#showLocalOffer').modal('show')
+  $('#createOrJoin').hide();
   createLocalOffer()
 })
 
 
 
 $('#joinBtn').click(function () {
+  $('#createOrJoin').hide();
   navigator.getUserMedia = navigator.getUserMedia ||
                            navigator.webkitGetUserMedia ||
                            navigator.mozGetUserMedia ||
@@ -180,19 +182,20 @@ function sendMessage () {
 
 function setupDC1 () {
   try {
-    var fileReceiver1 = new FileReceiver()
+    // var fileReceiver1 = new FileReceiver()
     dc1 = pc1.createDataChannel('test', {reliable: true})
     activedc = dc1
     console.log('Created datachannel (pc1)')
     dc1.onopen = function (e) {
       console.log('data channel connect')
       $('#waitForConnection').modal('hide')
+      setupUI();
       $('#waitForConnection').remove()
     }
     dc1.onmessage = function (e) {
       console.log('Got message (pc1)', e.data)
       if (e.data.size) {
-        fileReceiver1.receive(e.data, {})
+        // fileReceiver1.receive(e.data, {})
       } else {
         if (e.data.charCodeAt(0) == 2) {
           // The first message we get from Firefox (but not Chrome)
@@ -203,7 +206,7 @@ function setupDC1 () {
         console.log(e)
         var data = JSON.parse(e.data)
         if (data.type === 'file') {
-          fileReceiver1.receive(e.data, {})
+          // fileReceiver1.receive(e.data, {})
         } else {
           writeToChatLog(data.message, 'text-info')
           // Scroll chat text area to the bottom on new input.
@@ -306,7 +309,6 @@ function handleOnconnection () {
   //     on answerSentBtn which shows it, and it stays shown forever.
   $('#waitForConnection').remove()
   $('#showLocalAnswer').modal('hide')
-  $('#chatCol').show();
   $('#messageTextBox').focus()
 }
 
@@ -365,6 +367,7 @@ pc2.ondatachannel = function (e) {
   dc2.onopen = function (e) {
     console.log('data channel connect')
     $('#waitForConnection').modal('hide')
+    setupUI();
     $('#waitForConnection').remove()
   }
   dc2.onmessage = function (e) {
@@ -425,6 +428,12 @@ pc2.onicecandidate = function (e) {
 pc2.onsignalingstatechange = onsignalingstatechange
 pc2.oniceconnectionstatechange = pc2_oniceconnectionstatechange
 pc2.onicegatheringstatechange = onicegatheringstatechange
+
+
+function setupUI() {
+  $('#chatCol').show();
+  $('#localVideo').addClass('loaded')
+}
 
 function handleCandidateFromPC1 (iceCandidate) {
   pc2.addIceCandidate(iceCandidate)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Project(models.Model):
     """
@@ -62,7 +63,12 @@ class Category(models.Model):
 class VideoCall(models.Model):
     p1_key = models.TextField(null=True, blank=True)
     p2_key = models.TextField(null=True, blank=True)
+    
+    p1_active = models.BooleanField(default=False)
+    p2_active = models.BooleanField(default=False)
+
     created = models.DateTimeField(auto_now_add=True)
+    ended = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "Video Call created on  %s." % self.created

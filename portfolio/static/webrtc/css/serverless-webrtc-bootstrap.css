@@ -1,7 +1,7 @@
 textarea { resize:none; }
 
 video {
-   width:100%;
-   max-width:500px;
+   width:75%;
+   margin-left: 12.5%;
    height:auto;
 }
