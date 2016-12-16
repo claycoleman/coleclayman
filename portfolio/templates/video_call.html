@@ -24,12 +24,17 @@
     float: left;
     width: 33.333333%
   }
+  #remoteVideo {
+    position: relative;
+  }
   #localVideo.loaded {
+    cursor: -webkit-grab;
+    z-index: 100;
     display: block;
     position: absolute;
     max-width: 100px;
-    top: 30px;
-    left: -4%;
+    top: 29px;
+    left: 10px;
     border: 1px solid rgba(150,150,150, .8);
   }
   video {
@@ -40,12 +45,12 @@
 
 </style>
 <div class="row">
-  <div class="col-sm-8">
+  <div style="width: 66.66667%; display: inline-block;" class="col-sm-8">
     
+    <Video id="remoteVideo" style="display: none;"></Video>
     <Video id="localVideo" muted></Video>
-    <Video id="remoteVideo"></Video>
   </div>
-  <div class="col-sm-4" id="chatCol">
+  <div style="width: 33.33%; display: inline-block;" id="chatCol">
     <fieldset class="well">
       <p class="head muted">
         Serverless WebRTC chat demonstration.
@@ -141,7 +146,7 @@
 </div>
 
 <script src="{% static 'webrtc/js/serverless-webrtc.js' %}"></script>
-<!-- <script src="{% static 'webrtc/js/file-transfer.js' %}"></script> -->
+<script src="{% static 'webrtc/js/file-transfer.js' %}"></script>
 <script type="text/javascript">
   $('#createOrJoin').hide();
   $('#chatCol').hide();

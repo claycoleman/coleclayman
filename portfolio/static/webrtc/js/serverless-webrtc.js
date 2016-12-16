@@ -296,6 +296,7 @@ function handleOnaddstream (e) {
   var el = document.getElementById('remoteVideo')
   el.autoplay = true
   attachMediaStream(el, e.stream)
+  $(el).show();
 }
 
 pc1.onaddstream = handleOnaddstream
@@ -359,7 +360,7 @@ var pc2 = new RTCPeerConnection(cfg, con),
 var pc2icedone = false
 
 pc2.ondatachannel = function (e) {
-  var fileReceiver2 = new FileReceiver()
+  // var fileReceiver2 = new FileReceiver()
   var datachannel = e.channel || e; // Chrome sends event, FF sends raw channel
   console.log('Received datachannel (pc2)', arguments)
   dc2 = datachannel
