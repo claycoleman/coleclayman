@@ -1,0 +1,19 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    500
+{% endblock title %}
+{% block body %}
+    <h1 class="title">uh oh</h1>
+{% endblock body %}
+
+
+{% block main %}
+
+    <div class="ps">
+        <p>something went wrong on my end. try reloading the page, and if that doesn't work, just head back home.</p>
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=lost" class="back">back to home</a>
+
+{% endblock main %}

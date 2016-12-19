@@ -10,26 +10,68 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
+from django.http import Http404
 
 from .models import *
 from .forms import *
 
 # Create your views here.
 
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
+
+
+def project_detail(request, slug):
+    context = {}
+    proj = Project.objects.filter(slug=slug)
+    
+    if not proj.exists():
+        raise Http404("sorry, you're lost.")
+
+    context['project'] = proj.first()
+
+    return render_to_response('project_detail.html', context, context_instance=RequestContext(request))
+
+def projects(request):
+    context = {}
+    context['projects'] = Project.objects.all()
+
+    return render_to_response('projects.html', context, context_instance=RequestContext(request))
+
+def new_home(request):
+    context = {}
+    # print michelle
+    if request.GET.get('wc'):
+        context['hide'] = True
+
+    context['fade_in_time'] = 1200
+
+    return render_to_response('new_home.html', context, context_instance=RequestContext(request))
+
+def bio(request):
+    context = {}
+    return render_to_response('bio.html', context, context_instance=RequestContext(request))
+
+
+def vc(request):
+    context = {}
+    return render_to_response('vc.html', context, context_instance=RequestContext(request))
+
 
 def home(request):
     context = {}
     context['home'] = True
-    projects = Project.objects.all()
-    for project in projects:
-        project.create_slug()
-        print project
-    context['projects'] = projects
-    categories = Category.objects.all()
-    for category in categories:
-        category.create_slug()
-    context['categories'] = categories
-    
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         context['form'] = form
@@ -178,19 +220,6 @@ def ugf(request):
 
     return render_to_response('ugf.html', context, context_instance=RequestContext(request))
 
-
-class ProjectDetailView(DetailView):
-    model = Project
-    template_name = "project_detail.html"
-    context_object_name = 'project'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(ProjectDetailView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['projects'] = Project.objects.all()[:4]
-
-        return context
 
 
 def check_cra_address(address):

@@ -1,0 +1,18 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    404
+{% endblock title %}
+{% block body %}
+    <h1 class="title">you're lost</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps">
+        <p>you're looking for something that doesn't exist. sorry bud.</p>
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=lost" class="back">back to home</a>
+
+{% endblock main %}

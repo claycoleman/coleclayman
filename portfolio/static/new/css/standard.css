@@ -1,0 +1,177 @@
+* {
+    font-family: 'Titillium Web', sans-serif;
+}
+
+html {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: #EFEFEF;
+    text-align: center;
+    color: #0B3C5D;
+}
+
+body div {
+}
+
+
+h1.clay-coleman, h1.title {
+    margin: 0px;
+    text-align: center;
+}
+
+
+h1.clay-coleman, div.centered:after{
+    color: #0B3C5D;
+}
+
+div.centered {
+    cursor: pointer;
+    margin-bottom: 35px;
+}
+
+div.centered, main {
+    text-align: center;
+}
+
+div.centered:after {
+    content: "that's me";
+    display: block;
+    position: fixed;
+    text-align: center;
+    font-size: 20px;
+    opacity: 0.0;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    margin-top: -15px;
+    margin-left: 45px;
+}
+
+div.centered:hover img.me {
+    filter: grayscale(0%) !important;
+}
+
+div.centered:hover ~ main {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+}
+
+div.centered:hover::after {
+    opacity: 0.8;
+    margin-top: 0px;
+}
+
+img.me {
+    border-radius: 170px;
+    max-height: 170px;
+    max-width: 170px;
+    filter: grayscale(35%);
+
+}
+
+main {
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+main .nav-ele {
+    padding: 10px 0;
+} 
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #44A599;
+}
+
+a:hover {
+    color: #206079;
+}
+
+a.back {
+    font-size: 24px;
+}
+
+main .nav-ele {
+    cursor: pointer;
+}
+
+main .nav-ele a {
+    font-size: 24px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #44A599;
+    /* margin: 10px 0; */
+    line-height: 0.7;
+    /*filter: blur(1px);*/
+}
+
+p.project {
+    cursor: pointer;
+}
+
+main .nav-ele:hover a, p.project:hover a {
+    /*color: #206079;*/
+    filter: blur(0px) !important;
+}
+
+main .ps {
+    padding: 5px 20px;
+    max-width: 60vw;
+}
+
+@media (max-width: 767px) {
+    main .ps {
+        max-width: none;
+    }
+}
+
+hr {
+    color: #6B7C8E !important; 
+    opacity: 0.75 !important; 
+    max-width: 20vw !important; 
+    margin-bottom: 15px !important;
+}
+
+main p {
+    font-size: 20px;
+    color: #6B7C8E;
+}
+
+.datetime #clockbox {
+    left: 20px;
+    position: absolute;
+}
+.datetime #datebox {
+    right: 20px;
+    position: absolute;
+}
+
+@media (min-width: 768px) {
+
+    .datetime #clockbox {
+        left: 20%;
+        position: absolute;
+    }
+    .datetime #datebox {
+        right: 20%;
+        position: absolute;
+    }
+}
+
+.datetime {
+    position: absolute;
+    bottom: 100px;
+    min-width: 400px;
+    width: 100vw;
+    min-height: 1px;
+    display: block;
+    left: 0;
+}

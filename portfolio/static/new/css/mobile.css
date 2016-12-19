@@ -1,0 +1,170 @@
+* {
+    font-family: 'Titillium Web', sans-serif;
+}
+
+html {
+    min-height: 100vh;
+}
+
+body {
+    background-color: #EFEFEF;
+    text-align: center;
+    color: #0B3C5D;
+}
+
+body div {
+}
+
+
+h1.clay-coleman, h1.title {
+    margin: 0px;
+    text-align: center;
+    font-size: 72px;
+}
+
+h1.title {
+    margin-top: 55px;
+    margin-bottom: 20px;
+}
+
+
+h1.title.project {
+    margin-top: 55px;
+    margin-bottom: 20px;
+}
+
+
+h1.clay-coleman, div.centered:after{
+    color: #0B3C5D;
+}
+
+div.centered {
+    cursor: pointer;
+    margin-top: 200px;
+    margin-bottom: 0px;
+}
+
+div.centered, main {
+    text-align: center;
+}
+
+div.centered:after {
+    content: "my bio";
+    display: block;
+    text-align: center;
+    font-size: 60px;
+    opacity: 1.0;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    margin-top: 25px;
+    color: #44A599;
+    cursor: pointer;
+}
+
+div.centered:hover img.me {
+    filter: grayscale(0%) !important;
+}
+
+div.centered:hover ~ main {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+}
+
+img.me {
+    border-radius: 450px;
+    max-height: 450px;
+    max-width: 450px;
+    filter: grayscale(35%);
+    padding-top: 10px;
+}
+
+main {
+    -webkit-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+main .nav-ele {
+    padding: 20px 0;
+} 
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #44A599;
+}
+
+a:hover {
+    color: #206079;
+}
+
+a.back {
+    font-size: 48px;
+}
+
+main .nav-ele {
+    cursor: pointer;
+}
+
+main .nav-ele a {
+    font-size: 60px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #44A599;
+    /* margin: 10px 0; */
+    line-height: 1;
+    /*filter: blur(1px);*/
+}
+
+p.project {
+    cursor: pointer;
+}
+
+main .nav-ele:hover a, p.project:hover a {
+    /*color: #206079;*/
+    filter: blur(0px) !important;
+}
+
+main .ps {
+    padding: 5px 20px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 767px) {
+    main .ps {
+        max-width: none;
+    }
+}
+
+hr {
+    color: #6B7C8E !important; 
+    opacity: 0.75 !important; 
+    max-width: 20vw !important; 
+    margin-bottom: 35px !important;
+}
+
+main p {
+    font-size: 32px;
+    color: #6B7C8E;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    line-height: 1.25;
+}
+
+
+.datetime {
+    position: absolute;
+    bottom: 40px;
+    min-width: 400px;
+    width: 100vw;
+    min-height: 1px;
+    display: block;
+    left: 0;
+}
+
+.datetime #datebox {
+    font-size: 42px;
+}

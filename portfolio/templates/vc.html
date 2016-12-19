@@ -1,0 +1,22 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    venture capital
+{% endblock title %}
+{% block body %}
+    <h1 class="title">venture capital</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps">
+        <p>when i'm not building, i'm facilitating.</p>
+        <p>so many people are doing amazing things, and it's a privilege of mine to try find those who will make a real mark.</p>
+        <p>i'm associate at the university growth fund - the largest student-run venture capital fund in the nation. we seek out interesting companies and entrepreneurs, and encourage them to turn their goals into realities.</p>
+        <p>interested in applying? need capital for your company? looking for incredible talent?</p>
+        <p><a href="http://ugrowthfund.com/">check it out.</a></p>
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=vc" class="back">back to home</a>
+
+{% endblock main %}
