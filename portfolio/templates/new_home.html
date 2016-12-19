@@ -58,7 +58,7 @@
             {% endblock main %}
         </main>
 
-        <div class="datetime">
+        <div class="datetime" {% if not hide %}style="opacity: 0.0;"{% endif %}>
             {% if not request.is_phone %}<span id="clockbox"></span>{% endif %}
             <span id="datebox"></span>
         </div>
@@ -80,11 +80,16 @@
                         }, {% if fade_in_time %} {{ fade_in_time}} {% else %}400{% endif %});
                     });
                 }, 300);
+
             });
 
             function fadeInMain() {
                 $('main').css('opacity', '1.0');
+                $('.datetime').css('opacity', '1.0');
                 $('main').unbind('hover', fadeInMain);
+                if ($(document).height() > $(window).height()) {
+                    $('.datetime').addClass('long')
+                }
             }
 
             $('main').on('hover', fadeInMain);

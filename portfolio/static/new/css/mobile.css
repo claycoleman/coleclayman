@@ -154,7 +154,6 @@ main p {
     line-height: 1.25;
 }
 
-
 .datetime {
     position: absolute;
     bottom: 40px;
@@ -163,6 +162,21 @@ main p {
     min-height: 1px;
     display: block;
     left: 0;
+}
+
+
+    
+.datetime.long {
+    position: relative;
+    bottom: -30px;
+    min-width: 400px;
+    width: 100vw;
+    min-height: 1px;
+    display: block;
+    left: 0;
+    margin-bottom: 70px;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .datetime #datebox {
