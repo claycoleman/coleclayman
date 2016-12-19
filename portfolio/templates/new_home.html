@@ -77,7 +77,7 @@
                     $.when( $('body').fadeToggle(350, 'easeInQuart') ).then(function() {
                         setTimeout(function() {
                             fadeInMain();
-                        }, {% if fade_in_time %} {{ fade_in_time}} {% else %}400{% endif %});
+                        }, {% if fade_in_time %} {{ fade_in_time}} {% else %}150{% endif %});
                     });
                 }, 300);
 
