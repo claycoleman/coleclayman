@@ -91,8 +91,17 @@ a {
     color: #44A599;
 }
 
+
 a:hover {
     color: #206079;
+}
+
+a.reverse {
+    color: #0B3C5D;
+}
+
+a.reverse:hover {
+    color: #44A599;
 }
 
 a.back {
