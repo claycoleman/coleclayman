@@ -54,7 +54,7 @@ def new_home(request):
     if request.GET.get('wc'):
         context['hide'] = True
 
-    context['fade_in_time'] = 1200
+    context['fade_in_time'] = 300
 
     return render_to_response('new_home.html', context, context_instance=RequestContext(request))
 

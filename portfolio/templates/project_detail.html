@@ -11,10 +11,10 @@
 {% block main %}
     <div class="ps">
         <p>{{ project.description | lower }}</p>
-        <p><a href="{{ project.client_link }}">check it out here</a></p>
+        <p><a href="{{ project.client_url }}">check it out here</a></p>
         <!-- TODO CONTACT -->
     </div>
     <hr>
-    <a href="{% url 'new_home' %}?wc=projects" class="back">back to home</a>
+    <a href="{% url 'projects' %}" class="back">back to projects</a>
 
 {% endblock main %}

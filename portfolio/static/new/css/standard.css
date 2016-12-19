@@ -115,6 +115,8 @@ main .nav-ele a {
 
 p.project {
     cursor: pointer;
+    margin: 0;
+    padding: 10px 0;
 }
 
 main .nav-ele:hover a, p.project:hover a {
