@@ -131,6 +131,11 @@ p.project {
     text-decoration: none;
 }
 
+p.project a {
+    color: #44A599;
+    text-decoration: none;
+}
+
 main .nav-ele:hover a, p.project:hover a {
     /*color: #206079;*/
     filter: blur(0px) !important;
