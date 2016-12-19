@@ -92,6 +92,7 @@ a {
 }
 
 
+
 a:hover {
     color: #206079;
 }
@@ -126,6 +127,8 @@ p.project {
     cursor: pointer;
     margin: 0;
     padding: 10px 0;
+    color: #44A599;
+    text-decoration: none;
 }
 
 main .nav-ele:hover a, p.project:hover a {
