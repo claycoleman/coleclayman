@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^video/(?P<pk>\d+)/$', 'portfolio.views.video_call', name='video_call'),
     url(r'^video/(?P<pk>\d+)/(?P<slug>.+)/$', 'portfolio.views.video_call', name='video_call'),
     url(r'^video/ajax/$', 'portfolio.views.video_call_ajax', name='video_call_ajax'),
+    url(r'^ajax/definition/$', 'portfolio.views.ajax_definition', name='ajax_definition'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # handler500 = "portfolio.views.handler500"

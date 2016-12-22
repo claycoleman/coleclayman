@@ -2,7 +2,7 @@ import requests
 
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -333,3 +333,39 @@ def check_naics_code(naics_code):
         # print "no match in text"
         return {'success': False, }
 
+
+def ajax_definition(request):
+    if not request.user.is_authenticated():
+        return HttpResponse('no 1')
+
+    query = request.GET.get('q', False)
+
+    if not query:
+        return HttpResponse('no 2')
+
+    # verify query is urllib-ed
+
+    res = requests.get('https://api.pearson.com/v2/dictionaries/ldec/entries?headword=%s&apikey=BfU9UKkd6c2owEjppG9wAdHgwfdkClXO' % query) 
+
+    results = res.json().get('results', False)
+
+    if not results:
+        return HttpResponse('no 2')
+
+    word_dict = {}
+    word_dict['words'] = []
+
+    for word in results[:3]:
+        new_word = {}
+        new_word['word'] = word.get('headword')
+        new_word['pos'] = word.get('part_of_speech')
+        senses = word.get('senses', [])
+        
+        if senses:        
+            new_word['def'] = senses[0].get('translation')
+        else:
+            continue
+
+        word_dict['words'].append(new_word)
+
+    return JsonResponse(word_dict, safe=False)

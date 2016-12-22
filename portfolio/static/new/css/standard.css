@@ -133,7 +133,7 @@ p.project {
 
 p.project a {
     color: #44A599;
-    text-decoration: none;
+    text-decoration: none; 
 }
 
 main .nav-ele:hover a, p.project:hover a {

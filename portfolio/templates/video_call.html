@@ -10,6 +10,8 @@
     <link href="{% static 'webrtc/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/bootstrap-responsive.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/serverless-webrtc-bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'webrtc/css/tooltipster.bundle.min.css' %}" rel="stylesheet">
+    <link href="{% static 'webrtc/css/tooltipster-sideTip-light.min.css' %}" rel="stylesheet">
 </head>
 <body>
 <style type="text/css">
@@ -41,6 +43,9 @@
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg);
+  }
+  .tooltipster-base {
+      padding-bottom: 10px !important;
   }
 
 </style>
@@ -145,8 +150,14 @@
   </div>
 </div>
 
+<div class="hidden word-definitions">
+    
+</div>
+
+<script src="{% static 'webrtc/js/tooltipster.bundle.min.js' %}"></script>
 <script src="{% static 'webrtc/js/serverless-webrtc.js' %}"></script>
 <script src="{% static 'webrtc/js/file-transfer.js' %}"></script>
+
 <script type="text/javascript">
   $('#createOrJoin').hide();
   $('#chatCol').hide();

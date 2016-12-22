@@ -170,7 +170,7 @@ function sendMessage () {
   if ($('#messageTextBox').val()) {
     var channel = new RTCMultiSession()
     writeToChatLog($('#messageTextBox').val(), 'text-success')
-    channel.send({message: $('#messageTextBox').val()})
+    channel.send( {message: $('#messageTextBox').val()} )
     $('#messageTextBox').val('')
 
     // Scroll chat text area to the bottom on new input.
@@ -456,6 +456,66 @@ function getTimestamp () {
   return result
 }
 
+var tooltipCount = 0;
+
+$(document).on('dblclick', '.word-to-lookup', function(event) {
+  event.preventDefault();
+  $(this).removeClass('.word-to-lookup');
+  $this = $(this);
+  query = $this.text();
+  $.ajax({
+    url: '/ajax/definition/',
+    type: 'GET',
+    dataType: 'json',
+    data: {'q': query},
+  })
+  .done(function(data) {
+    console.log("success in dblclick");
+      new_id = 'defTooltip-' + tooltipCount;
+      new_word_tooltip = '<div class="defTooltip" id="' + new_id + '">'
+        console.log(data);
+      words = data.words
+        console.log(words);
+      for (var index = 0; index < words.length; index++) {
+        console.log(words[index].word);
+         new_word_tooltip += "<div class='single-defition'><h3>" + words[index].word + "</h3><h5>" + words[index].pos + "</h5><p>" + words[index].def + "</p></div>"
+      }
+      new_word_tooltip += "</div>"
+      $('.word-definitions').append(new_word_tooltip)
+      
+      $this.attr('data-tooltip-content', "#" + new_id);
+      $this.tooltipster({
+          theme: 'tooltipster-light'
+      });
+      tooltipCount++;
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
+});
+
+function lookupWords () {
+  var the_def_table = $('.word-definitions');
+  $('.word-to-lookup').each(function() {
+
+  });
+}
+
 function writeToChatLog (message, message_type) {
-  document.getElementById('chatlog').innerHTML += '<p class="' + message_type + '">' + '[' + getTimestamp() + '] ' + message + '</p>'
+  var html_to_add = '<p class="' + message_type + '">' + '[' + getTimestamp() + '] '
+  message_split = message.split(' ');
+  for (index in message_split) { 
+    if (message_split[index] == '') continue;
+    html_to_add += "<span class='word-to-lookup'>" + message_split[index] + "</span>"
+    if (index != message_split.length - 1)
+      html_to_add += " ";
+  }
+
+  html_to_add += '</p>'
+  document.getElementById('chatlog').innerHTML += html_to_add;
+  // lookupWords();
 }

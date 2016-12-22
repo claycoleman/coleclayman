@@ -73,4 +73,8 @@ class VideoCall(models.Model):
     def __unicode__(self):
         return "Video Call created on  %s." % self.created
 
+
+# class WordDefinition(models.Model):
+#     english_word  = models.CharField(null=True, blank=True, max_length=255)
+#     chinese_word  = models.CharField(null=True, blank=True, max_length=255)
         
