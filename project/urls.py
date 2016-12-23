@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^me/$', 'portfolio.views.bio', name='bio'),
     url(r'^vc/$', 'portfolio.views.vc', name='vc'),
     url(r'^projects/$', 'portfolio.views.projects', name='projects'),
+    url(r'^choose_schedule/$', 'portfolio.views.choose_schedule', name='choose_schedule'),
     url(r'^ugf/$', 'portfolio.views.ugf', name='ugf'),
     url(r'^video/(?P<pk>\d+)/$', 'portfolio.views.video_call', name='video_call'),
     url(r'^video/(?P<pk>\d+)/(?P<slug>.+)/$', 'portfolio.views.video_call', name='video_call'),

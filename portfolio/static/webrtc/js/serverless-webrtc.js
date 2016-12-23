@@ -434,6 +434,16 @@ pc2.onicegatheringstatechange = onicegatheringstatechange
 function setupUI() {
   $('#chatCol').show();
   $('#localVideo').addClass('loaded')
+  $('#containment-wrapper').addClass('active')
+  $( "#localVideo" ).draggable({ containment: "#containment-wrapper", scroll: false });
+  // resizeable
+  // $( "#localVideo" ).resizable({
+  //     maxHeight: 270,
+  //     maxWidth: 350,
+  //     minHeight: 75,
+  //     minWidth: 100,
+  //     aspectRatio: 4 / 3,
+  //   });
 }
 
 function handleCandidateFromPC1 (iceCandidate) {
@@ -458,7 +468,7 @@ function getTimestamp () {
 
 var tooltipCount = 0;
 
-$(document).on('dblclick', '.word-to-lookup', function(event) {
+$(document).on('dblclick', '.word-to-lookup:not(.tooltipstered)', function(event) {
   event.preventDefault();
   $(this).removeClass('.word-to-lookup');
   $this = $(this);
@@ -473,9 +483,7 @@ $(document).on('dblclick', '.word-to-lookup', function(event) {
     console.log("success in dblclick");
       new_id = 'defTooltip-' + tooltipCount;
       new_word_tooltip = '<div class="defTooltip" id="' + new_id + '">'
-        console.log(data);
       words = data.words
-        console.log(words);
       for (var index = 0; index < words.length; index++) {
         console.log(words[index].word);
          new_word_tooltip += "<div class='single-defition'><h3>" + words[index].word + "</h3><h5>" + words[index].pos + "</h5><p>" + words[index].def + "</p></div>"
@@ -484,9 +492,13 @@ $(document).on('dblclick', '.word-to-lookup', function(event) {
       $('.word-definitions').append(new_word_tooltip)
       
       $this.attr('data-tooltip-content', "#" + new_id);
-      $this.tooltipster({
-          theme: 'tooltipster-light'
-      });
+      $.when(
+        $this.tooltipster({
+            theme: 'tooltipster-light',
+            interactive: true,
+        }) ).then(function() {
+          $this.tooltipster('open');
+      })
       tooltipCount++;
   })
   .fail(function() {
@@ -498,21 +510,19 @@ $(document).on('dblclick', '.word-to-lookup', function(event) {
   
 });
 
-function lookupWords () {
-  var the_def_table = $('.word-definitions');
-  $('.word-to-lookup').each(function() {
-
-  });
-}
 
 function writeToChatLog (message, message_type) {
-  var html_to_add = '<p class="' + message_type + '">' + '[' + getTimestamp() + '] '
+  $('p.last.' + message_type).removeClass('last');
+  var html_to_add = '<p class="last ' + message_type + '" time-sent="' + getTimestamp() +'">'
   message_split = message.split(' ');
   for (index in message_split) { 
     if (message_split[index] == '') continue;
     html_to_add += "<span class='word-to-lookup'>" + message_split[index] + "</span>"
     if (index != message_split.length - 1)
       html_to_add += " ";
+  }
+  if (! html_to_add.indexOf('word-to-loopup') < 0) {
+    return;
   }
 
   html_to_add += '</p>'

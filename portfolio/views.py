@@ -42,11 +42,18 @@ def project_detail(request, slug):
 
     return render_to_response('project_detail.html', context, context_instance=RequestContext(request))
 
+
 def projects(request):
     context = {}
     context['projects'] = Project.objects.all()
 
     return render_to_response('projects.html', context, context_instance=RequestContext(request))
+
+
+def choose_schedule(request):
+    context = {}
+
+    return render_to_response('choose_schedule.html', context, context_instance=RequestContext(request))
 
 def new_home(request):
     context = {}
@@ -342,6 +349,14 @@ def ajax_definition(request):
 
     if not query:
         return HttpResponse('no 2')
+
+    query = query.lower()
+
+    # if query isn't defined already in our database, then 
+    # defs, created = WordDefinition.objects.get_or_create(english_word=query)
+    # if not created:
+    #     return defs.chinese_defs_dict
+    # if created, query the db and save results
 
     # verify query is urllib-ed
 

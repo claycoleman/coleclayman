@@ -73,8 +73,8 @@ class VideoCall(models.Model):
     def __unicode__(self):
         return "Video Call created on  %s." % self.created
 
-
+# English to Chinese, save the info in a dict field (upgrade to django with dict?)
 # class WordDefinition(models.Model):
-#     english_word  = models.CharField(null=True, blank=True, max_length=255)
-#     chinese_word  = models.CharField(null=True, blank=True, max_length=255)
+#     english_word  = models.CharField(null=True, blank=True, max_length=255, db_index=True)
+#     chinese_defs_dict  = models.CharField(null=True, blank=True, max_length=255)
         

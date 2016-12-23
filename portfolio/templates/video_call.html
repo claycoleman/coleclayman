@@ -3,18 +3,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>WebRTC p2p data</title>
+    <title>Video Call | Fluent</title>
     <script src="{% static 'webrtc/js/adapter.js' %}"></script>
     <script src="{% static 'webrtc/js/jquery-2.0.0.js' %}"></script>
     <script src="{% static 'webrtc/js/bootstrap.js' %}"></script>
     <link href="{% static 'webrtc/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/bootstrap-responsive.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/serverless-webrtc-bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'webrtc/css/jquery-ui.min.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/tooltipster.bundle.min.css' %}" rel="stylesheet">
     <link href="{% static 'webrtc/css/tooltipster-sideTip-light.min.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/nunitosans.css' %}" rel="stylesheet">
 </head>
 <body>
 <style type="text/css">
+  * {
+      font-family: 'Nunito Sans', sans-serif !important;
+  }
+
   .row  {
     padding: 20px
   }
@@ -28,6 +34,7 @@
   }
   #remoteVideo {
     position: relative;
+    max-height: 47vh;
   }
   #localVideo.loaded {
     cursor: -webkit-grab;
@@ -44,23 +51,155 @@
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg);
   }
+  .word-to-lookup.tooltipstered {
+    cursor: help;
+  }
   .tooltipster-base {
       padding-bottom: 10px !important;
   }
+  .topframe {
+    position: relative;
+  }
+
+  #containment-wrapper.active {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(75% + 50px);
+      height: 99%;
+  }
+  .text-info p.text-success {
+    color: black;
+    background-color: #699E6A;
+    border-radius: 8px;
+    padding: 5px 8px;
+    float: right;
+    clear: both;
+    position: relative;
+  }
+  .text-info p.text-info {
+    color: black;
+    background-color: #5F9DBB;
+    border-radius: 8px;
+    padding: 5px 8px;
+    float: left;
+    clear: both;
+    position: relative;
+  }
+  .word-to-lookup {
+    position: relative;
+    z-index: 100;
+  }/*
+  p.text-success:last-of-type::after {
+    margin-top: 19px;
+    content: '';
+    top: -11px;
+    right: -36px;
+    position: absolute;
+    border: 0px solid;
+    display: block;
+    width: 32px;
+    height: 26px;
+    background-color: transparent;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    box-shadow: 0px -10px 0px 8px #699E6A;
+    transform: rotate(-55deg);
+    z-index: 50;
+  }
+*/
+   p.text-success.last:after {
+    content: '';
+    position: absolute;
+    border: 0px solid;
+    display: block;
+    width: 0;
+    z-index: 0;
+    bottom: -10px;
+    right: -24px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    box-shadow: 10px 5px 0px -3px #699E6A;
+    transform: rotate(20deg) scaleX(-1);
+}
+
+
+/*
+  p.text-info:last-of-type::after {
+    margin-top: 19px;
+    content: '';
+    top: -11px;
+    right: -36px;
+    position: absolute;
+    border: 0px solid;
+    display: block;
+    width: 32px;
+    height: 26px;
+    background-color: transparent;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    box-shadow: 0px -10px 0px 8px #5F9DBB;
+    transform: rotate(-55deg);
+    z-index: 50;
+  }
+*/ 
+  p.text-info.last:after {    
+    content: '';
+    position: absolute;
+    border: 0px solid;
+    display: block;
+    width: 0;
+    z-index: 0;
+    bottom: -10px;
+    left: -24px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    box-shadow: 10px 5px 0px -3px #5F9DBB;
+    transform: rotate(-20deg);
+}
+    
+#chatlog p {
+  margin-bottom: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
-<div class="row">
-  <div style="width: 66.66667%; display: inline-block;" class="col-sm-8">
+<h2 style="text-align: center; max-height: 6vh">Video Chat with A & B</h2>
+<div class="row" style="padding-top: 0px; padding-bottom: 0px; max-height: 47vh; min-width: 768px">
+  <div style="width: 60%; display: inline-block;" class="col-sm-8">
     
-    <Video id="remoteVideo" style="display: none;"></Video>
-    <Video id="localVideo" muted></Video>
+    <div class="topframe">
+      <Video id="remoteVideo" style="display: none;"></Video>
+      <div id="containment-wrapper">
+        <Video id="localVideo" muted class='draggable'></Video>
+      </div>
+    </div>
   </div>
-  <div style="width: 33.33%; display: inline-block;" id="chatCol">
+  <div style="width: 40%; display: inline-block;" id="chatCol">
     <fieldset class="well">
-      <p class="head muted">
-        Serverless WebRTC chat demonstration.
-      </p>
-      <div class="text-info" id="chatlog" style="height:350px; overflow:auto;">
+      <h4 class="head">
+        Chat here with your buddy!
+      </h4>
+      <h5 class="head">
+        Double click any word to see its Chinese definition.
+      </h5>
+      <div class="text-info" id="chatlog" style="height:30vh; overflow:auto;">
       </div>
     </fieldset>
     <form class="form-inline" onSubmit="return sendMessage()" action="">
@@ -73,12 +212,7 @@
 
 <div class="modal" id="showLocalOffer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" hidden>
 <input name="the_pk" type="hidden" value="{{ video_call.pk }}">
-  <div class="modal-header">
-    <h3 id="myModalLabel">Send your local offer to someone else</h3>
-  </div>
   <div class="modal-body">
-    Here's your "offer" -- it tells someone else how to connect to you.  Send the whole thing to them, for example in an instant message or e-mail.
-  <br/>
   <textarea class="input-large" id="localOffer" name="localOffer" rows="10" cols="100"></textarea>
   </div>
   <div class="modal-footer">
@@ -87,12 +221,7 @@
 </div>
 
 <div class="modal" id="showLocalAnswer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" hidden>
-  <div class="modal-header">
-    <h3 id="myModalLabel">Send your local answer to someone else</h3>
-  </div>
   <div class="modal-body">
-    Here's your "answer" -- it tells someone else how to connect to you.  Send the whole thing to them, for example in an instant message or e-mail.
-  <br/>
   <textarea class="input-large" id="localAnswer" name="localAnswer" rows="10" cols="100"></textarea>
   </div>
   <div class="modal-footer">
@@ -101,12 +230,7 @@
 </div>
 
 <div class="modal" id="getRemoteOffer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" hidden>
-  <div class="modal-header">
-    <h3 id="myModalLabel">Paste the "offer" you received</h3>
-  </div>
   <div class="modal-body">
-    The person who created the room will send you an "offer" string -- paste it here.
-  <br/>
   <textarea class="input-large" id="remoteOffer" name="remoteOffer" rows="10" cols="100"></textarea>
   </div>
   <div class="modal-footer">
@@ -115,12 +239,7 @@
 </div>
 
 <div class="modal" id="getRemoteAnswer" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" hidden>
-  <div class="modal-header">
-    <h3 id="myModalLabel">Paste the "answer" you received</h3>
-  </div>
   <div class="modal-body">
-    Now paste in the "answer" that was sent back to you.
-  <br/>
   <textarea class="input-large" id="remoteAnswer" name="remoteAnswer" rows="10" cols="100"></textarea>
   </div>
   <div class="modal-footer">
@@ -136,7 +255,7 @@
     This dialog will disappear when a connection is made.
   </div>
   <div class="spinner" align="center">
-    <img src="img/spinner.gif"></img>
+    <img src="{% static 'webrtc/images/spinner.gif' %}"></img>
   </div>
 </div>
 
@@ -149,11 +268,26 @@
     <button class="btn btn-primary" id="createBtn" data-dismiss="modal" aria-hidden="true">Create</button>
   </div>
 </div>
+<div class="row" style="padding-top: 0px; padding-bottom: 0px; max-height: 47vh">
+  <div style="width: 50%; float: left;">
+    <h3>Slides</h3>
+  </div>
+  <div style="width: 50%; float: left;">
+    <h3>Dictionary</h3>
+  </div>
+</div>
+
+<!-- 
+
+TODO create mini dictionary section!
+
+-->
 
 <div class="hidden word-definitions">
     
 </div>
 
+<script src="{% static 'webrtc/js/jquery-ui.min.js' %}"></script>
 <script src="{% static 'webrtc/js/tooltipster.bundle.min.js' %}"></script>
 <script src="{% static 'webrtc/js/serverless-webrtc.js' %}"></script>
 <script src="{% static 'webrtc/js/file-transfer.js' %}"></script>
