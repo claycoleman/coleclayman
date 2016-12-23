@@ -342,8 +342,6 @@ def check_naics_code(naics_code):
 
 
 def ajax_definition(request):
-    if not request.user.is_authenticated():
-        return HttpResponse('no 1')
 
     query = request.GET.get('q', False)
 
