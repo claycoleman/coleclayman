@@ -9,45 +9,9 @@
 
 
 {% block main %}
-<style>
-    select:before {
 
-    }
-    a.location {
-        font-weight: bold;
-    }
-    select {
-        font-size: 20px;
-        -webkit-appearance: none;
-        appearance: none;
-        -webkit-border-radius: 0px;
-        border-radius: 0px;
-        height: 38px;
-        border: 0;
-        border-bottom: solid 2px #c9c9c9;
-        background: white;
-        -webkit-transition: border 0.2s;
-        transition: border 0.2s;
-        outline: none !important;
-        padding: 10px; 
-    }
-    select:focus {
-        border-bottom: solid 2px #44A599;
-    }
-    input[type="text"] {
-        font-size: 20px;
-        padding: 10px;
-        border: none;
-        border-bottom: solid 2px #c9c9c9;
-        -webkit-transition: border 0.2s;
-        transition: border 0.2s;
-
-        outline: none !important; 
-    }
-    input[type="text"]:focus,
-    input[type="text"].focus {
-        border-bottom: solid 2px #44A599;
-    }
+<style type="text/css">
+    
 </style>
     <div class="ps">
         <p>here's an awesome tool for my fellow lds people.<br>enter a book of scripture and a page number, and you'll get the corresponding chapter.</p>
@@ -62,8 +26,9 @@
                 <!--<option value="nt">new testament</option>-->
                 <option value="pgp">pearl of great price</option>
             </select>
+            <span class="pre"></span>
 
-            <input id="page_number" type="text" name="page_number">
+            <input id="page_number" type="text" name="page_number" placeholder="page number" onkeypress='return (event.charCode == 13) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 118 && event.metaKey) || (event.charCode == 99 && event.metaKey)'>
         </form>
         {% if location %}
             <p>page {{ page }} of the {{ book_long | lower }} is in <a target="_blank" class="location" href='{{ location.web_url }}'>{{ location }}</a>.{% if testament %} that's in the <b>{{ testament }} testament.{% endif %}</b></p>
@@ -83,6 +48,12 @@
 
             h = $('#page_number').outerHeight();
             $('#book_of_scripture').height(h + "px");
+            {% if request.is_phone %}
+             
+
+            w = $('#book_of_scripture').outerWidth() - 20;
+            $('#page_number').width(w + "px");
+            {% endif %} 
         }
         $('b.location').on('click' ,function() {
             window.open($(this).attr('href'));
@@ -97,6 +68,8 @@
                 $('#page_number').val('{{ page }}')
             {% endif %}
         });
+
     </script>
+
 
 {% endblock main %}

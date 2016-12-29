@@ -184,3 +184,60 @@ main p {
 .datetime #datebox {
     font-size: 42px;
 }
+/*::before, ::after {
+        content:'';
+}*/
+a.location {
+    font-weight: bold;
+}
+select#book_of_scripture {
+    font-size: 50px;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    height: 38px;
+    border: 0;
+    border-bottom: solid 2px #c9c9c9;
+    background: white;
+    -webkit-transition: border 0.2s;
+    transition: border 0.2s;
+    outline: none !important;
+    padding: 10px 20px; 
+    padding-right: 75px; 
+    margin-bottom: 10px;
+}
+span.pre::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-left: 0;
+    border-top: 0;
+    border-right: solid 4px #c9c9c9;
+    border-bottom: solid 4px #c9c9c9;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-left: -55px;
+    margin-right: 10px;
+    margin-bottom: 7px;
+}
+select#book_of_scripture:focus {
+    border-bottom: solid 2px #44A599;
+}
+input#page_number {
+    font-size: 50px;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    -webkit-transition: border 0.2s;
+    transition: border 0.2s;
+
+    outline: none !important; 
+    margin-left: 10px;
+    margin-bottom: 25px;
+}
+input#page_number:focus,
+input#page_number.focus {
+    border-bottom: solid 2px #44A599;
+}
