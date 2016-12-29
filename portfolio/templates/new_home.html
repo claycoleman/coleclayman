@@ -99,7 +99,7 @@
             var blurrerSelector = '{% block blurrer %}main .nav-ele{% endblock blurrer %}';
 
             $(blurrerSelector).on('click', function() {
-                if ($(this).attr('target') == "_blank") {
+                if ($(this).find('a').attr('target') == "_blank") {
                     return;
                 }
                 window.location.href = $(this).find('a').attr('href');
