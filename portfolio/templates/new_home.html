@@ -21,6 +21,9 @@
         {% endif %}
 
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+
+        <script type="text/javascript" src="{% static 'new/js/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'new/js/easing.js' %}"></script>
     </head>
 
     <body class="header2" style="display: none;">
@@ -64,8 +67,6 @@
         </div>
     
 
-        <script type="text/javascript" src="{% static 'new/js/jquery.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'new/js/easing.js' %}"></script>
 
         <script type="text/javascript">
             $(window).bind("beforeunload", function(){
@@ -90,6 +91,7 @@
                 if ($(document).height() > $(window).height()) {
                     $('.datetime').addClass('long')
                 }
+                $('main').trigger('isVisible');
             }
 
             $('main').on('hover', fadeInMain);

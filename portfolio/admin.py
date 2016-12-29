@@ -13,3 +13,5 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(VideoCall)
+admin.site.register(ScriptureCache)
+admin.site.register(PageNumber)

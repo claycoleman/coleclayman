@@ -1,4 +1,4 @@
-import requests
+import requests, datetime, pytz
 
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
@@ -11,6 +11,8 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.http import Http404
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
 from .forms import *
@@ -53,7 +55,21 @@ def projects(request):
 def choose_schedule(request):
     context = {}
 
+    now = datetime.datetime(2016, 1, 1, 8, 0, 0)
+    django_now = timezone.localtime(timezone.now())
+
+    china = pytz.timezone('Asia/Shanghai')
+    china_now = china.localize(now)
+
+    user_tz = django_now.tzinfo
+    user_tz_now = user_tz.localize(now)
+
+    hours = (china_now - user_tz_now).seconds / 60 / 60 + 9
+    context['start_hour'] = hours
+    print "%s:00 is the time they should start" % hours
+
     return render_to_response('choose_schedule.html', context, context_instance=RequestContext(request))
+
 
 def new_home(request):
     context = {}
@@ -64,6 +80,7 @@ def new_home(request):
     context['fade_in_time'] = 300
 
     return render_to_response('new_home.html', context, context_instance=RequestContext(request))
+
 
 def bio(request):
     context = {}
@@ -382,3 +399,61 @@ def ajax_definition(request):
         word_dict['words'].append(new_word)
 
     return JsonResponse(word_dict, safe=False)
+
+
+BOOKS = {
+    'bom': 'Book of Mormon',
+    'dc': 'Doctrine and Covenants',
+    'bible': 'Bible',
+    'pgp': 'Pearl of Great Price',
+}
+
+def check_page_number(request):
+    context = {}
+
+    if request.POST:
+        form = ScripturePageSearch(request.POST)
+        if form.is_valid():
+            book_of_scripture = form.cleaned_data.get('book_of_scripture')
+            page_number = form.cleaned_data.get('page_number')
+            try:
+                val = ScriptureCache.objects.get(book_of_scripture=book_of_scripture, pagenumber__page_number=page_number)
+            except ScriptureCache.DoesNotExist as e:
+                val = False
+                context['failure'] = True
+
+            context['location'] = val
+            context['book'] = book_of_scripture or False
+            context['book_long'] = BOOKS.get(book_of_scripture, False)
+            if book_of_scripture == "bible" and val:
+                page_number = int(page_number)
+                context['testament'] = "new" if page_number >= 1187 else "old"
+            context['page'] = page_number or False
+
+    return render(request, 'check_page_number.html', context)
+
+
+@csrf_exempt
+def check_page_number_json(request):
+    if request.POST:
+        form = ScripturePageSearch(request.POST)
+        if form.is_valid():
+            book_of_scripture = form.cleaned_data.get('book_of_scripture')
+            page_number = form.cleaned_data.get('page_number')
+
+            try:
+                val = ScriptureCache.objects.get(book_of_scripture=book_of_scripture, pagenumber__page_number=page_number)
+            except ScriptureCache.DoesNotExist as e:
+                val = False
+
+            if val:
+                return JsonResponse(
+                    {'result': 'success', 'location': str(val)}, 
+                    safe=False )
+            return JsonResponse(
+                {'result': 'failure'}, 
+                safe=False )
+
+    return HttpResponse('bad call.')
+
+

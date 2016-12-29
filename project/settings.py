@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.staticfiles',
     'portfolio',
+    'tz_detect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,6 +47,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'mobileesp.middleware.MobileDetectionMiddleware',
+    'tz_detect.middleware.TimezoneMiddleware',
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -86,6 +88,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# deployment settings
+X_FRAME_OPTIONS = "DENY"
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF  = True
+CSRF_COOKIE_HTTPONLY = True
 
 
 # Static files (CSS, JavaScript, Images)

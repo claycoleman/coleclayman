@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import sqlite3
 
 class Project(models.Model):
     """
@@ -72,6 +73,33 @@ class VideoCall(models.Model):
 
     def __unicode__(self):
         return "Video Call created on  %s." % self.created
+
+
+BOOKS = (
+    ('bom','Book of Mormon'),
+    ('dc','Doctrine and Covenants'),
+    ('bible','Bible (OT or NT)'),
+    ('pgp','Pearl of Great Price'),
+)
+
+# filter like this -> ScriptureCache.objects.get(book_of_scripture='bom', pagenumber__page_number='5') returns 1 Nephi 2
+class ScriptureCache(models.Model):
+    chapter_title = models.CharField(max_length=255, null=True, blank=True)
+    book_of_scripture = models.CharField(max_length=255, default='bom', choices=BOOKS)    
+    web_url = models.TextField(null=True, blank=True)    
+
+
+    def __unicode__(self):
+        return self.chapter_title
+    
+
+class PageNumber(models.Model):
+    scripture = models.ForeignKey('ScriptureCache', null=True, blank=True)
+    page_number = models.CharField(max_length=255, null=True, blank=True)
+
+
+    def __unicode__(self):
+        return "%s has page %s" % (self.scripture, self.page_number)
 
 # English to Chinese, save the info in a dict field (upgrade to django with dict?)
 # class WordDefinition(models.Model):

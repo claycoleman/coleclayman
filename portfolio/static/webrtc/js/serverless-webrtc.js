@@ -279,7 +279,6 @@ pc1.onicecandidate = function (e) {
     })
     .done(function(data) {
       console.log("success");
-      console.log(data);
     })
     .fail(function(data) {
       console.log("error");
@@ -320,18 +319,15 @@ function onsignalingstatechange (state) {
 }
 
 function pc1_oniceconnectionstatechange (state) {
-  if(pc1.iceConnectionState == 'disconnected') {
-  // if(pc1.iceConnectionState == 'disconnected' || pc1.iceConnectionState == 'failed') {
-        $('#localVideo').html(' ');
-    }
-}
+  console.log('pc1 connection change: ' + pc1.iceConnectionState)
+  if (pc1.iceCandidateState == 'closed' || pc1.iceCandidateState == 'failed' || pc1.iceCandidateState == 'disconnected')
+    alert(pc1.iceConnectionState)
+}   
 
 function pc2_oniceconnectionstatechange (state) {
-  console.info('ice connection state change:', state)
-  if(pc2.iceConnectionState == 'disconnected') {
-  // if(pc2.iceConnectionState == 'disconnected' || pc2.iceConnectionState == 'failed') {
-        $('#remoteVideo').html(' ');
-    }
+  console.log('pc2 connection change: ' + pc2.iceConnectionState)
+  if (pc2.iceCandidateState == 'closed' || pc2.iceCandidateState == 'failed' || pc2.iceCandidateState == 'disconnected')
+    alert(pc2.iceConnectionState)
 }
 
 function onicegatheringstatechange (state) {

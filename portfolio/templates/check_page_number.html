@@ -1,0 +1,102 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    lds scripture search
+{% endblock title %}
+{% block body %}
+    <h1 class="title">lds scripture page checker</h1>
+{% endblock body %}
+
+
+{% block main %}
+<style>
+    select:before {
+
+    }
+    a.location {
+        font-weight: bold;
+    }
+    select {
+        font-size: 20px;
+        -webkit-appearance: none;
+        appearance: none;
+        -webkit-border-radius: 0px;
+        border-radius: 0px;
+        height: 38px;
+        border: 0;
+        border-bottom: solid 2px #c9c9c9;
+        background: white;
+        -webkit-transition: border 0.2s;
+        transition: border 0.2s;
+        outline: none !important;
+        padding: 10px; 
+    }
+    select:focus {
+        border-bottom: solid 2px #44A599;
+    }
+    input[type="text"] {
+        font-size: 20px;
+        padding: 10px;
+        border: none;
+        border-bottom: solid 2px #c9c9c9;
+        -webkit-transition: border 0.2s;
+        transition: border 0.2s;
+
+        outline: none !important; 
+    }
+    input[type="text"]:focus,
+    input[type="text"].focus {
+        border-bottom: solid 2px #44A599;
+    }
+</style>
+    <div class="ps">
+        <p>here's an awesome tool for my fellow lds people.<br>enter a book of scripture and a page number, and you'll get the corresponding chapter.</p>
+
+        
+        <form action="." method="POST">
+            {% csrf_token %}
+            <select id="book_of_scripture" name="book_of_scripture" class="selectpicker" title="book of scripture?">
+                <option value="bom">book of mormon</option>
+                <option value="dc">doctrine and covenants</option>
+                <option value="bible">bible (ot or nt)</option>
+                <!--<option value="nt">new testament</option>-->
+                <option value="pgp">pearl of great price</option>
+            </select>
+
+            <input id="page_number" type="text" name="page_number">
+        </form>
+        {% if location %}
+            <p>page {{ page }} of the {{ book_long | lower }} is in <a target="_blank" class="location" href='{{ location.web_url }}'>{{ location }}</a>.{% if testament %} that's in the <b>{{ testament }} testament.{% endif %}</b></p>
+        {% elif failure %}
+            
+            <p>the {{ book_long | lower }} doesn't have a chapter at page {{ page }}.<br>try again.</p>
+       
+       {% else %}
+            <br> 
+        {% endif %}
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=vc" class="back">back to home</a>
+
+    <script type="text/javascript">
+        function setHeight() {
+
+            h = $('#page_number').outerHeight();
+            $('#book_of_scripture').height(h + "px");
+        }
+        $('b.location').on('click' ,function() {
+            window.open($(this).attr('href'));
+        })
+        $(function() {
+            $('main').bind('isVisible', setHeight);
+            console.log('hi')
+            {% if book %}
+                $('#book_of_scripture').val('{{ book }}')
+            {% endif %}
+            {% if page %}
+                $('#page_number').val('{{ page }}')
+            {% endif %}
+        });
+    </script>
+
+{% endblock main %}
