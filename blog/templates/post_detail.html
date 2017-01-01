@@ -1,0 +1,18 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    {{ post.title | lower }}
+{% endblock title %}
+{% block body %}
+    <h1 class="title">{{ post.title | lower }}</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps left">
+        {{ post.get_body_html | safe }}
+    </div>
+    <hr>
+    <a href="{% url 'blog_home' %}" class="back">back to blog</a>
+
+{% endblock main %}

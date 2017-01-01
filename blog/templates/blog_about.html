@@ -1,0 +1,19 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    jerusalem
+{% endblock title %}
+{% block body %}
+    <h1 class="title">about the jerusalem center</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps">
+        <p>in 1960 (TODO fix date), byu purchased a large plot of land on the mount of olives in jerusalem. after constructing a beautiful center, byu has offered its students an opportunity to spend a semester (four months) experiencing the culture and diversity of jerusalem, israel, and other parts of the middle east.</p>
+        <p>i was fortunate enough to be admitted into the jerusalem program (80 students per semester) and so this is the record i'm going to be making of my experiences abroad.</p>
+    </div>
+    <hr>
+    <a href="{% url 'blog_home' %}" class="back">back to blog</a>
+
+{% endblock main %}

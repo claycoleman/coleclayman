@@ -4,9 +4,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from portfolio import views
+from blog import urls as blog_urls
+
 
 urlpatterns = [
     url(r'^nimda/', include(admin.site.urls)),
+    url(r'^jerusalem/', include(blog_urls)),
     url(r'^p/(?P<slug>.+)/$', 'portfolio.views.project_detail', name='project_detail'),
     url(r'^$', 'portfolio.views.new_home', name='new_home'),
     url(r'^me/$', 'portfolio.views.bio', name='bio'),

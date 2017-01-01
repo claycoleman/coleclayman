@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.staticfiles',
     'portfolio',
+    'blog',
     'tz_detect',
 )
 
@@ -97,6 +98,9 @@ X_FRAME_OPTIONS = "DENY"
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF  = True
 CSRF_COOKIE_HTTPONLY = True
+
+
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 # Static files (CSS, JavaScript, Images)

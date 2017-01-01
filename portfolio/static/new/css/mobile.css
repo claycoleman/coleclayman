@@ -66,8 +66,8 @@ div.centered:hover img.me {
 }
 
 div.centered:hover ~ main {
-    -webkit-filter: blur(1px);
-    filter: blur(1px);
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
 }
 
 img.me {
@@ -114,7 +114,7 @@ main .nav-ele a {
     color: #44A599;
     /* margin: 10px 0; */
     line-height: 1;
-    /*filter: blur(1px);*/
+    /*filter: blur(2px);*/
 }
 
 p.project {
@@ -168,7 +168,7 @@ main p {
 
 
     
-.datetime.long {
+.long .datetime {
     position: relative;
     bottom: -30px;
     min-width: 400px;

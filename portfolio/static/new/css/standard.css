@@ -2,6 +2,19 @@
     font-family: 'Titillium Web', sans-serif;
 }
 
+img {
+    max-width: 100%;
+}
+
+.post-image {
+    margin: 20px 0;
+    display: block;
+}
+
+.bold-header {
+    margin: 1.5em 0;
+}
+
 html {
     min-height: 100vh;
 
@@ -23,6 +36,7 @@ body div {
 h1.clay-coleman, h1.title {
     margin: 0px;
     text-align: center;
+    transition: margin-top 0.4s ease-in;
 }
 
 
@@ -57,8 +71,8 @@ div.centered:hover img.me {
 }
 
 div.centered:hover ~ main {
-    -webkit-filter: blur(1px);
-    filter: blur(1px);
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
 }
 
 div.centered:hover::after {
@@ -120,7 +134,7 @@ main .nav-ele a {
     color: #44A599;
     /* margin: 10px 0; */
     line-height: 0.7;
-    /*filter: blur(1px);*/
+    /*filter: blur(2px);*/
 }
 
 p.project {
@@ -145,6 +159,11 @@ main .nav-ele:hover a, p.project:hover a {
 main .ps {
     padding: 5px 20px;
     max-width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+main .ps.left p {
+    text-align: left;
 }
 
 @media (max-width: 767px) {
@@ -194,6 +213,23 @@ main p {
     min-height: 1px;
     display: block;
     left: 0;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.long h1.title {
+    margin-top: 40px;
+}
+
+.long .datetime {
+    position: relative;
+    bottom: -30px;
+    min-width: 400px;
+    width: 100vw;
+    min-height: 1px;
+    display: block;
+    left: 0;
+    margin-bottom: 70px;
     -webkit-transition: opacity 0.4s ease-in-out;
     transition: opacity 0.4s ease-in-out;
 }

@@ -1,0 +1,23 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    jerusalem
+{% endblock title %}
+{% block body %}
+    <h1 class="title">jerusalem</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps">
+        <p><a href='/jerusalem/p/intro/'>some background about the jerusalem center</a></p>
+        <h3>posts</h3>
+        {% for post in posts %}
+            <p><a href="/jerusalem/p/{{ post.slug }}/">{{ post.title | lower }}</a></p>
+        {% endfor %}
+        <!-- TODO CONTACT -->
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=vc" class="back">back to home</a>
+
+{% endblock main %}
