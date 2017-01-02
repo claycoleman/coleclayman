@@ -12,7 +12,7 @@ class UniqueVisitor(models.Model):
     date_visited = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return "visited post %s on %s" (self.post, self.date_visited)
+        return "visited post %s on %s" % (self.post, self.date_visited)
 
 
 class PostManager(models.Manager):
