@@ -4,7 +4,7 @@ from .models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'posted')
+    list_display = ('title', 'posted', 'number_of_hits')
 
     change_form_template = 'admin_post_change.html'
 

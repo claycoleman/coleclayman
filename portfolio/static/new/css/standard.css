@@ -71,6 +71,10 @@ h1.clay-coleman, h1.title {
     /*font-size: 48px;*/
 }
 
+h1.clay-coleman {
+    margin-top: 30px;
+}
+
 
 h1.clay-coleman, div.centered:after{
     color: #0B0C0E;
