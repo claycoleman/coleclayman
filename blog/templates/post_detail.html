@@ -10,7 +10,8 @@
 
 {% block body %}
     <h1 class="title">{{ post.title | lower }}</h1>
-    <h3 style="margin: 0">{{ post.posted|date:'d F Y – h:i A' | lower }}</h3>
+    <h3 style="margin: 0">{{ post.posted|date:'j F Y' | lower }}</h3>
+    <!--<h3 style="margin: 0">{{ post.posted|date:'j F Y – h:i A' | lower }}</h3>-->
 {% endblock body %}
 
 
@@ -23,7 +24,7 @@
         {% with post.get_top_level_comments as comments %}
             {% if comments %}
                 {% for comment in comments %}
-                    <p class="mini-date">{{ comment.date_posted | date:'d M y' | lower }}</p>
+                    <p class="mini-date">{{ comment.date_posted | date:'j M y' }}</p>
                     <p class="comment"><b>{{ comment.author }}:</b>&nbsp;&nbsp;{{ comment.body | lower }}</p>
                 {% endfor %}
             {% else %}
@@ -53,6 +54,12 @@
         $('#comment-form a').removeClass('disabled').addClass('enabled')
     }
     $(function() {
+        $('div.ps.left p b').each(function(index, el) {
+            $(this).parent().css('text-indent', '0px');
+        });
+        $('p.mini-date').each(function(index, el) {
+            $(this).css('text-indent', '0px');
+        });
         $('#comment-form a').on('click', function(event) {
             event.preventDefault();
             if ($(this).hasClass('disabled')) return;

@@ -1,5 +1,45 @@
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Thin.otf) format('opentype');
+    font-weight:100;
+}
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Light.otf) format('opentype');
+    font-weight:400;
+}
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Regular.ttf) format('truetype');
+    font-weight:700;
+}
+
+
 * {
-    font-family: 'Titillium Web', sans-serif;
+    font-family: 'P22', sans-serif;
+    font-weight: 100;
+}
+
+h1, h2, h3, h4, h5, h6, b {
+    font-weight: 400 !important;
+}
+
+
+
+img {
+    max-width: 100%;
+}
+
+.post-image {
+    margin: 20px 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bold-header {
+    margin: 1.5em 0;
+    font-size: 75px;
 }
 
 html {
@@ -9,7 +49,7 @@ html {
 body {
     background-color: rgb(245,245,245);
     text-align: center;
-    color: #0B3C5D;
+    color: #0B0C0E;
 }
 
 body div {
@@ -20,6 +60,9 @@ h1.clay-coleman, h1.title {
     margin: 0px;
     text-align: center;
     font-size: 72px;
+
+    transition: margin 0.4s ease-in;
+    text-transform: uppercase;
 }
 
 h1.title {
@@ -35,7 +78,7 @@ h1.title.project {
 
 
 h1.clay-coleman, div.centered:after{
-    color: #0B3C5D;
+    color: #0B0C0E;
 }
 
 div.centered {
@@ -57,6 +100,7 @@ div.centered:after {
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     margin-top: 25px;
+    margin-bottom: 15px;
     color: #44A599;
     cursor: pointer;
 }
@@ -121,6 +165,19 @@ p.project {
     cursor: pointer;
 }
 
+p.project a {
+    font-size: 48px;
+}
+
+main .ps.left p {
+    text-align: left;
+    text-indent: 80px;
+}
+main .ps.left p.center {
+    text-align: center;
+    font-size: 16px;
+}
+
 main .nav-ele:hover a, p.project:hover a {
     /*color: #206079;*/
     filter: blur(0px) !important;
@@ -140,17 +197,17 @@ main .ps {
 }
 
 hr {
-    color: #6B7C8E !important; 
+    color: #0B0C0E; !important; 
     opacity: 0.75 !important; 
     max-width: 20vw !important; 
     margin-bottom: 35px !important;
 }
 
 main p {
-    font-size: 48px;
-    color: #6B7C8E;
-    margin-top: 10px;
-    margin-bottom: 35px;
+    font-size: 40px;
+    color: #0B0C0E;;
+    margin-top: 20px;
+    margin-bottom: 45px;
     line-height: 1.25;
 }
 
@@ -167,6 +224,11 @@ main p {
 }
 
 
+
+.long h1.title {
+    margin-top: 200px;
+    margin-bottom: 50px;
+}
     
 .long .datetime {
     position: relative;
@@ -225,8 +287,8 @@ span.pre::before {
 select#book_of_scripture:focus {
     border-bottom: solid 2px #44A599;
 }
-input#page_number {
-    font-size: 50px;
+input#page_number, .comment-body {
+    font-size: 21px;
     padding: 10px;
     border: none;
     border-bottom: solid 2px #c9c9c9;
@@ -234,10 +296,56 @@ input#page_number {
     transition: border 0.2s;
 
     outline: none !important; 
-    margin-left: 10px;
-    margin-bottom: 25px;
 }
+
+
+p.small-margin {
+    margin: 10px 0;
+    text-indent: 0px !important;
+}
+
+input.comment-body {
+    min-height: 50px;
+}
+
+textarea.comment-body {
+    min-height: 150px;
+}
+
+.comment-body {
+    font-size: 48px;
+    width: calc(100% - 20px);
+}
+
+#comment-form {
+
+    text-align: center;
+}
+
 input#page_number:focus,
-input#page_number.focus {
+input#page_number.focus,
+.comment-body:focus,
+.comment-body.focus {
     border-bottom: solid 2px #44A599;
+}
+
+
+
+p.mini-date {
+    font-size: 14px;
+    margin: 0;
+}
+p.comment {
+    margin-top: -2px !important;
+    text-align: left;
+}
+
+#comment-form a {
+    font-size: 42px;
+    margin: 10px 0 5px 0;
+    display: block;
+}
+#comment-form a.disabled {
+    color: gray !important; 
+    cursor: not-allowed;
 }

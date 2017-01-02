@@ -1,6 +1,33 @@
-* {
-    font-family: 'Titillium Web', sans-serif;
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Thin.otf) format('opentype');
+    font-weight:100;
 }
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Light.otf) format('opentype');
+    font-weight:400;
+}
+@font-face {
+    font-family: "P22";
+    src: url(P22-Underground-Regular.ttf) format('truetype');
+    font-weight:700;
+}
+
+/** {
+    font-family: 'Titillium Web', sans-serif;
+}*/
+
+
+* {
+    font-family: 'P22', sans-serif;
+    font-weight: 100;
+}
+
+h1, h2, h3, h4, h5, h6, b {
+    font-weight: 400 !important;
+}
+
 
 img {
     max-width: 100%;
@@ -28,7 +55,7 @@ html {
 body {
     background-color: rgb(245,245,245);
     text-align: center;
-    color: #0B3C5D;
+    color: #0B0C0E;
 }
 
 body div {
@@ -39,13 +66,13 @@ h1.clay-coleman, h1.title {
     margin: 0px;
     text-align: center;
     transition: margin-top 0.4s ease-in;
-    /*text-transform: uppercase;
-    font-size: 48px;*/
+    text-transform: uppercase;
+    /*font-size: 48px;*/
 }
 
 
 h1.clay-coleman, div.centered:after{
-    color: #0B3C5D;
+    color: #0B0C0E;
 }
 
 div.centered {
@@ -62,12 +89,12 @@ div.centered:after {
     display: block;
     position: fixed;
     text-align: center;
-    font-size: 20px;
+    font-size: 21px;
     opacity: 0.0;
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
     margin-top: -15px;
-    margin-left: 45px;
+    margin-left: 74px;
 }
 
 div.centered:hover img.me {
@@ -116,7 +143,7 @@ a:hover {
 }
 
 a.reverse {
-    color: #0B3C5D;
+    color: #0B0C0E;
 }
 
 a.reverse:hover {
@@ -147,7 +174,7 @@ p.project {
     padding: 10px 0;
     color: #44A599;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 26px;
 }
 
 p.project a {
@@ -189,15 +216,15 @@ p.small-margin {
 }
 
 hr {
-    color: #6B7C8E !important; 
+    color: #0B0C0E !important; 
     opacity: 0.75 !important; 
     max-width: 20vw !important; 
     margin-bottom: 15px !important;
 }
 
 main p {
-    font-size: 20px;
-    color: #6B7C8E;
+    font-size: 21px;
+    color: #0B0C0E;
 }
 
 .datetime #clockbox {
@@ -257,7 +284,7 @@ a.location {
     font-weight: bold;
 }
 select#book_of_scripture {
-    font-size: 20px;
+    font-size: 21px;
     -webkit-appearance: none;
     appearance: none;
     -webkit-border-radius: 0px;
@@ -291,7 +318,7 @@ select#book_of_scripture:focus {
     border-bottom: solid 2px #44A599;
 }
 input#page_number, .comment-body {
-    font-size: 20px;
+    font-size: 21px;
     padding: 10px;
     border: none;
     border-bottom: solid 2px #c9c9c9;
@@ -326,7 +353,7 @@ p.mini-date {
     margin: 0;
 }
 p.comment {
-    margin-top: -6px !important;
+    margin-top: -2px !important;
     text-align: left;
 }
 

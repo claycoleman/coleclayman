@@ -18,7 +18,7 @@
         <p>as a full-stack web developer and software engineer, i love building quality products that solve legitimate issues.</p>
         <p>here's what i've done (that's worth mentioning) so far:</p>
         {% for proj in projects %}
-            <p class="project"><a href="/p/{{ proj.slug }}/">{{ proj.name | lower }}</a></p>
+            <p class="project"><a href="/p/{{ proj.slug }}/">{{ proj.name | upper }}</a></p>
         {% endfor %}
         <p>if you like what you see, reach out to me about working together.</p>
         <!-- TODO CONTACT -->
