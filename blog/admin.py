@@ -15,7 +15,11 @@ class PostImageAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('post', 'author')
+
+class VisitorAdmin(admin.ModelAdmin):
+    list_display = ('post', 'session_id', 'number_of_hits', 'date_visited')
         
 admin.site.register(Post, PostAdmin)
 admin.site.register(PostImage, PostImageAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(UniqueVisitor, VisitorAdmin)
