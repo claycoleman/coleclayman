@@ -20,7 +20,7 @@
         {{ post.get_body_html | safe }}
         <hr>
 
-        <h3>comments</h3>
+        <h3 class="comment-h3">comments</h3>
         {% with post.get_top_level_comments as comments %}
             {% if comments %}
                 {% for comment in comments %}
@@ -33,7 +33,7 @@
         {% endwith %}
         <br>
         <hr>
-        <h3 style="margin-bottom: 0">add a comment</h3>
+        <h3 class="comment-h3" style="margin-bottom: 0">add a comment</h3>
         <form id="comment-form" method="POST">
             {% csrf_token %}
             <p class="center small-margin">your name (or anonymous)</p>
