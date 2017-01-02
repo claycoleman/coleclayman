@@ -28,7 +28,7 @@
                     <p class="comment"><b>{{ comment.author }}:</b>&nbsp;&nbsp;{{ comment.body | lower }}</p>
                 {% endfor %}
             {% else %}
-                <p>no comments yet.</p>
+                <p class="no-indent">no comments yet.</p>
             {% endif %}
         {% endwith %}
         <br>

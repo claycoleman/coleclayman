@@ -227,7 +227,6 @@ main p {
 
 .long h1.title {
     margin-top: 200px;
-    margin-bottom: 50px;
 }
     
 .long .datetime {
@@ -301,6 +300,9 @@ input#page_number, .comment-body {
 
 p.small-margin {
     margin: 10px 0;
+    text-indent: 0px !important;
+}
+p.no-indent {
     text-indent: 0px !important;
 }
 
