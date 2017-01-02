@@ -102,6 +102,8 @@ CSRF_COOKIE_HTTPONLY = True
 
 SESSION_SAVE_EVERY_REQUEST = True
 
+GOOGLE_CAPTCHA_CLIENT = '6LdaSRAUAAAAAJ443QC8yjrPl2spRSHBkNmWK_RR'
+GOOGLE_CAPTCHA_SECRET = '6LdaSRAUAAAAABzQTmeGCcd4vIwLcV6-wdaaaQVp'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

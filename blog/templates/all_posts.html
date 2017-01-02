@@ -1,0 +1,25 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    all posts
+{% endblock title %}
+{% block body %}
+    <h1 class="title">all posts</h1>
+{% endblock body %}
+
+
+{% block main %}
+    <div class="ps">
+        <h3>posts</h3>
+        {% for month, month_posts in posts.items %}
+            <p><b>{{ month }}</b></p>
+            {% for post in month_posts %}
+                <p><a href="/jerusalem/p/{{ post.0.slug }}/">{{ post.0.title | lower }}</a></p>
+            {% endfor %}
+        {% endfor %}
+        <!-- TODO CONTACT -->
+    </div>
+    <hr>
+    <a href="{% url 'blog_home' %}" class="back">back to blog</a>
+
+{% endblock main %}

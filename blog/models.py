@@ -4,8 +4,6 @@ import re
 from django.db import models
 from django.utils.text import slugify
 
-
-
 class UniqueVisitor(models.Model):
     session_id = models.CharField(null=True, blank=True, max_length=255)
     post = models.ForeignKey('Post', null=True, blank=True)
@@ -18,11 +16,12 @@ class UniqueVisitor(models.Model):
 
 
 class PostManager(models.Manager):
-    def published_visible_posts(self):
-        return self.get_queryset().filter(
+    def published_visible_posts(self, include_intro=False):
+        extra = self.get_queryset().filter(slug='intro') if include_intro else self.get_queryset().filter(pk=0)
+        return (self.get_queryset().filter(
             published=True,
             posted__lte=datetime.datetime.today()
-        ).order_by('-posted')
+        ) | extra ).order_by('-posted') 
 
 
 class Post(models.Model):
@@ -50,6 +49,15 @@ class Post(models.Model):
             self.save()
 
         return self.title
+
+
+    def get_all_post_images(self):
+        # just a way to get the post images in the admin
+        return PostImage.objects.order_by('-pk')
+
+
+    def get_top_level_comments(self):
+        return self.comment_set.filter(parent_comment=None)
 
     def update_statistics(self, session_id):
         self.number_of_hits += 1
@@ -140,14 +148,13 @@ class PostImage(models.Model):
 
     def __unicode__(self):
         return self.title
-        
 
 
 class Comment(models.Model):
     body = models.TextField("comment body", null=True, blank=True)
     author = models.CharField(max_length=255, null=True, blank=True)
     post = models.ForeignKey('Post', null=True, blank=True)
-    parent_comment = models.ForeignKey('Comment', null=True, blank=True)
+    parent_comment = models.ForeignKey('Comment', null=True, blank=True, related_name='children')
     date_posted = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:

@@ -3,16 +3,85 @@
 {% block title %}
     {{ post.title | lower }}
 {% endblock title %}
+
+{% block header %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock header %}
+
 {% block body %}
     <h1 class="title">{{ post.title | lower }}</h1>
+    <h3 style="margin: 0">{{ post.posted|date:'d F Y – h:i A' | lower }}</h3>
 {% endblock body %}
 
 
 {% block main %}
     <div class="ps left">
         {{ post.get_body_html | safe }}
+        <hr>
+
+        <h3>comments</h3>
+        {% with post.get_top_level_comments as comments %}
+            {% if comments %}
+                {% for comment in comments %}
+                    <p class="mini-date">{{ comment.date_posted | date:'d M y' | lower }}</p>
+                    <p class="comment"><b>{{ comment.author }}:</b>&nbsp;&nbsp;{{ comment.body | lower }}</p>
+                {% endfor %}
+            {% else %}
+                <p>no comments yet.</p>
+            {% endif %}
+        {% endwith %}
+        <br>
+        <hr>
+        <h3 style="margin-bottom: 0">add a comment</h3>
+        <form id="comment-form" method="POST">
+            {% csrf_token %}
+            <p class="center small-margin">your name (or anonymous)</p>
+            <input type="text" name="author" class="comment-body">
+            <p class="center small-margin">your comment</p>
+            <textarea name="body" class="comment-body"></textarea>
+            <div style="display: inline-block;" class="g-recaptcha" data-sitekey="{{ GOOGLE_CAPTCHA_CLIENT }}" data-callback="enableFormSubmission"></div>
+            <br/>
+            <a class="disabled" href="#submit">submit</a>
+            <input style="display: none;" type="submit" value="Submit">
+        </form>
     </div>
     <hr>
     <a href="{% url 'blog_home' %}" class="back">back to blog</a>
+    
+    <script type="text/javascript">
+    function enableFormSubmission() {
+        $('#comment-form a').removeClass('disabled').addClass('enabled')
+    }
+    $(function() {
+        $('#comment-form a').on('click', function(event) {
+            event.preventDefault();
+            if ($(this).hasClass('disabled')) return;
+            $('#comment-form').submit();
+        });
 
+        $('#comment-form').on('submit', function(event) {
+            
+            if ($(this).find('a').hasClass('disabled')) {
+                event.preventDefault();
+            }
+            var shouldReturn = false;
+            if ($(this).find('textarea.comment-body').val() == "") {
+                $(this).find('textarea.comment-body').css('border-bottom', '2px solid rgb(210, 87, 98)');
+                shouldReturn = true;
+            } else {
+                $(this).find('textarea.comment-body').css('border-bottom', '');
+            }
+            if ($(this).find('input.comment-body').val() == "") {
+                $(this).find('input.comment-body').css('border-bottom', '2px solid rgb(210, 87, 98)');
+                shouldReturn = true;
+            } else {
+                $(this).find('input.comment-body').css('border-bottom', '');
+            }
+            if (shouldReturn) {
+                event.preventDefault();
+                alertify.alert("your comment wasn't posted. please fill each part of the comment form and try again.")
+            }
+        });
+    });
+    </script>
 {% endblock main %}

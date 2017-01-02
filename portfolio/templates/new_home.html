@@ -24,6 +24,9 @@
 
         <script type="text/javascript" src="{% static 'new/js/jquery.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'new/js/easing.js' %}"></script>
+        {% block header %}
+            
+        {% endblock header %}
     </head>
 
     <body class="header2" style="display: none;">
@@ -52,9 +55,9 @@
                 <div class="nav-ele">
                     <a href="/vc/">venture capital</a>
                 </div>
-                <!--<div class="nav-ele">
+                <div class="nav-ele">
                     <a href="/jerusalem/">jerusalem</a>
-                </div>-->
+                </div>
                 <div class="nav-ele">
                     <a target="_blank" href="https://www.twitter.com/coleclayman/">twitter</a>
                 </div>
@@ -63,7 +66,7 @@
                 </div>
             {% endblock main %}
         </main>
-
+        <div class="alertify-logs"></div>
         <div class="datetime" {% if not hide %}style="opacity: 0.0;"{% endif %}>
             {% if not request.is_phone %}<span id="clockbox"></span>{% endif %}
             <span id="datebox"></span>
@@ -95,6 +98,11 @@
                     $('body').addClass('long')
                 }
                 $('main').trigger('isVisible');
+                
+                {% if go_to_comments %}
+                    $(document).scrollTop($('p.mini-date:first').offset().top - 80)
+                    window.history.pushState(null,null,'/jerusalem/p/{{ post.slug }}/')
+                {% endif %}
             }
 
             $('main').on('hover', fadeInMain);
@@ -158,4 +166,6 @@
 
         </script>
     </body>
+    <script type="text/javascript" src="{% static 'js/alertify.js' %}"></script>
+
 </html>

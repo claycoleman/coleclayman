@@ -6,6 +6,8 @@ from .models import *
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'posted')
 
+    change_form_template = 'admin_post_change.html'
+
 
 class PostImageAdmin(admin.ModelAdmin):
     list_display = ('title',)

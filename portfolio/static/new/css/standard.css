@@ -9,6 +9,8 @@ img {
 .post-image {
     margin: 20px 0;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bold-header {
@@ -24,7 +26,7 @@ html {
 }
 
 body {
-    background-color: #EFEFEF;
+    background-color: rgb(245,245,245);
     text-align: center;
     color: #0B3C5D;
 }
@@ -37,6 +39,8 @@ h1.clay-coleman, h1.title {
     margin: 0px;
     text-align: center;
     transition: margin-top 0.4s ease-in;
+    /*text-transform: uppercase;
+    font-size: 48px;*/
 }
 
 
@@ -165,11 +169,23 @@ main .ps {
 main .ps.left p {
     text-align: left;
 }
+main .ps.left p.center {
+    text-align: center;
+    font-size: 16px;
+}
+
+textarea.comment-body {
+    margin-bottom: 10px;
+}
 
 @media (max-width: 767px) {
     main .ps {
         max-width: none;
     }
+}
+
+p.small-margin {
+    margin: 10px 0;
 }
 
 hr {
@@ -218,7 +234,7 @@ main p {
 }
 
 .long h1.title {
-    margin-top: 40px;
+    margin-top: 70px;
 }
 
 .long .datetime {
@@ -274,7 +290,7 @@ span.pre::before {
 select#book_of_scripture:focus {
     border-bottom: solid 2px #44A599;
 }
-input#page_number {
+input#page_number, .comment-body {
     font-size: 20px;
     padding: 10px;
     border: none;
@@ -284,7 +300,42 @@ input#page_number {
 
     outline: none !important; 
 }
+
+.comment-body {
+    font-size: 16px;
+    width: 100%;
+}
+
+#comment-form {
+    padding: 5px 20px;
+    max-width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 input#page_number:focus,
-input#page_number.focus {
+input#page_number.focus,
+.comment-body:focus,
+.comment-body.focus {
     border-bottom: solid 2px #44A599;
+}
+
+p.mini-date {
+    font-size: 14px;
+    margin: 0;
+}
+p.comment {
+    margin-top: -6px !important;
+    text-align: left;
+}
+
+#comment-form a {
+    font-size: 24px;
+    margin: 10px 0 5px 0;
+    display: block;
+}
+#comment-form a.disabled {
+    color: gray !important; 
+    cursor: not-allowed;
 }
