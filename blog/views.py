@@ -76,8 +76,8 @@ def post_detail(request, slug):
             post = Post.objects.published_visible_posts().get(slug=slug)
     except Post.DoesNotExist, e:
         return HttpResponseRedirect('/jerusalem/?serr=1')
-
-    # post.update_statistics(request.session._get_or_create_session_key())
+    # if not request.user.is_superuser():
+    #     post.update_statistics(request.session._get_or_create_session_key())
     if request.POST:
         print "in post"
         form = CommentForm(request.POST)
