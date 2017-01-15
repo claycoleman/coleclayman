@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^projects/$', 'portfolio.views.projects', name='projects'),
     url(r'^choose_schedule/$', 'portfolio.views.choose_schedule', name='choose_schedule'),
     url(r'^ugf/$', 'portfolio.views.ugf', name='ugf'),
+    url(r'^lds/scripture-links/$', 'portfolio.views.open_scriptures', name='open_scriptures'),
     url(r'^lds/page-checker/$', 'portfolio.views.check_page_number', name='check_page_number'),
     url(r'^lds/page-checker/json/$', 'portfolio.views.check_page_number_json', name='check_page_number_json'),
     url(r'^video/(?P<pk>\d+)/$', 'portfolio.views.video_call', name='video_call'),

@@ -14,6 +14,9 @@ class CRAForm(forms.Form):
     naics = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': "NAICS", 'title': "Please enter the company's NAICS code.", 'class': 'form-control'}))
 
 
+class ScriptureOpener(forms.Form):
+    open_scriptures = forms.CharField(required=True, widget=forms.TextInput())
+
 class ScripturePageSearch(forms.Form):
     book_of_scripture = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Street address",  'title': "Please enter the company's street address", 'class': 'form-control'}))
     page_number = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "City", 'title': "Please enter the company's city", 'class': 'form-control'}))

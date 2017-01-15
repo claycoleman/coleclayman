@@ -1,3 +1,4 @@
+import urllib
 import requests, datetime, pytz
 
 from django.shortcuts import render, render_to_response, redirect
@@ -407,6 +408,38 @@ BOOKS = {
     'bible': 'Bible',
     'pgp': 'Pearl of Great Price',
 }
+
+def open_scriptures(request):
+    context = {}
+
+    if request.POST:
+        form = ScriptureOpener(request.POST)
+
+        if form.is_valid():
+            search_term = form.cleaned_data.get('open_scriptures')
+            while '  ' in search_term:
+                search_term = search_term.replace('  ', ' ', 1)
+            
+            terms = search_term.lower().split(';')
+            links = []
+
+            for term in terms:
+                if not term.strip():
+                    continue
+                    
+                term = term.replace('doctrine & covenants', 'D&C')
+                term = term.replace('doctrine and covenants', 'D&C')
+                the_term = urllib.quote_plus(term.strip())
+
+                search_url = "https://www.lds.org/scriptures/search?lang=eng&query=%s" % the_term
+
+                r = requests.get(search_url)
+                links.append(r.url)
+
+            context['links'] = links
+            context['search_term'] = search_term
+
+    return render(request, 'open_scriptures.html', context)
 
 def check_page_number(request):
     context = {}

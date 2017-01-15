@@ -1,0 +1,92 @@
+{% extends "new_home.html" %}
+{% load staticfiles %}
+{% block title %}
+    lds scripture opener
+{% endblock title %}
+{% block body %}
+    <h1 class="title">lds scripture opener</h1>
+{% endblock body %}
+
+
+{% block main %}
+
+<style type="text/css">
+    form {
+        text-align: center;
+    }
+    input.submit {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 520px;
+        padding: 7px 20px;
+        outline: none !important;
+        border: none;
+        background: white;
+        font-size: 21px;
+        border-bottom: solid 2px #c9c9c9;
+        transition: border-bottom .5s;
+        cursor: pointer;
+    }
+    input.submit:hover {
+        border-bottom: solid 2px #44A599;
+    }
+    textarea#page_number {
+        min-width: 500px;
+    }
+    .success-opener {
+        cursor: pointer;
+    }
+
+</style>
+    <div class="ps">
+        <p>here's an awesome tool for my fellow lds people.</p>
+        <p>enter a list of scriptures separated by semi-colons, and it'll open all the references for you! (providing you enter valid references)</p>
+
+        {% if links %}
+            <p style="font-weight: bold;">success! <a class="success-opener">click here to open your scriptures.</a></p>
+            <p>or, edit your original query below.</p>
+        {% endif %}
+        
+        <form action="." method="POST">
+            {% csrf_token %}
+            <textarea id="page_number" name="open_scriptures" placeholder="scripture reference"></textarea>
+            <input class="submit" type="submit" value="go for it">
+        </form>
+        {% if failure %}
+            
+            <p>the {{ book_long | lower }} doesn't have a chapter at page {{ page }}.<br>try again.</p>
+       
+       {% else %}
+            <br> 
+        {% endif %}
+    </div>
+    <hr>
+    <a href="{% url 'new_home' %}?wc=vc" class="back">back to home</a>
+
+    <script type="text/javascript">
+        $('b.location').on('click' ,function() {
+            window.open($(this).attr('href'));
+        })
+        $(function() {
+            {% if links %}
+                $('.success-opener').on('click', function(event) {
+                    event.preventDefault();
+                    console.log('going now')
+                    {% for link in links %}
+                        window.open("{{ link }}", "_blank");
+                    {% endfor %}
+                    // window.location = "/lds/scripture-links/";
+                });
+
+            {% endif %}
+            {% if search_term %}
+                $('#page_number').val('{{ search_term }}')
+            {% endif %}
+            
+        });
+
+    </script>
+
+
+{% endblock main %}

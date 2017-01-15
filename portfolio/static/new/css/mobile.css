@@ -289,7 +289,7 @@ span.pre::before {
 select#book_of_scripture:focus {
     border-bottom: solid 2px #44A599;
 }
-input#page_number, .comment-body {
+#page_number, .comment-body {
     font-size: 21px;
     padding: 10px;
     border: none;
@@ -331,8 +331,8 @@ textarea.comment-body {
     text-align: center;
 }
 
-input#page_number:focus,
-input#page_number.focus,
+#page_number:focus,
+#page_number.focus,
 .comment-body:focus,
 .comment-body.focus {
     border-bottom: solid 2px #44A599;
