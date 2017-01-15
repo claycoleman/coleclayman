@@ -70,10 +70,11 @@ def post_detail(request, slug):
         context['go_to_comments'] = True
 
     try:
-        if slug == "intro":
-            post = Post.objects.get(slug=slug)
-        else:
-            post = Post.objects.published_visible_posts().get(slug=slug)
+        # if slug == "intro":
+        #     post = Post.objects.get(slug=slug)
+        # else:
+        #     post = Post.objects.published_visible_posts().get(slug=slug)
+        post = Post.objects.get(slug=slug)
     except Post.DoesNotExist, e:
         return HttpResponseRedirect('/jerusalem/?serr=1')
     # if not request.user.is_superuser():
