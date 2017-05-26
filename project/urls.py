@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^video/ajax/$', 'portfolio.views.video_call_ajax', name='video_call_ajax'),
     url(r'^ajax/definition/$', 'portfolio.views.ajax_definition', name='ajax_definition'),
     url(r'^tz_detect/', include('tz_detect.urls')),
+    url(r'^google/$', 'blog.views.get_first_google_result', name='get_first_google_result'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # handler500 = "portfolio.views.handler500"

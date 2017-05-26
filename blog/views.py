@@ -1,19 +1,56 @@
 import shutil
 import gzip
 import os
+import re
 
 from zipfile import ZipFile
 import itertools
 import requests
+from bs4 import BeautifulSoup
+import urllib2
 
 from django.shortcuts import render
 from django.core.files import File
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.conf import settings
 
 from .models import *
 from .forms import *
 
+
+def get_first_google_result(request):
+    # https://www.google.com/search%3F%23q%3DTaylor%2520Swift%2520Fifteen%2520lyrics%2520site:genius.com%2520%26btnI%3DI%26nfpr%3D1
+    data = {}
+    url = request.GET.get('url')
+    url = urllib2.quote(url)
+    print url
+    headers = {'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_2_1 like Mac OS X) AppleWebKit/602.4.6 (KHTML, like Gecko) Version/10.0 Mobile/14D27 Safari/602.1'}
+    resp = requests.get("https://www.google.com/search?q=%s&nfpr=1" % url, headers)
+    print resp.url
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    a = soup.find('cite').find_next('a')
+    return_url = a.attrs.get('href',False)
+    if not return_url:
+        return_url = a.attrs.get('data-amp', False)
+    parts = return_url.partition('https://')
+    final_url = (parts[1] + parts[2]).partition("%252B")
+
+    data['return_url'] = final_url[0]
+    resp = requests.get(final_url[0], headers)
+    soup = BeautifulSoup(resp.text, "html.parser")
+    text = soup.find('div', 'lyrics').text
+    regex = r"(\[(\w+|\w+ \w+|\w+ \w+ \w+)\])"
+    matches = re.finditer(regex, text)
+    for matchNum, match in enumerate(matches):
+        text = text.replace(match.group(), '')
+        # print ("Match {matchNum} was found at {start}-{end}: {match}".format(matchNum = matchNum, start = match.start(), end = match.end(), match = match.group()))
+
+    while '\n\n' in text:
+        text = text.replace('\n\n','\n')
+    data['text'] = text.strip()
+
+    return JsonResponse(data, safe=False)
 
 def blog_home(request):
     context = {}
