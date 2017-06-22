@@ -69,7 +69,7 @@ class Post(models.Model):
 
 
     def get_body_html(self):
-        html = self.body.lower()
+        html = self.body
 
         delimeter = '\r\n\r\n'
         open_header_delim = '[[ '

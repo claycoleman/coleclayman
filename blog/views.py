@@ -18,6 +18,14 @@ from .models import *
 from .forms import *
 
 
+
+def spotify_code(request):
+    url = "http://coleclayman.us%s" % request.get_full_path()
+    print url
+    context = {'url': url }
+    return render(request, 'spotify_code.html', context)
+
+
 def get_first_google_result(request):
     # https://www.google.com/search%3F%23q%3DTaylor%2520Swift%2520Fifteen%2520lyrics%2520site:genius.com%2520%26btnI%3DI%26nfpr%3D1
     data = {}
@@ -113,7 +121,7 @@ def post_detail(request, slug):
         #     post = Post.objects.published_visible_posts().get(slug=slug)
         post = Post.objects.get(slug=slug)
     except Post.DoesNotExist, e:
-        return HttpResponseRedirect('/jerusalem/?serr=1')
+        return HttpResponseRedirect('/travel/?serr=1')
     # if not request.user.is_superuser():
     #     post.update_statistics(request.session._get_or_create_session_key())
     if request.POST:
@@ -147,7 +155,7 @@ def post_detail(request, slug):
                     parent_comment=None
                 )
 
-                return HttpResponseRedirect('/jerusalem/p/%s/?cmts=dc' % post.slug)
+                return HttpResponseRedirect('/travel/p/%s/?cmts=dc' % post.slug)
             # 
         else:
             print form.errors

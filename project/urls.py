@@ -9,7 +9,7 @@ from blog import urls as blog_urls
 
 urlpatterns = [
     url(r'^nimda/', include(admin.site.urls)),
-    url(r'^jerusalem/', include(blog_urls)),
+    url(r'^travel/', include(blog_urls)),
     url(r'^p/(?P<slug>.+)/$', 'portfolio.views.project_detail', name='project_detail'),
     url(r'^$', 'portfolio.views.new_home', name='new_home'),
     url(r'^me/$', 'portfolio.views.bio', name='bio'),
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^ajax/definition/$', 'portfolio.views.ajax_definition', name='ajax_definition'),
     url(r'^tz_detect/', include('tz_detect.urls')),
     url(r'^google/$', 'blog.views.get_first_google_result', name='get_first_google_result'),
+    url(r'^spotify/$', 'blog.views.spotify_code', name='spotify_code'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # handler500 = "portfolio.views.handler500"

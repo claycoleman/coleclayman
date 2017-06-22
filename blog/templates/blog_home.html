@@ -1,20 +1,20 @@
 {% extends "new_home.html" %}
 {% load staticfiles %}
 {% block title %}
-    jerusalem
+    travel
 {% endblock title %}
 {% block body %}
-    <h1 class="title">jerusalem</h1>
-    <h3 style="margin-top: 10px; font-weight: 100 !important;">my experiences while living at the byu jerusalem center</h3>
+    <h1 class="title">travel</h1>
+    <h3 style="margin-top: 10px; font-weight: 100 !important;">my experiences while exploring our awesome world, including 4 months at the byu jerusalem center</h3>
 {% endblock body %}
 
 
 {% block main %}
     <div class="ps">
-        <!--<p><a href='/jerusalem/p/intro/'>some background about the jerusalem center</a></p>-->
+        <!--<p><a href='/travel/p/intro/'>some background about the travel center</a></p>-->
         <h2 style="margin-bottom: 0; font-weight: 100 !important">posts</h2>
         {% for post in posts %}
-            <p><a href="/jerusalem/p/{{ post.slug }}/">{{ post.title | lower }}</a></p>
+            <p><a href="/travel/p/{{ post.slug }}/">{{ post.title | lower }}</a></p>
         {% endfor %}
         <br>
         <br>

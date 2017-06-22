@@ -14,7 +14,7 @@
         {% for month, month_posts in posts.items %}
             <p><b>{{ month }}</b></p>
             {% for post in month_posts %}
-                <p><a href="/jerusalem/p/{{ post.0.slug }}/">{{ post.0.title | lower }}</a></p>
+                <p><a href="/travel/p/{{ post.0.slug }}/">{{ post.0.title | lower }}</a></p>
             {% endfor %}
         {% endfor %}
         <!-- TODO CONTACT -->
