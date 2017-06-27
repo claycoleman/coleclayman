@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^tz_detect/', include('tz_detect.urls')),
     url(r'^google/$', 'blog.views.get_first_google_result', name='get_first_google_result'),
     url(r'^spotify/$', 'blog.views.spotify_code', name='spotify_code'),
+    url(r'^aaron/all/$', 'portfolio.views.get_all_undownloaded_items', name='get_all_undownloaded_items'),
+    url(r'^aaron/create/$', 'portfolio.views.create_new_budget_item', name='create_new_budget_item'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # handler500 = "portfolio.views.handler500"

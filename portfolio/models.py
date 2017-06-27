@@ -106,3 +106,18 @@ class PageNumber(models.Model):
 #     english_word  = models.CharField(null=True, blank=True, max_length=255, db_index=True)
 #     chinese_defs_dict  = models.CharField(null=True, blank=True, max_length=255)
         
+
+
+#  Aaron budget models
+
+class BudgetItem(models.Model):
+    downloaded = models.BooleanField(default=False)
+    value = models.FloatField(default=0.0)
+    category = models.CharField(null=True, blank=True, max_length=255)
+    title = models.CharField(null=True, blank=True, max_length=255)
+    
+    def jsonify(self):
+        return {'value': self.value, 'category':self.category, 'title': self.title}
+
+    class Meta:
+        pass

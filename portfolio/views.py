@@ -1,5 +1,7 @@
 import urllib
+import hashlib
 import requests, datetime, pytz
+import json
 
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
@@ -488,5 +490,82 @@ def check_page_number_json(request):
                 safe=False )
 
     return HttpResponse('bad call.')
+
+
+@csrf_exempt
+def create_new_budget_item(request):
+    # import pdb; pdb.set_trace()
+    if not request.POST:
+        try:
+            request_post = json.loads(request.body)
+        except Exception, e:
+            print e
+            return JsonResponse({'result': 'failure'}, safe=False )
+
+        if not request_post:
+            print "no post"
+            return JsonResponse({'result': 'failure'}, safe=False )
+
+    form = BudgetItemCreateForm(request.POST or request_post)
+    if form.is_valid():
+        secret_code = form.cleaned_data.get('secret_code')
+        month = form.cleaned_data.get('month')
+
+        # verifying correct user
+        if secret_code != hashlib.sha256(month).hexdigest():
+            print "bad secret code"
+            return JsonResponse({'result': 'failure'}, safe=False )
+
+        title = form.cleaned_data.get('title')
+        category = form.cleaned_data.get('category')
+        value = form.cleaned_data.get('value')
+
+        new_item = BudgetItem.objects.create(title=title, category=category, value=value)
+        return JsonResponse({'result': 'success'}, safe=True)
+
+    else:
+        print "bad post"
+        return JsonResponse(
+                {'result': 'failure'}, 
+                safe=False )
+
+
+@csrf_exempt
+def get_all_undownloaded_items(request):
+    if not request.POST:
+        print "no post"
+        return JsonResponse({'result': 'failure'}, safe=False )
+
+    form = BudgetItemVerifyForm(request.POST)
+
+    if form.is_valid():
+        secret_code = form.cleaned_data.get('secret_code')
+        month = form.cleaned_data.get('month')
+
+        # verifying correct user
+        if secret_code != hashlib.sha256(month).hexdigest():
+            print "bad secret code"
+            return JsonResponse({'result': 'failure'}, safe=False )
+
+        items = BudgetItem.objects.filter(downloaded=False)
+        
+        item_list = []
+        for item in items:
+            item_list.append( item.jsonify() )
+
+        return_json = {
+            'result': "success",
+            'items': item_list
+        }
+        items.update(downloaded=True)
+
+        return JsonResponse(return_json, safe=False )
+
+    else:
+        print "bad post"
+        return JsonResponse(
+                {'result': 'failure'}, 
+                safe=False )
+
 
 

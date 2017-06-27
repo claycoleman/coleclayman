@@ -7,3 +7,4 @@ class CommentForm(forms.Form):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField(required=True)
+
