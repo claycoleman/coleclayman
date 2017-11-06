@@ -12,7 +12,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
 from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.http import Http404
 from django.utils import timezone
@@ -569,10 +568,19 @@ def get_all_undownloaded_items(request):
                 safe=False )
 
 
-
-
+@csrf_exempt
 def trigger_ronald_rump(request):
-    subprocess.Popen(["/sites/virtualenvs/coleclayman/bin/python", "/scripts/trumpify.py"])
-    return JsonResponse({'result': 'success'}, safe=False) 
+    if not request.method == "POST":
+        return JsonResponse({'result': 'failure'}, safe=False) 
+    
+    form = ScriptureOpener({"open_scriptures": request.body})
+    if not form.is_valid():
+        return JsonResponse({'result': 'failure'}, safe=False) 
+
+    if form.cleaned_data.get("open_scriptures") == "this is definitely the secret code no one will hack this":
+        subprocess.Popen(["/sites/virtualenvs/coleclayman/bin/python", "/scripts/trumpify.py"])
+        return JsonResponse({'result': 'success'}, safe=False)
+    
+    return JsonResponse({'result': 'failure'}, safe=False) 
 
 

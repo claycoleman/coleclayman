@@ -34,3 +34,4 @@ class BudgetItemVerifyForm(forms.Form):
     month = forms.CharField(required=True)
     secret_code = forms.CharField(required=True)
 
+
