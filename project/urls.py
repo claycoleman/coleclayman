@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^google/$', 'blog.views.get_first_google_result', name='get_first_google_result'),
     url(r'^spotify/$', 'blog.views.spotify_code', name='spotify_code'),
     url(r'^aaron/all/$', 'portfolio.views.get_all_undownloaded_items', name='get_all_undownloaded_items'),
-    url(r'^aaron/create/$', 'portfolio.views.create_new_budget_item', name='create_new_budget_item'),
+    url(r'^realRonaldRump/$', 'portfolio.views.trigger_ronald_rump', name='trigger_ronald_rump')
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # handler500 = "portfolio.views.handler500"

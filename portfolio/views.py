@@ -2,6 +2,7 @@ import urllib
 import hashlib
 import requests, datetime, pytz
 import json
+import subprocess
 
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
@@ -567,5 +568,11 @@ def get_all_undownloaded_items(request):
                 {'result': 'failure'}, 
                 safe=False )
 
+
+
+
+def trigger_ronald_rump(request):
+    subprocess.Popen(["/sites/virtualenvs/coleclayman/bin/python", "/scripts/trumpify.py"])
+    return JsonResponse({'result': 'success'}, safe=False) 
 
 
