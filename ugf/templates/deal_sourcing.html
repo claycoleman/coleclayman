@@ -1,0 +1,19 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block document_title %}Deal Sourcing{% endblock document_title %}
+{% block page_title %}Deal Sourcing{% endblock page_title %}
+
+{% block main %}
+<h5>This is UGF's portal for entering companies and identifying which ones are interesting enough to justify reaching out to. Use the <b>Potential Investment Opportunities</b> tool below to view companies ranked by probable round date, and the <b>New Company Entry</b> tool to add new companies we want to add to our database.</h5>
+
+<h4><a href="{% url 'company_entry' %}">New Company Entry</a></h4>
+<h4><a href="{% url 'company_table' %}">Potential Investment Opportunities</a></h4>
+<br>
+{% endblock main %}
+    
+
+
+

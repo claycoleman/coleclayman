@@ -5,18 +5,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from portfolio import views
 from blog import urls as blog_urls
-
+from ugf import urls as ugf_urls
 
 urlpatterns = [
     url(r'^nimda/', include(admin.site.urls)),
     url(r'^travel/', include(blog_urls)),
+    url(r'^ugf/', include(ugf_urls)),
     url(r'^p/(?P<slug>.+)/$', 'portfolio.views.project_detail', name='project_detail'),
     url(r'^$', 'portfolio.views.new_home', name='new_home'),
     url(r'^me/$', 'portfolio.views.bio', name='bio'),
     url(r'^vc/$', 'portfolio.views.vc', name='vc'),
     url(r'^projects/$', 'portfolio.views.projects', name='projects'),
     url(r'^choose_schedule/$', 'portfolio.views.choose_schedule', name='choose_schedule'),
-    url(r'^ugf/$', 'portfolio.views.ugf', name='ugf'),
     url(r'^lds/scripture-links/$', 'portfolio.views.open_scriptures', name='open_scriptures'),
     url(r'^lds/page-checker/$', 'portfolio.views.check_page_number', name='check_page_number'),
     url(r'^lds/page-checker/json/$', 'portfolio.views.check_page_number_json', name='check_page_number_json'),

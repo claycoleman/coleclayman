@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'portfolio',
     'blog',
     'tz_detect',
+    'ugf',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,6 +100,7 @@ USE_TZ = True
 # SECURE_CONTENT_TYPE_NOSNIFF  = True
 # CSRF_COOKIE_HTTPONLY = True
 
+SIGN_UP_SECRET_CODE = "peter and tom are my heroes"
 
 SESSION_SAVE_EVERY_REQUEST = True
 
@@ -117,3 +119,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'main/fixtures'),
 )
+
+NUMBER_OF_MONTHS = 6

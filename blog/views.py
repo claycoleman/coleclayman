@@ -122,7 +122,7 @@ def post_detail(request, slug):
         post = Post.objects.get(slug=slug)
     except Post.DoesNotExist, e:
         return HttpResponseRedirect('/travel/?serr=1')
-    # if not request.user.is_superuser():
+    # if not request.user.is_superuser:
     #     post.update_statistics(request.session._get_or_create_session_key())
     if request.POST:
         print "in post"

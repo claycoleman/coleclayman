@@ -1,0 +1,89 @@
+{% load staticfiles %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">    
+    <link type="text/css" rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    
+    <style type="text/css">
+        * {
+            font-family: 'Source Sans Pro', sans-serif !important;
+        }
+        input {
+            font-size: 22px !important;
+        }
+        .header {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .green {
+            color: forestgreen;
+        }
+        div.green * {
+            color: forestgreen;
+        }
+    
+        .red {
+            color: firebrick;
+        }
+        div.red * {
+            color: firebrick;
+        }
+        .gray {
+            color: darkslategray;
+        }
+        div.gray * {
+            color: darkslategray;
+        }
+        
+        .bold {
+            font-weight: 700;
+        }
+    </style>
+
+    {% block custom_head %}
+    
+    {% endblock custom_head %}
+
+    <title>{% block document_title %} UGF CRA Address Checker{% endblock document_title %}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                
+                <h2 class="header">{% block page_title %} UGF CRA Address Checker{% endblock page_title %}</h2>
+                
+                
+                {% block main %}
+                    
+                {% endblock main %}
+                    
+
+                {% block back %}
+                <a href="{% url 'ugf_home' %}">Back to UGF Portal</a>            
+                {% endblock back %}
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+    {% block final_scripts %}
+        
+    {% endblock final_scripts %}
+    
+
+</body>
+</html>

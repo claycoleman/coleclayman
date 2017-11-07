@@ -1,0 +1,24 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block document_title %}Company Detail{% endblock document_title %}
+{% block page_title %}Company Detail{% endblock page_title %}
+    
+{% block main %}
+<h5>This is UGF's portal for entering companies and identifying which ones are interesting enough to justify reaching out to. Use the <b>Company Table</b> tools below to view companies ranked by probable round date, and the <b>Company Entry</b> tool to add new companies we want to add to our database.</h5>
+<h4>&nbsp;</h4>
+<h4><a href="{% url 'company_table' %}">Company Table</a></h4>
+<h4><a href="{% url 'company_entry' %}">Company Entry</a></h4>
+{% endblock main %}
+    
+
+{% block back %}
+<a href="{% url 'deal_sourcing' %}">Back to Deal Sourcing</a>
+{% endblock back %}
+
+
+{% block final_scripts %}
+
+{% endblock final_scripts %}
