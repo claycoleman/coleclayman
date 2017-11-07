@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^ugf/', include(ugf_urls)),
     url(r'^p/(?P<slug>.+)/$', 'portfolio.views.project_detail', name='project_detail'),
     url(r'^$', 'portfolio.views.new_home', name='new_home'),
+    url(r'^jacobClarke/$', 'portfolio.views.jacob', name='jacob'),
     url(r'^me/$', 'portfolio.views.bio', name='bio'),
     url(r'^vc/$', 'portfolio.views.vc', name='vc'),
     url(r'^projects/$', 'portfolio.views.projects', name='projects'),

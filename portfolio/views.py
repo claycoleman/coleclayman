@@ -584,3 +584,22 @@ def trigger_ronald_rump(request):
     return JsonResponse({'result': 'failure'}, safe=False) 
 
 
+def jacob(request):
+    if request.method != "POST":
+        return Http404()
+
+    form = ScriptureOpener({"open_scriptures": request.body})
+    if not form.is_valid():
+        return JsonResponse({'result': 'failure'}, safe=False) 
+    
+
+    if form.cleaned_data.get("open_scriptures") == "this is definitely the secret code no one will hack this":
+        headers = {
+            "Authorization": "Basic Njg2ZjVhNWIxYmRiNGQ5ODBmM2Q3MTI0Nzc5N2Q5YWY6YXBpX3Rva2Vu"
+        }
+        url = "https://toggl.com/reports/api/v2/weekly?user_agent=jacobclarke718@gmail.com&workspace_id=1682814"
+        resp = requests.get(url, headers=headers)
+        return JsonResponse(resp.json(), safe=False)
+    
+    return JsonResponse({'result': 'failure'}, safe=False) 
+    
