@@ -21,7 +21,15 @@
         input {
             font-size: 22px !important;
         }
+        .header-img {
+            display: inline-block;
+            max-height: 100px;
+            margin-right: 25px;
+            margin-top: 12px;
+            float: right;
+        }
         .header {
+            display: inline-block;
             margin-top: 40px;
             margin-bottom: 20px;
         }
@@ -61,7 +69,7 @@
         <div class="row">
             <div class="col-xs-12">
                 
-                <h2 class="header">{% block page_title %} UGF CRA Address Checker{% endblock page_title %}</h2>
+                <img class="header-img" src="{% static 'img/UGF-1-914x1024.jpg' %}" alt="UGF Logo"><h2 class="header">{% block page_title %} UGF CRA Address Checker{% endblock page_title %}</h2>
                 
                 
                 {% block main %}
