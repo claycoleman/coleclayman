@@ -1,0 +1,187 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize currency_tag %}
+
+{% block document_title %}Potential Investment Opportunities{% endblock document_title %}
+{% block page_title %}Potential Investment Opportunities{% endblock page_title %}
+    
+
+{% block custom_head %}
+<link rel="stylesheet" href="{% static 'footable/css/footable.bootstrap.min.css' %}">
+<script src="{% static 'footable/js/footable.min.js' %}"></script>
+{% endblock custom_head %}
+    
+
+{% block main %}
+<style>
+    thead td {
+        font-size: 14px;
+        font-weight: 700;
+    }
+    td {
+        border: 1px solid lightgray;
+        padding: 5px 10px;
+    }
+    table {
+        width: 100%;
+    }
+    table.good tbody tr:nth-child(2n-1) {
+        background: rgba(130, 150, 58, 0.3)
+    }
+    table.better tbody tr:nth-child(2n-1) {
+        background: rgba(28, 102, 163, 0.3)
+    }
+    table.best tbody tr:nth-child(2n-1) {
+        background: rgba(6, 128, 79, 0.308)
+    }
+    table.other tbody tr:nth-child(2n-1) {
+        background: rgba(200, 0, 0, 0.3)
+    }
+</style>
+<h4><b>12-18 Months Since Last Funding</b></h4>
+<table class="best" data-sorting="true">
+    <thead>
+        <tr>
+            <td data-type="text">Company Name</td>
+            <td data-type="text">Current Series</td>
+            <td data-sort-value="getDateSortValue" data-sorted="true" data-direction="DESC">Last Funding Date</td>
+            <td data-sort-value="getCurrencySortValue">Last Funding Amount</td>
+            <td data-sort-value="getCurrencySortValue">Total Funding Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in group_a %}
+        <tr>
+            <td>{{ company.name }}</td>
+            <td>{{ company.current_series }}</td>
+            <td>{{ company.last_funding_date | date:"F j, Y"}}</td>
+            <td>{{ company.last_funding_amount | currency:"en_US" }}</td>
+            <td>{{ company.total_funding | currency:"en_US" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<hr>
+<h4><b>18-30 Months Since Last Funding</b></h4>
+<table class="better" data-sorting="true">
+    <thead>
+        <tr>
+            <td data-type="text">Company Name</td>
+            <td data-type="text">Current Series</td>
+            <td data-sort-value="getDateSortValue" data-sorted="true" data-direction="DESC">Last Funding Date</td>
+            <td data-sort-value="getCurrencySortValue">Last Funding Amount</td>
+            <td data-sort-value="getCurrencySortValue">Total Funding Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in group_b %}
+        <tr>
+            <td>{{ company.name }}</td>
+            <td>{{ company.current_series }}</td>
+            <td>{{ company.last_funding_date | date:"F j, Y" }}</td>
+            <td>{{ company.last_funding_amount | currency:"en_US"  }}</td>
+            <td>{{ company.total_funding | currency:"en_US"  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<hr>
+<h4><b>6-12 Months Since Last Funding</b></h4>
+<table class="good" data-sorting="true">
+    <thead>
+        <tr>
+            <td data-type="text">Company Name</td>
+            <td data-type="text">Current Series</td>
+            <td data-sort-value="getDateSortValue" data-sorted="true" data-direction="DESC">Last Funding Date</td>
+            <td data-sort-value="getCurrencySortValue">Last Funding Amount</td>
+            <td data-sort-value="getCurrencySortValue">Total Funding Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in group_c %}
+        <tr>
+            <td>{{ company.name }}</td>
+            <td>{{ company.current_series }}</td>
+            <td>{{ company.last_funding_date | date:"F j, Y" }}</td>
+            <td>{{ company.last_funding_amount | currency:"en_US"  }}</td>
+            <td>{{ company.total_funding | currency:"en_US"  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<hr>
+<h4><b>Other Companies</b></h4>
+<table class="other" data-sorting="true">
+    <thead>
+        <tr>
+            <td data-type="text">Company Name</td>
+            <td data-type="text">Current Series</td>
+            <td data-sort-value="getDateSortValue" data-sorted="true" data-direction="DESC">Last Funding Date</td>
+            <td data-sort-value="getCurrencySortValue">Last Funding Amount</td>
+            <td data-sort-value="getCurrencySortValue">Total Funding Amount</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for company in remainder %}
+        <tr>
+            <td>{{ company.name }}</td>
+            <td>{{ company.current_series }}</td>
+            <td>{{ company.last_funding_date | date:"F j, Y" }}</td>
+            <td>{{ company.last_funding_amount | currency:"en_US"  }}</td>
+            <td>{{ company.total_funding | currency:"en_US"  }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+    
+{% endblock main %}
+    
+{% block back %}
+<a href="{% url 'deal_sourcing' %}">Back to Deal Sourcing</a>
+{% endblock back %}
+
+
+{% block final_scripts %}
+<script>
+    function getDateSortValue(valueOrElement) {
+        if (FooTable.is.defined(valueOrElement) && valueOrElement != null) 
+        {
+            var theDate = moment($(valueOrElement).text(), "MMMM D, YYYY");
+            // console.log(theDate);
+            return theDate;
+        }
+        return null;
+    }
+    function getCurrencySortValue(valueOrElement) {
+        if (FooTable.is.defined(valueOrElement) && valueOrElement != null) 
+        {
+            var value = $(valueOrElement).text()
+            value = value.replace("$", "");
+            value = value.replace(",", "");
+            if (value.indexOf("B") >= 0) 
+            {
+                value = Number(value.replace("B", "")) * 1000000000;
+            }
+            else if (value.indexOf("M") >= 0) 
+            {
+                value = Number(value.replace("M", "")) * 1000000;
+            }
+            else {
+                value = Number(value);
+            }
+            // console.log(value);
+            return value;
+        }
+        return 0;
+    }
+
+    $(function() {
+        $('table').footable();
+    })
+</script>
+{% endblock final_scripts %}

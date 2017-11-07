@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'portfolio',
     'blog',
     'tz_detect',
+    'ugf',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,7 +100,6 @@ USE_TZ = True
 # SECURE_CONTENT_TYPE_NOSNIFF  = True
 # CSRF_COOKIE_HTTPONLY = True
 
-
 SESSION_SAVE_EVERY_REQUEST = True
 
 GOOGLE_CAPTCHA_CLIENT = '6LdaSRAUAAAAAJ443QC8yjrPl2spRSHBkNmWK_RR'
@@ -117,3 +117,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'main/fixtures'),
 )
+
+NUMBER_OF_MONTHS = 6

@@ -1,0 +1,21 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block document_title %}UGF Portal{% endblock document_title %}
+{% block page_title %}UGF Portal{% endblock page_title %}
+    
+{% block main %}
+    <h4>Tools:</h4>
+    <h4><a href="{% url 'deal_sourcing' %}">Deal Sourcing</a></h4>
+    <h4><a href="{% url 'cra_checker' %}">CRA Qualification Check</a></h4>
+    <hr>
+    <h4><a href="{% url 'logout_view' %}">Logout</a></h4>
+{% endblock main %}
+    
+
+{% block back %}
+    <!-- nothing -->
+{% endblock back %}
+    

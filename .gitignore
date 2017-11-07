@@ -1,5 +1,7 @@
 *.pyc
 portfolio/migrations/
+ugf/migrations/
+blog/migrations/
 media/
 .DS_Store
 local.py

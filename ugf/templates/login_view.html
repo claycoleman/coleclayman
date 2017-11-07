@@ -1,0 +1,51 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+
+{% block document_title %}UGF Log In{% endblock document_title %}
+{% block page_title %}UGF Log In{% endblock page_title %}
+    
+
+{% block main %}
+<style>
+    input, h4 {
+        margin-bottom: 20px;
+    }
+</style>
+<h4>Log in!</h4>
+
+<form method="POST" action="." class="company_names">
+    {% csrf_token %}
+    <h5 class="bold">Email</h5>
+    {{ form.email }}
+    <h5 class="bold">Password</h5>
+    {{ form.password }}
+    {{ form.next_url }}
+    
+    {% if valid %}
+        <div class="red">
+            
+            {% if valid %}
+                <p class="red">{{valid | safe}}</p>
+            {% endif %}
+                
+        </div>
+    {% endif %}
+        
+    <input type="submit" value="Sign Up" class="form-control" style="margin-top: 10px; padding-bottom: 37px;">
+</form>
+<p>Don't have an account? <a href="{% url 'signup_view' %}">Sign up here.</a></p>
+
+{% endblock main %}
+   
+{% block back %}
+<br>
+<a href="{% url 'deal_sourcing' %}">Back to Deal Sourcing</a>
+{% endblock back %}
+
+
+{% block final_scripts %}
+
+{% endblock final_scripts %}
