@@ -2,6 +2,7 @@ import re, sys, os
 import requests
 import datetime
 import subprocess
+import json
 
 from django.conf import settings
 from django.shortcuts import render, redirect, HttpResponseRedirect
@@ -245,10 +246,18 @@ def hubspot(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
 
-    form = HubspotCompanyCreation(request.POST)
+    post_dict = {}
+    try:
+        post_dict = json.loads(request.body)[0]
+    except Exception, e:
+        print e
+        return HttpResponseBadRequest()
+
+    form = HubspotCompanyCreation(post_dict)
     if not form.is_valid():
+        print "not form.is_valid"
+        print form.errors
         return JsonResponse({'result': 'failure', 'errno': 1}, safe=False) 
-        
 
     new_hb_id = form.cleaned_data.get("objectId")
     app_id = form.cleaned_data.get("appId")
@@ -258,6 +267,7 @@ def hubspot(request):
 
     if subscription_type == "company.creation":
         if app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID:
+            print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
             return JsonResponse({'result': 'failure', 'errno': 2}, safe=False) 
 
         print "new objectID", new_hb_id
@@ -272,18 +282,20 @@ def hubspot(request):
         
         if not props:
             # we didn't get a valid company back which is weird because we JUST got a company from them
+            print "not props"
             return JsonResponse({'result': 'failure', 'errno': 3}, safe=False) 
         
         # save it, then make mattermark request
-        new_company.name = get_hubspot_value_for_property(props, 'name')
+        new_company.name = get_hubspot_value_for_property(props, 'name').replace(", Inc.", "")
         new_company.domain = get_hubspot_value_for_property(props, 'domain')
         new_company.save()
 
         # live version
-        subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+        subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
         # local version
         # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
         
         return JsonResponse({'result': 'success'}, safe=False)
 
+    print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
     return JsonResponse({'result': 'failure', 'errno': 4}, safe=False) 

@@ -25,13 +25,14 @@ class UserLogin(forms.Form):
 
 
 class HubspotCompanyCreation(forms.Form):
-    eventId = forms.IntegerField(required=True)
-    subscriptionId = forms.IntegerField(required=True)
-    portalId = forms.IntegerField(required=True)
-    occurredAt = forms.IntegerField(required=True)
-    attemptNumber = forms.IntegerField(required=True)
     objectId = forms.IntegerField(required=True)
-    appId = forms.IntegerField(required=True)
     subscriptionType = forms.CharField(required=True)
-    changeSource = forms.CharField(required=True)
-    changeFlag = forms.CharField(required=True)
+    appId = forms.IntegerField(required=True)
+    portalId = forms.IntegerField(required=True)
+
+    occurredAt = forms.IntegerField(required=True)
+    eventId = forms.IntegerField(required=True)
+    subscriptionId = forms.IntegerField(required=False)
+    attemptNumber = forms.IntegerField(required=True)
+    changeSource = forms.CharField(required=False)
+    changeFlag = forms.CharField(required=False)
