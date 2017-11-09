@@ -241,7 +241,7 @@ def get_hubspot_value_for_property(props, property_name):
     return props.get(property_name, {}).get('value', None)
 
 @csrf_exempt
-def company_creation(request):
+def hubspot(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
 
@@ -253,33 +253,37 @@ def company_creation(request):
     new_hb_id = form.cleaned_data.get("objectId")
     app_id = form.cleaned_data.get("appId")
     portal_id = form.cleaned_data.get("portalId")
-
-    if app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID:
-        return JsonResponse({'result': 'failure', 'errno': 2}, safe=False) 
-
-
-    print "new objectID", new_hb_id
-    # create new Company with hubspotid
-    new_company, created = Company.objects.get_or_create(hubspot_id=new_hb_id)
     
-    # make a request to the HubSpot db to get Company info
-    resp = requests.get("https://api.hubapi.com/companies/v2/companies/%d?hapikey=%s&userId=%s" % (new_hb_id, settings.HUBSPOT_HAPI_KEY, settings.HUBSPOT_USER_ID) )
-    print resp
-    resp = resp.json()
-    props = resp.get("properties", False)
-    
-    if not props:
-        # we didn't get a valid company back which is weird because we JUST got a company from them
-        pass
-    
-    # save it, then make mattermark request
-    new_company.name = get_hubspot_value_for_property(props, 'name')
-    new_company.domain = get_hubspot_value_for_property(props, 'domain')
-    new_company.save()
+    subscription_type = form.cleaned_data.get("subscriptionType")
 
-    # live version
-    subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
-    # local version
-    # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
-    
-    return JsonResponse({'result': 'success'}, safe=False)
+    if subscription_type == "company.creation":
+        if app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID:
+            return JsonResponse({'result': 'failure', 'errno': 2}, safe=False) 
+
+        print "new objectID", new_hb_id
+        # create new Company with hubspotid
+        new_company, created = Company.objects.get_or_create(hubspot_id=new_hb_id)
+        
+        # make a request to the HubSpot db to get Company info
+        resp = requests.get("https://api.hubapi.com/companies/v2/companies/%d?hapikey=%s&userId=%s" % (new_hb_id, settings.HUBSPOT_HAPI_KEY, settings.HUBSPOT_USER_ID) )
+        print resp
+        resp = resp.json()
+        props = resp.get("properties", False)
+        
+        if not props:
+            # we didn't get a valid company back which is weird because we JUST got a company from them
+            return JsonResponse({'result': 'failure', 'errno': 3}, safe=False) 
+        
+        # save it, then make mattermark request
+        new_company.name = get_hubspot_value_for_property(props, 'name')
+        new_company.domain = get_hubspot_value_for_property(props, 'domain')
+        new_company.save()
+
+        # live version
+        subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+        # local version
+        # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+        
+        return JsonResponse({'result': 'success'}, safe=False)
+
+    return JsonResponse({'result': 'failure', 'errno': 4}, safe=False) 
