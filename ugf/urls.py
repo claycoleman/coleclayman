@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^sign-up/$', 'ugf.views.signup_view', name='signup_view'),  
 
     # hubspot URLS
-    url(r'^hubspot/companyCreation/$', 'ugf.views.company_creation', name='company_creation'),  
+    url(r'^hubspot/$', 'ugf.views.hubspot', name='hubspot'),  
 ]
