@@ -259,7 +259,6 @@ def company_creation(request):
 
 
     print "new objectID", new_hb_id
-    new_hb_id = 599230677
     # create new Company with hubspotid
     new_company, created = Company.objects.get_or_create(hubspot_id=new_hb_id)
     
