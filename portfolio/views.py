@@ -6,14 +6,13 @@ import subprocess
 
 from django.shortcuts import render, render_to_response, redirect
 from django.template import RequestContext
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate
-from django.http import Http404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 

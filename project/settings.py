@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from .local import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 ALLOWED_HOSTS = ['www.coleclayman.us', 'coleclayman.us', '127.0.0.1']
-
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Application definition
 
@@ -119,3 +118,7 @@ FIXTURE_DIRS = (
 )
 
 NUMBER_OF_MONTHS = 6
+
+MATTERMARK_FAIL = "{{NO-MATTERMARK-ID}}"
+
+from .local import *

@@ -21,12 +21,23 @@ ROUND_TYPES = (
 
 class Company(models.Model):
     """Model definition for Company."""
+    hubspot_id = models.IntegerField(null=True, blank=True, unique=True)
 
     name = models.CharField(max_length=255)
+    domain = models.CharField(null=True, blank=True, max_length=255)
     retrieved_name = models.CharField(null=True, blank=True, max_length=255)
 
+    zip_code = models.CharField(null=True, blank=True, max_length=255)
+    state = models.CharField(null=True, blank=True, max_length=255)
+    city = models.CharField(null=True, blank=True, max_length=255)
+    country = models.CharField(null=True, blank=True, max_length=255)
+
+    employee_count = models.IntegerField(null=True, blank=True)
     source = models.ForeignKey("Source", null=True, blank=True)
 
+    # make a request to Mattermark to initially get this data
+    mattermark_id = models.CharField(null=True, blank=True, max_length=50)
+    
     # standardize how things are passed in: Series A -> a, Series b -> b, Exited (ipo) -> ipo, etc
     current_series = models.CharField(null=True, blank=True, max_length=255)
     last_funding_date = models.DateTimeField(null=True, blank=True)
@@ -37,6 +48,7 @@ class Company(models.Model):
 
     valid_candidate = models.BooleanField(default=True)
     data_retrieved = models.BooleanField(default=False)
+    data_can_retrieved = models.BooleanField(default=True)
     date_data_retrieved = models.DateTimeField(null=True, blank=True)
 
     # should we get mattermark / growth score? Could be interesting way to measure these
@@ -70,3 +82,25 @@ class Source(models.Model):
     def __unicode__(self):
         """Unicode representation of Source."""
         return self.name
+
+
+class FundingRound(models.Model):
+    company = models.ForeignKey("Company")
+    series = models.CharField(max_length=255)
+    funding_date = models.DateTimeField(null=True, blank=True)
+    amount = models.BigIntegerField(null=True, blank=True)
+
+    def __unicode__(self):
+        """Unicode representation of Source."""
+        return "Series %s for %s" % (self.series, self.company)
+
+
+class Investor(models.Model):
+    name = models.CharField(max_length=255)
+    companies = models.ManyToManyField("Company")
+    funding_rounds = models.ManyToManyField("FundingRound")
+
+    def __unicode__(self):
+        """Unicode representation of Source."""
+        return self.name
+

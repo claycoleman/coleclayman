@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^logout/$', 'ugf.views.logout_view', name='logout_view'),  
     url(r'^sign-up/$', 'ugf.views.signup_view', name='signup_view'),  
 
+    # hubspot URLS
+    url(r'^hubspot/companyCreation/$', 'ugf.views.company_creation', name='company_creation'),  
 ]

@@ -22,3 +22,16 @@ class UserLogin(forms.Form):
     email = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Email (username)", 'class': 'form-control'}))
     password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'placeholder': "Password", 'class': 'form-control'}))
     next_url = forms.CharField(required=False, widget=forms.TextInput(attrs={'type': "hidden", 'class': 'hidden'}))
+
+
+class HubspotCompanyCreation(forms.Form):
+    eventId = forms.IntegerField(required=True)
+    subscriptionId = forms.IntegerField(required=True)
+    portalId = forms.IntegerField(required=True)
+    occurredAt = forms.IntegerField(required=True)
+    attemptNumber = forms.IntegerField(required=True)
+    objectId = forms.IntegerField(required=True)
+    appId = forms.IntegerField(required=True)
+    subscriptionType = forms.CharField(required=True)
+    changeSource = forms.CharField(required=True)
+    changeFlag = forms.CharField(required=True)
