@@ -278,8 +278,8 @@ def company_creation(request):
     new_company.save()
 
     # live version
-    # subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+    subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
     # local version
-    subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+    # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
     
     return JsonResponse({'result': 'success'}, safe=False)
