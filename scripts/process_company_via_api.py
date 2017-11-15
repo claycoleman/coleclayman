@@ -26,8 +26,6 @@ from ugf.models import *
 from django.conf import settings
 
 
-    
-
 if not sys.argv[1]:
     print "usage: ./process_company_via_api.py <ugf-company-id>"
     sys.exit()

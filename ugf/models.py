@@ -60,6 +60,9 @@ class Company(models.Model):
     data_can_retrieved = models.BooleanField(default=True)
     date_data_retrieved = models.DateTimeField(null=True, blank=True)
 
+    next_interaction_date = models.DateField(null=True, blank=True)
+    should_alert_next_interaction = models.BooleanField(default=False)
+
     # should we get mattermark / growth score? Could be interesting way to measure these
 
     class Meta:
@@ -92,6 +95,7 @@ class Company(models.Model):
         self.save()
 
         return True
+
 
     def grab_mattermark_data(self):
         search_url = "https://api.mattermark.com/companies/%s?key=%s" % (self.mattermark_id, settings.MATTERMARK_API_KEY)
@@ -219,7 +223,8 @@ class Company(models.Model):
                 # timestamp in milliseconds
                 'value': long(time.mktime(date_for_next_interaction.date().timetuple())) * 1000,
             })
-            self.set_date_for_next_interaction = True
+            self.should_alert_next_interaction = True
+            self.next_interaction_date = date_for_next_interaction.date()
 
         headers = {
             "Content-Type": "application/json"
