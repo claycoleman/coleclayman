@@ -2,6 +2,7 @@ import re, sys, os
 import requests
 import datetime
 import subprocess
+import json
 
 from django.conf import settings
 from django.shortcuts import render, redirect, HttpResponseRedirect
@@ -237,15 +238,26 @@ def logout_view(request):
     return redirect('login_view')
 
 
+def get_hubspot_value_for_property(props, property_name):
+    return props.get(property_name, {}).get('value', None)
+
 @csrf_exempt
 def hubspot(request):
     if not request.method == "POST":
         return HttpResponseBadRequest()
 
-    form = HubspotCompanyCreation(request.POST)
+    post_dict = {}
+    try:
+        post_dict = json.loads(request.body)[0]
+    except Exception, e:
+        print e
+        return HttpResponseBadRequest()
+
+    form = HubspotCompanyCreation(post_dict)
     if not form.is_valid():
+        print "not form.is_valid"
+        print form.errors
         return JsonResponse({'result': 'failure', 'errno': 1}, safe=False) 
-        
 
     new_hb_id = form.cleaned_data.get("objectId")
     app_id = form.cleaned_data.get("appId")
@@ -255,6 +267,7 @@ def hubspot(request):
 
     if subscription_type == "company.creation":
         if app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID:
+            print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
             return JsonResponse({'result': 'failure', 'errno': 2}, safe=False) 
 
         print "new objectID", new_hb_id
@@ -262,14 +275,15 @@ def hubspot(request):
         new_company, created = Company.objects.get_or_create(hubspot_id=new_hb_id)
         
         if not new_company.grab_hubspot_data():
-            # weird failure; should never reach this if a valid new_hb_id was sent
+            # we should never hit this error
             return JsonResponse({'result': 'failure', 'errno': 3}, safe=False) 
-        else:
-            # live version
-            subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", "../scripts/process_company_via_api.py", "%s" % new_company.id]) )
-            # local version
-            # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
-            
-            return JsonResponse({'result': 'success'}, safe=False)
 
+        # live version
+        subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+        # local version
+        # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
+        
+        return JsonResponse({'result': 'success'}, safe=False)
+
+    print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
     return JsonResponse({'result': 'failure', 'errno': 4}, safe=False) 
