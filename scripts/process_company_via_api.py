@@ -34,18 +34,21 @@ ugf_company_id = sys.argv[1]
 
 company = Company.objects.get(id=ugf_company_id)
 print company
+print company.mattermark_id
 
 if not company.mattermark_id:
-    search_url = "https://api.mattermark.com/search?key=%s&term=%s&object_types=company" % (settings.MATTERMARK_API_KEY, company.name)
+    print "no mattermark_id, attempting to get one"
+    search_url = "https://api.mattermark.com/search?key=%s&term=%s&object_types=company" % (settings.MATTERMARK_API_KEY, company.domain)
     resp = requests.get(search_url)
     # perform search for company
     for company_response in resp.json():
-        if company_response.get("object_name") == company.name:
+        if company_response.get("company_domain") == company.domain:
             company.mattermark_id = company_response.get("object_id")
             company.data_can_retrieved = True
             break
 
     if not company.mattermark_id:
+        print "couldn't find mattermark_id"
         company.mattermark_id = settings.MATTERMARK_FAIL
         company.data_can_retrieved = False
     

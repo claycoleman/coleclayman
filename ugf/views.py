@@ -257,6 +257,7 @@ def hubspot(request):
     if not form.is_valid():
         print "not form.is_valid"
         print form.errors
+        print "errno: 1"
         return JsonResponse({'result': 'failure', 'errno': 1}, safe=False) 
 
     new_hb_id = form.cleaned_data.get("objectId")
@@ -268,17 +269,21 @@ def hubspot(request):
     if subscription_type == "company.creation":
         if app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID:
             print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
+            print "errno: 2"
             return JsonResponse({'result': 'failure', 'errno': 2}, safe=False) 
 
         print "new objectID", new_hb_id
         # create new Company with hubspotid
         new_company, created = Company.objects.get_or_create(hubspot_id=new_hb_id)
-        
+    
         if not new_company.grab_hubspot_data():
             # we should never hit this error
+            print "hit that weird error"
+            print "errno: 3"
             return JsonResponse({'result': 'failure', 'errno': 3}, safe=False) 
 
         # live version
+        print "about to Popen"
         subprocess.Popen( (["/sites/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
         # local version
         # subprocess.Popen( (["/Users/claycoleman/Dev/virtualenvs/coleclayman/bin/python", settings.PROJECT_ROOT + "/../scripts/process_company_via_api.py", "%s" % new_company.id]) )
