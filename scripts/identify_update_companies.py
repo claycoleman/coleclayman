@@ -174,6 +174,6 @@ send_mail(
     "New Company Assignments for Students",  # subject
     partner_message, 
     "Clay Coleman <noreply@ugrowthfund.com>", # from
-    ["coleclayman@gmail.com", "ccoleman@ugrowthfund.com"], # to
+    ["peter@ugrowthfund.com", "tom@ugrowthfund.com"], # to
     fail_silently=False
 )
