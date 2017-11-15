@@ -135,12 +135,14 @@ class Company(models.Model):
         self.data_retrieved = True
         self.date_data_retrieved = datetime.datetime.now()
 
+        print "pre getting funding"
         for index, funding_round in enumerate(resp.get("funding")):
             series = funding_round.get("series", "")
             amount = int( funding_round.get("amount") ) if funding_round.get("amount") else None
             funding_date = funding_round.get("funding_date", "")
             
-            if not series or amount or funding_date:
+            if not series or not amount or not funding_date:
+                print "not series or not amount or not funding_date"
                 continue
 
             if funding_date:
