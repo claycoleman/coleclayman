@@ -4,6 +4,8 @@ import datetime
 import json
 import time
 
+import pprint
+
 from django.conf import settings
 from django.db import models
 
@@ -98,9 +100,12 @@ class Company(models.Model):
 
 
     def grab_mattermark_data(self):
+        pp = pprint.PrettyPrinter(indent=4)
         search_url = "https://api.mattermark.com/companies/%s?key=%s" % (self.mattermark_id, settings.MATTERMARK_API_KEY)
         resp = requests.get(search_url)
         resp = resp.json()
+
+        # pp.pprint(resp)
 
         misses = 0
 

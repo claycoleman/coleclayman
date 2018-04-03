@@ -17,4 +17,7 @@ urlpatterns = [
 
     # hubspot URLS
     url(r'^hubspot/$', 'ugf.views.hubspot', name='hubspot'),  
+
+    # airtable URLs
+    url(r'^airtable_reports/$', 'ugf.views.airtable_reports', name='airtable_reports'),  
 ]

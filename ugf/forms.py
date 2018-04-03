@@ -24,6 +24,10 @@ class UserLogin(forms.Form):
     next_url = forms.CharField(required=False, widget=forms.TextInput(attrs={'type': "hidden", 'class': 'hidden'}))
 
 
+class AirtableDateForm(forms.Form):
+    date_str = forms.CharField(required=True)
+
+
 class HubspotCompanyCreation(forms.Form):
     objectId = forms.IntegerField(required=True)
     subscriptionType = forms.CharField(required=True)

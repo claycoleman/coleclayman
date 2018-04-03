@@ -292,3 +292,133 @@ def hubspot(request):
 
     print "app_id != settings.HUBSPOT_APP_ID or portal_id != settings.HUBSPOT_PORTAL_ID"
     return JsonResponse({'result': 'failure', 'errno': 4}, safe=False) 
+
+
+@csrf_exempt
+def airtable_reports(request):
+    if not request.method == "POST":
+        return HttpResponseBadRequest()
+
+    form = AirtableDateForm(request.POST)
+    print request.POST
+    if not form.is_valid():
+        print "not form.is_valid"
+        print form.errors
+        print "errno: 1"
+        return JsonResponse({'success': False, 'result': 'failure', 'errno': 1, 'message': 'Request is missing the parameter "date_str".'}, safe=False) 
+
+    date_str = form.cleaned_data.get("date_str")
+
+    if not re.findall(r'20[0|1]\d-[0|1]\d-[0|1|2|3]\d', date_str):
+        return JsonResponse({'success': False, 'result': 'failure', 'errno': 3, 'message': '"%s" is not a valid date string.' % date_str}, safe=False) 
+
+    ATTENDANCE_URL = 'https://api.airtable.com/v0/appOp6AKEE4nssiiO/Staff%20Attendance'
+    TEAM_MEMBERS_URL = 'https://api.airtable.com/v0/appOp6AKEE4nssiiO/Team%20Members'
+
+    ATTENDED_IN_PERSON = "Attended in Person"
+    ATTENDED_VIRUALLY = "Attended Virtually (Call or Video)"
+    UNEXCUSED_ABSENCE = "Unexcused Absence"
+    EXCUSED_ABSENCE = "Excused Absence"
+    NO_RESPONSE = "No Reponse to Survey"
+
+    headers = {
+        'Authorization': 'Bearer key4PshFrRlcHcI75',
+    }
+
+    params = { 
+        "filterByFormula": "NOT({Alumni})" 
+    }
+
+    # get student names and ids so 
+    student_id_name = {}
+    student_set = set()
+    records = []
+
+    while True:
+        team_response = requests.get(TEAM_MEMBERS_URL, headers=headers, params=params)
+        team_response = team_response.json()
+
+        for record in team_response.get('records'):
+            records.append(record)
+            
+        # get all responses
+        if team_response.get("offset", None) == None:
+            break
+        else:
+            params['offset'] = team_response['offset']
+
+    print "done downloading team"
+        
+    for record in records:
+        name = record.get('fields').get('Name')
+        _id = record.get('id')
+        
+        student_id_name[_id] = name
+        student_set.add(_id)
+
+    print "done handling team"
+
+    headers = {
+        'Authorization': 'Bearer key4PshFrRlcHcI75',
+    }
+    params = { 
+        "filterByFormula": "DATESTR({Staff Meeting Date})='%s'" % date_str 
+    }
+
+    student_attendance_lists = {
+        ATTENDED_IN_PERSON: [],
+        ATTENDED_VIRUALLY: [],
+        UNEXCUSED_ABSENCE: [],
+        EXCUSED_ABSENCE: [],
+        NO_RESPONSE: [],
+    }
+
+    records = []
+
+    while True:
+        attendance_response = requests.get(ATTENDANCE_URL, headers=headers, params=params)
+        attendance_response = attendance_response.json()
+        print attendance_response
+
+        for record in attendance_response.get('records', []):
+            records.append(record)
+            
+        # get all responses
+        if attendance_response.get("offset", None) == None:
+            break
+        else:
+            params['offset'] = attendance_response['offset']
+
+    print "done downloading survey responses"
+
+
+    # sort records to have last first
+    records = sorted(records, key=lambda x: x.get("createdTime"), reverse=True)
+
+    for record in records:
+        student_id = record.get('fields').get('Name')[0]
+
+        if student_id in student_set:
+            student_set.remove(student_id)
+        else:
+            continue
+
+        attendance = record.get('fields').get('Attendance')[0]
+
+        student_attendance_lists[attendance].append(student_id_name[student_id])
+
+
+    for remaining_id in student_set:
+        student_attendance_lists[NO_RESPONSE].append(student_id_name[remaining_id])
+
+
+    print "--------------"
+
+    for label, lists in student_attendance_lists.items():
+        print label
+        for name in lists:
+            print "%s," % name, 
+
+        print "\n"
+
+    return JsonResponse({'result': 'success', "success": True, 'data': student_attendance_lists, 'date_str': date_str}, safe=False) 
