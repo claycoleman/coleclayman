@@ -308,6 +308,7 @@ def airtable_reports(request):
         return JsonResponse({'success': False, 'result': 'failure', 'errno': 1, 'message': 'Request is missing the parameter "date_str".'}, safe=False) 
 
     date_str = form.cleaned_data.get("date_str")
+    group = form.cleaned_data.get("group")
 
     if not re.findall(r'20[0|1]\d-[0|1]\d-[0|1|2|3]\d', date_str):
         return JsonResponse({'success': False, 'result': 'failure', 'errno': 3, 'message': '"%s" is not a valid date string.' % date_str}, safe=False) 
@@ -324,10 +325,15 @@ def airtable_reports(request):
     headers = {
         'Authorization': 'Bearer key4PshFrRlcHcI75',
     }
-
+    
     params = { 
-        "filterByFormula": "NOT({Alumni})" 
+        "filterByFormula": "NOT({Alumni})"
     }
+
+    if (group):
+        params['filterByFormula'] = "AND( NOT({Alumni}), {Title} = '%s' )" % group
+
+    print params
 
     # get student names and ids so 
     student_id_name = {}

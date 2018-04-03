@@ -26,6 +26,7 @@ class UserLogin(forms.Form):
 
 class AirtableDateForm(forms.Form):
     date_str = forms.CharField(required=True)
+    group = forms.CharField(required=False)
 
 
 class HubspotCompanyCreation(forms.Form):
