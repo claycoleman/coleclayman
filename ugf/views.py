@@ -319,7 +319,7 @@ def airtable_reports(request):
     ATTENDED_VIRUALLY = "Attended Virtually (Call or Video)"
     UNEXCUSED_ABSENCE = "Unexcused Absence"
     EXCUSED_ABSENCE = "Excused Absence"
-    NO_RESPONSE = "No Reponse to Survey"
+    NO_RESPONSE = "No Response to Survey"
 
     headers = {
         'Authorization': 'Bearer key4PshFrRlcHcI75',
