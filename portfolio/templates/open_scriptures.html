@@ -50,7 +50,7 @@
         
         <form action="." method="POST">
             {% csrf_token %}
-            <textarea id="page_number" name="open_scriptures" placeholder="scripture reference"></textarea>
+            <textarea id="page_number" name="open_scriptures" placeholder="scripture reference">{% if search_term %}{{ search_term|safe }}{% endif %}</textarea>
             <input class="submit" type="submit" value="go for it">
         </form>
         {% if failure %}
@@ -76,14 +76,8 @@
                     {% for link in links %}
                         window.open("{{ link }}", "_blank");
                     {% endfor %}
-                    // window.location = "/lds/scripture-links/";
                 });
-
-            {% endif %}
-            {% if search_term %}
-                $('#page_number').val('{{ search_term }}')
-            {% endif %}
-            
+            {% endif %}            
         });
 
     </script>
