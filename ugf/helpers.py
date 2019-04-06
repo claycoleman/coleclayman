@@ -1,7 +1,9 @@
 import requests
+from datetime import date
 
 def check_cra_address(address):
     return_dict = {}
+    current_year = date.today().year - 1
 
     payload = {
         'Host': 'geomap.ffiec.gov',
@@ -20,7 +22,7 @@ def check_cra_address(address):
 
     
     geocode_url = 'https://geomap.ffiec.gov/FFIECGeocMap/GeocodeMap1.aspx/GetGeocodeData'
-    geocode_data = '{sSingleLine: "%s", iCensusYear: "2016"}' % (address)
+    geocode_data = '{sSingleLine: "%s", iCensusYear: "%s"}' % (address, current_year)
 
     geo_resp = requests.post(geocode_url, data=geocode_data, headers=payload)
 
@@ -58,7 +60,7 @@ def check_cra_address(address):
     county_code = geo_json.get('sCountyCode')
     tract_code = geo_json.get('sTractCode')
 
-    data = '{sStateCode: "%s", sCountyCode: "%s", sTractCode: "%s", iCensusYear: "2016"}' % (state_code, county_code, tract_code)
+    data = '{sStateCode: "%s", sCountyCode: "%s", sTractCode: "%s", iCensusYear: "%s"}' % (state_code, county_code, tract_code, current_year)
     response = requests.post(url, data=data, headers=payload)
 
     json = response.json()
