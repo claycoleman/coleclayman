@@ -5,177 +5,172 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en">
-    <!--<![endif]-->
-    <head>
+<!--<![endif]-->
+
+<head>
     <!-- Basic Page Needs
         ================================================== -->
-        <meta charset="utf-8">
-        <title>{% block title %}home{% endblock title %} | coleclayman</title>
-        <meta name="description" content="clay coleman, idea developer">
-        <meta name="author" content="Clay Coleman">
-        
-        {% if not request.is_phone %}
-            <link type="text/css" rel="stylesheet" href="{% static 'new/css/standard.css' %}">
-        {% else %}
-            <link type="text/css" rel="stylesheet" href="{% static 'new/css/mobile.css' %}">
-        {% endif %}
+    <meta charset="utf-8">
+    <title>{% block title %}home{% endblock title %} | coleclayman</title>
+    <meta name="description" content="clay coleman, idea developer">
+    <meta name="author" content="Clay Coleman"> {% if not request.is_phone %}
+    <link type="text/css" rel="stylesheet" href="{% static 'new/css/standard.css' %}"> {% else %}
+    <link type="text/css" rel="stylesheet" href="{% static 'new/css/mobile.css' %}"> {% endif %}
 
-        <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 
-        <script type="text/javascript" src="{% static 'new/js/jquery.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'new/js/easing.js' %}"></script>
-        {% block header %}
-            
-        {% endblock header %}
-    </head>
+    <script type="text/javascript" src="{% static 'new/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'new/js/easing.js' %}"></script> {% block header %} {% endblock header %}
+</head>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7041095763657515",
-    enable_page_level_ads: true
-  });
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7041095763657515",
+        enable_page_level_ads: true
+    });
 </script>
 
-    <body class="header2" style="display: none;">
-        {% block body %}
-            
-            <div class="centered">
-                <img class="me" src="{% static 'new/img/me.jpg' %}">
+<body class="header2" style="display: none;">
+    {% block body %}
 
-                <h1 class="clay-coleman">clay coleman</h1>
-            </div>
+    <div class="centered">
+        <img class="me" src="{% static 'new/img/me.jpg' %}">
 
-        {% endblock body %}
+        <h1 class="clay-coleman">clay coleman</h1>
+    </div>
 
-        <main {% if not hide %}style="opacity: 0.0;"{% endif %}>
-            
-            {% block main %}
-                <style id="blurrer" type="text/css" disabled="disabled">
-                    main .nav-ele a {
-                        filter: blur(2px);
-                    }
-                </style>
+    {% endblock body %}
 
-                <div class="nav-ele">
-                    <a href="/projects/">my work</a>
-                </div>
-                <div class="nav-ele">
-                    <a href="/vc/">venture capital</a>
-                </div>
-                <div class="nav-ele">
-                    <a href="/travel/">travel</a>
-                </div>
-                <div class="nav-ele">
-                    <a target="_blank" href="https://www.twitter.com/coleclayman/">twitter</a>
-                </div>
-                <div class="nav-ele">
-                    <a target="_blank" href="https://open.spotify.com/user/coleclayman/playlist/0ZTYxpQXWAMhrCoiaZEOPs">spotify</a>
-                </div>
-            {% endblock main %}
-        </main>
-        <div class="alertify-logs"></div>
-        <div class="datetime" {% if not hide %}style="opacity: 0.0;"{% endif %}>
-            {% if not request.is_phone %}<span id="clockbox"></span>{% endif %}
-            <span id="datebox"></span>
+    <main {% if not hide %}style="opacity: 0.0;" {% endif %}>
+
+        {% block main %}
+        <style id="blurrer" type="text/css" disabled="disabled">
+            main .nav-ele a {
+                filter: blur(2px);
+            }
+        </style>
+
+        <div class="nav-ele">
+            <a href="/projects/">my work</a>
         </div>
-    
+        <div class="nav-ele">
+            <a href="/vc/">venture capital</a>
+        </div>
+        <div class="nav-ele">
+            <a href="/travel/">travel</a>
+        </div>
+        <div class="nav-ele">
+            <a target="_blank" href="https://www.twitter.com/_claycoleman/">twitter</a>
+        </div>
+        <div class="nav-ele">
+            <a target="_blank" href="https://open.spotify.com/user/coleclayman/playlist/0ZTYxpQXWAMhrCoiaZEOPs">spotify</a>
+        </div>
+        {% endblock main %}
+    </main>
+    <div class="alertify-logs"></div>
+    <div class="datetime" {% if not hide %}style="opacity: 0.0;" {% endif %}>
+        {% if not request.is_phone %}
+        <span id="clockbox"></span>{% endif %}
+        <span id="datebox"></span>
+    </div>
 
 
-        <script type="text/javascript">
+
+    <script type="text/javascript">
         // if ($('#clockbox').length == 0) {
         //     $('.only-web').remove()
         // }
-            $(window).bind("beforeunload", function(){
-                $('body').fadeToggle(350, 'easeInQuart');
-            });
+        $(window).bind("beforeunload", function () {
+            $('body').fadeToggle(350, 'easeInQuart');
+        });
 
-            $(document).bind("ready", function(){
-                setTimeout(function() {
-                    $.when( $('body').fadeToggle(350, 'easeInQuart') ).then(function() {
-                        setTimeout(function() {
-                            fadeInMain();
-                        }, {% if fade_in_time %} {{ fade_in_time}} {% else %}150{% endif %});
+        $(document).bind("ready", function () {
+            setTimeout(function () {
+                $.when($('body').fadeToggle(350, 'easeInQuart')).then(function () {
+                    setTimeout(function () {
+                        fadeInMain();
+                    }, {% if fade_in_time %} {{ fade_in_time }} {% else %}150{% endif %});
                     });
                 }, 300);
 
             });
 
-            function fadeInMain() {
-                $('main').css('opacity', '1.0');
-                $('.datetime').css('opacity', '1.0');
-                $('main').unbind('hover', fadeInMain);
-                if ($(document).height() > $(window).height()) {
-                    $('body').addClass('long')
-                }
-                $('main').trigger('isVisible');
-                
-                {% if go_to_comments %}
-                    $(document).scrollTop($('p.mini-date:first').offset().top - 80)
-                    window.history.pushState(null,null,'/jerusalem/p/{{ post.slug }}/')
-                {% endif %}
+        function fadeInMain() {
+            $('main').css('opacity', '1.0');
+            $('.datetime').css('opacity', '1.0');
+            $('main').unbind('hover', fadeInMain);
+            if ($(document).height() > $(window).height()) {
+                $('body').addClass('long')
             }
+            $('main').trigger('isVisible');
 
-            $('main').on('hover', fadeInMain);
-            
-            var blurrerSelector = '{% block blurrer %}main .nav-ele{% endblock blurrer %}';
+            {% if go_to_comments %}
+            $(document).scrollTop($('p.mini-date:first').offset().top - 80)
+            window.history.pushState(null, null, '/jerusalem/p/{{ post.slug }}/')
+            {% endif %}
+        }
 
-            $(blurrerSelector).on('click', function() {
-                if ($(this).find('a').attr('target') == "_blank") {
-                    return;
-                }
-                window.location.href = $(this).find('a').attr('href');
-            });
+        $('main').on('hover', fadeInMain);
 
-            $(blurrerSelector).on('mouseover', function() {
-                $("#blurrer").removeAttr('disabled', 'disabled');
-            });
+        var blurrerSelector = '{% block blurrer %}main .nav-ele{% endblock blurrer %}';
 
+        $(blurrerSelector).on('click', function () {
+            if ($(this).find('a').attr('target') == "_blank") {
+                return;
+            }
+            window.location.href = $(this).find('a').attr('href');
+        });
+
+        $(blurrerSelector).on('mouseover', function () {
+            $("#blurrer").removeAttr('disabled', 'disabled');
+        });
+
+        $("#blurrer").attr('disabled', 'disabled');
+
+        $(blurrerSelector).on('mouseout', function () {
             $("#blurrer").attr('disabled', 'disabled');
+        });
 
-            $(blurrerSelector).on('mouseout', function() {
-                $("#blurrer").attr('disabled', 'disabled');
-            });
+        $('div.centered').on('click', function () {
+            {% if request.is_phone %}
+            setTimeout(function () {
+                window.location.href = "/me/";
+            }, 400);
+            {% else %}
+            window.location.href = "/me/";
+            {% endif %}
+        });
 
-            $('div.centered').on('click', function() {
-                {% if request.is_phone %}
-                    setTimeout(function() {
-                        window.location.href = "/me/";
-                    }, 400);
-                {% else %}
-                    window.location.href = "/me/";
-                {% endif %}
-            });
+        tday = new Array("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+        tmonth = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
-            tday=new Array("sunday","monday","tuesday","wednesday","thursday","friday","saturday");
-            tmonth=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+        function GetClock() {
+            var d = new Date();
+            var nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getYear();
+            if (nyear < 1000) nyear += 1900;
+            var nhour = d.getHours(), nmin = d.getMinutes(), ap;
+            if (nhour == 0) { ap = " am"; nhour = 12; }
+            else if (nhour < 12) { ap = " am"; }
+            else if (nhour == 12) { ap = " pm"; }
+            else if (nhour > 12) { ap = " pm"; nhour -= 12; }
 
-            function GetClock(){
-            var d=new Date();
-            var nday=d.getDay(),nmonth=d.getMonth(),ndate=d.getDate(),nyear=d.getYear();
-            if(nyear<1000) nyear+=1900;
-            var nhour=d.getHours(),nmin=d.getMinutes(),ap;
-            if(nhour==0){ap=" am";nhour=12;}
-            else if(nhour<12){ap=" am";}
-            else if(nhour==12){ap=" pm";}
-            else if(nhour>12){ap=" pm";nhour-=12;}
-
-            if(nmin<=9) nmin="0"+nmin;
+            if (nmin <= 9) nmin = "0" + nmin;
 
             {% if not request.is_phone %}
-            document.getElementById('clockbox').innerHTML=""+nhour+":"+nmin+ap;
+            document.getElementById('clockbox').innerHTML = "" + nhour + ":" + nmin + ap;
             {% endif %}
-            document.getElementById('datebox').innerHTML=""+ ndate + " " + tmonth[nmonth]+" "+nyear;
-            }
+            document.getElementById('datebox').innerHTML = "" + ndate + " " + tmonth[nmonth] + " " + nyear;
+        }
 
-            window.onload=function(){
-                GetClock();
-                setInterval(GetClock,1000);
-            }
+        window.onload = function () {
+            GetClock();
+            setInterval(GetClock, 1000);
+        }
 
             //  End -->
 
-        </script>
-    </body>
-    <script type="text/javascript" src="{% static 'js/alertify.js' %}"></script>
+    </script>
+</body>
+<script type="text/javascript" src="{% static 'js/alertify.js' %}"></script>
 
 </html>

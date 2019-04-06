@@ -1,0 +1,56 @@
+{% extends 'base_ugf.html' %}
+
+{% load staticfiles %}
+{% load humanize %}
+
+{% block document_title %}Staff Meeting Buzzer{% endblock document_title %}
+{% block page_title %}Staff Meeting Buzzer{% endblock page_title %}
+    
+{% block main %}
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 500px;">
+  <input id="ringer" type="submit" value="Ring" class="form-control" style="margin-top: 10px; padding-bottom: 37px;">
+  <h1 style="color: white;">San Diego wants to talk!</h1>
+</div>
+{% endblock main %}
+
+
+{% block final_scripts %}
+<script>
+let ringing = {{ ringing }};
+    if (ringing) {
+        $('body').addClass('ringing');
+        $('#ringer').attr("value", "Stop Ringing")
+    } else {
+        $('body').removeClass('ringing');
+        $('#ringer').attr("value", "Ring");
+    }
+$('#ringer').click(() => {
+  $.ajax({ url: "/ugf/meeting-buzzer/ring/", success: data => {
+    ringing = !ringing;
+    if (ringing) {
+        $('body').addClass('ringing');
+        $('#ringer').attr("value", "Stop Ringing")
+    } else {
+        $('body').removeClass('ringing');
+        $('#ringer').attr("value", "Ring");
+    }
+  } });
+})
+
+setInterval(() => {
+  $.ajax({ url: "/ugf/meeting-buzzer/ping/", success: data => {
+      console.log(data)
+      if (data.ringing && !ringing) {
+        $('body').addClass('ringing');
+        $('#ringer').attr("value", "Stop Ringing")
+        ringing = data.ringing;
+      } else if (!data.ringing && ringing) {
+        $('body').removeClass('ringing');
+        $('#ringer').attr("value", "Ring");
+        ringing = data.ringing;
+      }
+  }});
+}, 2 * 1000)
+</script>
+{% endblock final_scripts %}
+    

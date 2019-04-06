@@ -56,6 +56,24 @@
         .bold {
             font-weight: 700;
         }
+
+
+        @keyframes flash {
+            from {
+                background-color: white;
+            }
+            
+            to {
+                background-color: steelblue;
+            }
+        }
+
+        body.ringing {
+            animation-duration: 0.8s;
+            animation-name: flash;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
     </style>
 
     {% block custom_head %}
@@ -69,13 +87,14 @@
         <div class="row">
             <div class="col-xs-12">
                 
-                <img class="header-img" src="{% static 'img/UGF-1-914x1024.jpg' %}" alt="UGF Logo"><h2 class="header">{% block page_title %} UGF CRA Address Checker{% endblock page_title %}</h2>
+                <img class="header-img" src="{% static 'img/UGF-1-1024x853.png' %}" alt="UGF Logo"><h2 class="header">{% block page_title %} UGF CRA Address Checker{% endblock page_title %}</h2>
                 
                 
                 {% block main %}
                     
                 {% endblock main %}
                     
+
 
                 {% block back %}
                 <a href="{% url 'ugf_home' %}">Back to UGF Portal</a>            

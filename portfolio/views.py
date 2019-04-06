@@ -568,6 +568,26 @@ def get_all_undownloaded_items(request):
 
 
 @csrf_exempt
+def spotify_access_token(request):
+    if not request.method == "POST":
+        return JsonResponse({'result': 'failure'}, safe=False)
+
+    headers = {
+        'Authorization': 'Basic YTRhODM3NzNiNDRmNGVkZjgxOThhZjM2OGZkYzc4MTA6NGJlOTYyY2Y3ZjVkNDhjNjlmY2VkMGZkYTU5ODVjOGI=',
+    }    
+
+    data = {
+      'grant_type': 'client_credentials'
+    }
+
+    response = requests.post('https://accounts.spotify.com/api/token', headers=headers, data=data)
+
+    json_response = JsonResponse(response.json(), safe=False)
+    json_response['Access-Control-Allow-Origin'] = '*'
+    return json_response
+
+
+@csrf_exempt
 def trigger_ronald_rump(request):
     if not request.method == "POST":
         return JsonResponse({'result': 'failure'}, safe=False) 

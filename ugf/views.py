@@ -70,6 +70,24 @@ def ugf_home(request):
 
 
 @login_required(login_url="/ugf/login/")
+def meeting_buzzer(request):
+    context = { "ringing": 'true' if Buzzer.is_ringing() else 'false' }
+    
+    return render(request, 'meeting_buzzer.html', context)
+
+
+@login_required(login_url="/ugf/login/")
+def meeting_buzzer_api_ring(request):
+    # update buzzer
+    return JsonResponse({'ringing':Buzzer.ring()}, safe=False) 
+
+
+@login_required(login_url="/ugf/login/")
+def meeting_buzzer_api_ping(request):
+    return JsonResponse({'ringing':Buzzer.is_ringing()}, safe=False) 
+
+
+@login_required(login_url="/ugf/login/")
 def deal_sourcing(request):
     context = {}
     

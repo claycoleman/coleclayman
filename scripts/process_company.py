@@ -383,6 +383,8 @@ def find_company_data_by_name(company_name="Polly"):
         try:
             resp = requests.post(url, data=data_dict, headers=header_dict)
             print resp
+            if "40" in str(resp):
+                print resp.text
             the_json = resp.json()
             the_results = the_json.get("aaData", [])
 

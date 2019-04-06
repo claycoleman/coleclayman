@@ -9,6 +9,23 @@ import pprint
 from django.conf import settings
 from django.db import models
 
+class Buzzer(models.Model):
+    """Model definition for Buzzer."""
+    ringing = models.BooleanField(default=False)
+
+    @staticmethod
+    def ring():
+        b = Buzzer.objects.first()
+        b.ringing = not b.ringing
+        b.save()
+        return b.ringing
+    
+    @staticmethod
+    def is_ringing():
+        b = Buzzer.objects.first()
+        return b.ringing
+
+    
 # hopefully things are passed in like this
 ROUND_TYPES = (
     ("Seed", "seed"),

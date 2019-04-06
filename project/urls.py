@@ -29,7 +29,8 @@ urlpatterns = [
     url(r'^google/$', 'blog.views.get_first_google_result', name='get_first_google_result'),
     url(r'^spotify/$', 'blog.views.spotify_code', name='spotify_code'),
     url(r'^aaron/all/$', 'portfolio.views.get_all_undownloaded_items', name='get_all_undownloaded_items'),
-    url(r'^realRonaldRump/$', 'portfolio.views.trigger_ronald_rump', name='trigger_ronald_rump')
+    url(r'^realRonaldRump/$', 'portfolio.views.trigger_ronald_rump', name='trigger_ronald_rump'),
+    url(r'^spotify_access_token/$', 'portfolio.views.spotify_access_token', name='spotify_access_token'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
