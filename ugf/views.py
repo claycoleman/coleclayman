@@ -17,7 +17,7 @@ from .helpers import *
 from .models import *
 from .forms import *
 
-@login_required(login_url="/ugf/login/")
+
 def cra_checker(request):
     context = {}
     form = CRAForm(request.POST or None)
@@ -64,37 +64,31 @@ def cra_checker(request):
     return render(request, 'cra_checker.html', context)
 
 
-@login_required(login_url="/ugf/login/")
 def ugf_home(request):
     return render(request, "ugf_home.html")
 
 
-@login_required(login_url="/ugf/login/")
 def meeting_buzzer(request):
     context = { "ringing": 'true' if Buzzer.is_ringing() else 'false' }
     
     return render(request, 'meeting_buzzer.html', context)
 
 
-@login_required(login_url="/ugf/login/")
 def meeting_buzzer_api_ring(request):
     # update buzzer
     return JsonResponse({'ringing':Buzzer.ring()}, safe=False) 
 
 
-@login_required(login_url="/ugf/login/")
 def meeting_buzzer_api_ping(request):
     return JsonResponse({'ringing':Buzzer.is_ringing()}, safe=False) 
 
 
-@login_required(login_url="/ugf/login/")
 def deal_sourcing(request):
     context = {}
     
     return render(request, 'deal_sourcing.html', context)
 
 
-@login_required(login_url="/ugf/login/")
 def company_table(request):
     context = {}
     
@@ -122,14 +116,12 @@ def company_table(request):
     return render(request, 'company_table.html', context)
 
 
-@login_required(login_url="/ugf/login/")
 def company_detail(request, pk):
     context = {}
     
     return render(request, 'company_detail.html', context)
 
 
-@login_required(login_url="/ugf/login/")
 def company_entry(request):
     context = {}
     
